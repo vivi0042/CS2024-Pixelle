@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /cart.html
+Disallow: /checkout.html
+Disallow: /payment.html
+Disallow: /acknowledgement.html
+Sitemap: https://YOUR-GITHUB-USERNAME.github.io/pixelle/sitemap.xml
