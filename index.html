@@ -93,11 +93,28 @@
     </div>
     <main id="main">
 
-    <!-- intro container -->
-    <div class="container-intro">
-      <div class="row align-items-center">
-        <div class="col-lg-7 intro-visual">
-          <svg class="scene printer-svg" viewBox="0 0 600 460" role="img" aria-label="Pixelle Snap photo sticker printer printing a colour photo sticker sent from a phone" style="--body-top:#3F8A74;--body-bottom:#2E4A42;--logo:#F3F0EA">
+    <!-- ===== Hero: centred text + illustrated stage (F2) ===== -->
+    <section class="home-hero" aria-labelledby="hero-title">
+      <div class="home-hero-text fade-up">
+        <span class="award-badge"><i class="fa-solid fa-star"></i> New for 2026</span>
+        <h1 id="hero-title">Pixelle Snap</h1>
+        <h2>Pocket photo sticker printer</h2>
+        <h3>Print the moment. Stick it anywhere.</h3>
+        <span class="hand f2-hero-note">for journals, friends &amp; the people you love</span>
+        <div class="home-hero-cta">
+          <a href="purchase.html" class="buynow-button">Buy now</a>
+          <a href="overview.html" class="learnmore-button">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <p class="home-hero-proof">
+          <span class="avatars" aria-hidden="true"><span>M</span><span>J</span><span>A</span></span>
+          <span class="stars" aria-hidden="true">★★★★★</span> 4.8 average · <span data-sold>1,286</span> sold · from S$99.90
+        </p>
+      </div>
+
+      <div class="home-hero-stage fade-up">
+        <span class="stage-chip stage-chip-top">2×3" stickers</span>
+        <span class="stage-chip stage-chip-bottom">0 ink</span>
+        <svg class="scene printer-svg home-hero-svg" viewBox="0 0 600 460" role="img" aria-label="Pixelle Snap photo sticker printer printing a colour photo sticker sent from a phone" style="--body-top:#3F8A74;--body-bottom:#2E4A42;--logo:#F3F0EA">
   <defs>
     <clipPath id="slot-hero"><rect x="0" y="0" width="600" height="182"/></clipPath>
     <linearGradient id="body-hero" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--body-top)"/><stop offset="1" style="stop-color:var(--body-bottom)"/></linearGradient>
@@ -141,28 +158,12 @@
   <path transform="translate(470 300)" d="M30 52S0 34 0 14A14 14 0 0 1 30 8a14 14 0 0 1 30 6c0 20-30 38-30 38z" fill="#D9876A"/>
   <path transform="translate(70 80)" fill="#E9C46A" d="M24 0l6 18 18 6-18 6-6 18-6-18L0 24l18-6z"/>
 </svg>
-        </div>
-        <div class="col-lg-5 d-flex justify-content-center">
-          <div class="slide-right">
-            <div class="container-hero-text">
-              <span class="award-badge"><i class="fa-solid fa-star"></i> New for 2026</span>
-              <h1>Pixelle Snap</h1>
-              <h2>Pocket photo sticker printer</h2>
-              <h3>Print the moment. Stick it anywhere.</h3>
-              <span class="hand f2-hero-note">for journals, friends &amp; the people you love ✿</span>
-              <a href="purchase.html"><button class="buynow-button">Buy now</button></a>
-              <a href="overview.html" class="learnmore-button" style="margin-left: 12px">Learn more <i class="fa-solid fa-arrow-right"></i></a>
-              <p style="margin-top: 18px; font-size: 14px">
-                <span class="stars" aria-hidden="true">★★★★★</span> 4.8 average rating · <i class="fa-solid fa-fire" style="color:#D9876A"></i> <span data-sold>1,286</span> sold · from S$99.90
-              </p>
-            </div>
-          </div>
-        </div>
+        <span class="hand stage-note">print one for everyone ↖</span>
       </div>
-    </div>
+    </section>
 
-    <!-- features container -->
-    <section class="container-features" aria-labelledby="studio-title">
+    <!-- ===== Sticker Studio on the sage band ===== -->
+    <section class="home-studio" aria-labelledby="studio-title">
       <div class="studio-container fade-up" data-studio id="studio">
         <div class="row">
           <div class="col-md-6 studio-stage">
@@ -205,144 +206,138 @@
           </div>
         </div>
       </div>
+    </section>
 
-      <h2 class="f2-features-title fade-up">Small printer. Shared memories.</h2>
-      <p class="f2-features-sub">Everything you need to turn your camera roll into a journal page.</p>
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6">
-        <div class="feature">
-          <div class="feature-icon"><i class="fa-solid fa-droplet-slash"></i></div>
-          <div class="feature-text-container">Zero ink<br />cartridges, ever</div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon"><i class="fa-solid fa-note-sticky"></i></div>
-          <div class="feature-text-container">Every print is a<br />2×3" sticker</div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
-          <div class="feature-text-container">About 45 seconds<br />per print</div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon"><i class="fa-solid fa-battery-three-quarters"></i></div>
-          <div class="feature-text-container">25 prints per<br />full charge</div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-          <div class="feature-text-container">Pixelle app on<br />iPhone &amp; Android</div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon"><i class="fa-solid fa-feather"></i></div>
-          <div class="feature-text-container">Pocket-sized<br />175 g</div>
-        </div>
+    <!-- ===== Bento: product highlights ===== -->
+    <section class="home-bento" aria-labelledby="bento-title">
+      <h2 class="bento-title fade-up" id="bento-title">Small printer. Shared memories.</h2>
+      <p class="hand bento-sub">for the people who are always in your camera roll</p>
+
+      <div class="bento-grid">
+        <article class="bento-tile tile-sage tile-wide fade-up">
+          <span class="tile-label">Zero-ink printing</span>
+          <p class="tile-big">Zero ink.</p>
+          <p class="tile-text">Colour is built into every sticker sheet, so there are no cartridges to buy, ever.</p>
+        </article>
+
+        <article class="bento-tile tile-blush fade-up">
+          <span class="tile-label">Pass it around</span>
+          <div class="avatars avatars-lg" aria-hidden="true"><span>M</span><span>J</span><span>A</span><span class="you">You</span></div>
+          <p class="tile-mid">One printer for the whole group.</p>
+          <p class="tile-small">Party Mode connects up to 4 phones.</p>
+        </article>
+
+        <article class="bento-tile tile-mint fade-up">
+          <span class="tile-label">Print size</span>
+          <p class="tile-big">2×3<small>"</small></p>
+          <p class="tile-small">Every print is a peel-off sticker.</p>
+        </article>
+
+        <article class="bento-tile tile-butter tile-wide tile-split fade-up">
+          <div>
+            <span class="tile-label">Journal-ready</span>
+            <p class="tile-mid">Peel, stick, write the rest.</p>
+            <p class="tile-small">Smudge-proof, water-resistant prints for journals, laptops and gifts.</p>
+          </div>
+          <div class="bento-journal" aria-hidden="true">
+            <div class="mini-sticker jp-1" style="left:4%;top:12%;transform:rotate(-5deg)"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="200" height="300" fill="#cfe6f5"/><circle cx="160" cy="60" r="26" fill="#fff3c4"/>
+  <rect y="230" width="200" height="70" fill="#9fd3a8"/>
+  <g fill="#2E4A42"><circle cx="70" cy="170" r="22"/><rect x="48" y="194" width="44" height="80" rx="20"/></g>
+  <g fill="#D9876A"><circle cx="130" cy="176" r="20"/><rect x="110" y="198" width="40" height="76" rx="18"/></g>
+  <path d="M86 150l8-14 8 14" stroke="#D9876A" stroke-width="4" fill="none"/></svg></svg></div>
+            <div class="mini-sticker jp-2" style="left:48%;top:22%;transform:rotate(4deg)"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="200" height="300" fill="#bfe8d6"/><circle cx="100" cy="190" r="70" fill="#f2a65a"/>
+  <path d="M48 150l10-60 32 40zM152 150l-10-60-32 40z" fill="#f2a65a"/>
+  <circle cx="78" cy="180" r="8" fill="#2E4A42"/><circle cx="122" cy="180" r="8" fill="#2E4A42"/>
+  <path d="M92 205q8 8 16 0" stroke="#2E4A42" stroke-width="4" fill="none" stroke-linecap="round"/></svg></svg></div>
+            <span class="hand journal-note">best day ✿</span>
+          </div>
+        </article>
+
+        <article class="bento-tile tile-white fade-up">
+          <span class="tile-label">Speed</span>
+          <p class="tile-big">~45<small> sec</small></p>
+          <p class="tile-small">per print, done before the group photo is over.</p>
+        </article>
+
+        <article class="bento-tile tile-white fade-up">
+          <span class="tile-label">Size &amp; power</span>
+          <p class="tile-mid">Pocket-sized, 175 g</p>
+          <p class="tile-small">25 prints per charge · Pixelle app on iPhone &amp; Android</p>
+        </article>
       </div>
     </section>
 
-    <!-- Campaign container -->
-    <section class="container-campaign" aria-labelledby="promo-title">
-      <h2 class="header-text" id="promo-title">Promotions</h2>
-      <div id="promoCarousel" class="carousel slide carousel-fade position-relative" data-bs-ride="carousel" data-bs-interval="6000">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="11.11 Mega Sale"></button>
-          <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="1" aria-label="12.12 Christmas gifting"></button>
-          <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="2" aria-label="Back to school"></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="promo-banner-img promo-1"><h3>11.11 Mega Sale</h3></div>
-            <div class="row container-carousel-content flex-lg-nowrap">
-              <div class="col-lg-4 container-promo-visual"><div class="mini-sticker" style="left:8%;top:10%;transform:rotate(-6deg)"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <!-- ===== Promotions: one card carousel ===== -->
+    <section class="home-promo" aria-labelledby="promo-title">
+      <h2 class="visually-hidden" id="promo-title">Promotions</h2>
+      <div class="promo-card fade-up">
+        <div class="promo-polaroid promo-polaroid-left" aria-hidden="true">
+          <div class="mini-sticker " style="position:relative;width:100%;transform:rotate(-8deg)"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
   <defs><linearGradient id="sky-p10" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2F6F5E"/><stop offset=".55" stop-color="#EDB49C"/><stop offset="1" stop-color="#ffd27a"/></linearGradient></defs>
   <rect width="200" height="300" fill="url(#sky-p10)"/>
   <circle cx="132" cy="150" r="34" fill="#fff3c4"/>
   <g fill="#2E4A42"><rect x="10" y="150" width="22" height="80"/><rect x="36" y="120" width="18" height="110"/><rect x="58" y="160" width="26" height="70"/>
   <rect x="150" y="140" width="16" height="90"/><rect x="170" y="170" width="24" height="60"/></g>
   <rect y="228" width="200" height="72" fill="#3D5E54"/><g fill="#EDB49C" opacity=".7"><rect x="112" y="240" width="40" height="3"/><rect x="118" y="252" width="28" height="3"/><rect x="124" y="264" width="16" height="3"/></g>
-  <g fill="#1F2A26"><circle cx="80" cy="244" r="9"/><rect x="72" y="252" width="16" height="48" rx="7"/><circle cx="104" cy="248" r="8"/><rect x="97" y="255" width="14" height="45" rx="6"/></g></svg></svg></div>
-<div class="mini-sticker" style="left:56%;top:6%;transform:rotate(7deg)"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-  <rect width="200" height="300" fill="#cfe6f5"/><circle cx="160" cy="60" r="26" fill="#fff3c4"/>
-  <rect y="230" width="200" height="70" fill="#9fd3a8"/>
-  <g fill="#2E4A42"><circle cx="70" cy="170" r="22"/><rect x="48" y="194" width="44" height="80" rx="20"/></g>
-  <g fill="#D9876A"><circle cx="130" cy="176" r="20"/><rect x="110" y="198" width="40" height="76" rx="18"/></g>
-  <path d="M86 150l8-14 8 14" stroke="#D9876A" stroke-width="4" fill="none"/></svg></svg></div>
-<div class="mini-sticker" style="left:30%;top:40%;transform:rotate(3deg)"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-  <rect width="200" height="300" fill="#bfe8d6"/><circle cx="100" cy="190" r="70" fill="#f2a65a"/>
-  <path d="M48 150l10-60 32 40zM152 150l-10-60-32 40z" fill="#f2a65a"/>
-  <circle cx="78" cy="180" r="8" fill="#2E4A42"/><circle cx="122" cy="180" r="8" fill="#2E4A42"/>
-  <path d="M92 205q8 8 16 0" stroke="#2E4A42" stroke-width="4" fill="none" stroke-linecap="round"/></svg></svg></div></div>
-              <div class="col-lg container-carousel-promotion">
-                <div>
-                  <h2>Creator Bundle at S$119.90</h2>
-                  <p>Printer + 60 sticker sheets + travel pouch + 20 premium frames.<br />Our best price of the year, 11 November only.</p>
-                  <a href="purchase.html"><button class="buynow-button">Buy now</button></a>
-                </div>
+  <g fill="#1F2A26"><circle cx="80" cy="244" r="9"/><rect x="72" y="252" width="16" height="48" rx="7"/><circle cx="104" cy="248" r="8"/><rect x="97" y="255" width="14" height="45" rx="6"/></g></svg></svg><span class="hand polaroid-note">one for you</span></div>
+        </div>
+        <div class="promo-polaroid promo-polaroid-right" aria-hidden="true">
+          <div class="mini-sticker " style="position:relative;width:100%;transform:rotate(7deg)"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="200" height="300" fill="#ffd6c9"/><circle cx="100" cy="160" r="78" fill="#fff"/>
+  <circle cx="100" cy="160" r="58" fill="#f6d27a"/><circle cx="80" cy="145" r="12" fill="#D9876A"/>
+  <circle cx="118" cy="170" r="12" fill="#D9876A"/><circle cx="104" cy="132" r="7" fill="#5aa469"/></svg></svg><span class="hand polaroid-note">one for me</span></div>
+        </div>
+
+        <div id="promoCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="6000">
+          <div class="carousel-inner">
+            <div class="carousel-item active" data-theme="butter">
+              <span class="promo-tag tag-butter"><strong>11.11</strong> Mega Sale</span>
+              <p class="promo-eyebrow">One day only · 11 November</p>
+              <h3 class="promo-title">Creator Bundle.<br />S$119.90.</h3>
+              <p class="promo-text">Printer, 60 sticker sheets, travel pouch and 20 premium frames. Our best price of the year.</p>
+              <div class="promo-cta">
+                <a href="purchase.html" class="buynow-button">Buy now</a>
+                <a href="purchase.html" class="learnmore-button">See what's inside <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+            <div class="carousel-item" data-theme="blush">
+              <span class="promo-tag tag-blush"><strong>12.12</strong> Christmas gifting</span>
+              <p class="promo-eyebrow">Order by 18 December</p>
+              <h3 class="promo-title">Free 20 sheets.<br />Gift-wrapped.</h3>
+              <p class="promo-text">Festive frames, gift-ready packaging and free next-day delivery, just in time for Christmas.</p>
+              <div class="promo-cta">
+                <a href="purchase.html" class="buynow-button">Buy now</a>
+                <a href="faq.html" class="learnmore-button">Delivery dates <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+            <div class="carousel-item" data-theme="mint">
+              <span class="promo-tag tag-mint"><strong>Back to school</strong> January</span>
+              <p class="promo-eyebrow">With your student email</p>
+              <h3 class="promo-title">Extra 10% off<br />for students.</h3>
+              <p class="promo-text">Journal spreads, hall events and laptop stickers. Join Pixelle Club to unlock it.</p>
+              <div class="promo-cta">
+                <button type="button" class="buynow-button" data-open-member>Join &amp; get 10% off</button>
+                <a href="purchase.html" class="learnmore-button">Shop now <i class="fa-solid fa-arrow-right"></i></a>
               </div>
             </div>
           </div>
-          <div class="carousel-item">
-            <div class="promo-banner-img promo-2"><h3>12.12 Christmas Gifting</h3></div>
-            <div class="row container-carousel-content flex-lg-nowrap">
-              <div class="col-lg-4 container-promo-visual"><div class="mini-sticker" style="left:8%;top:10%;transform:rotate(-6deg)"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-  <rect width="200" height="300" fill="#cfe6f5"/><circle cx="160" cy="60" r="26" fill="#fff3c4"/>
-  <rect y="230" width="200" height="70" fill="#9fd3a8"/>
-  <g fill="#2E4A42"><circle cx="70" cy="170" r="22"/><rect x="48" y="194" width="44" height="80" rx="20"/></g>
-  <g fill="#D9876A"><circle cx="130" cy="176" r="20"/><rect x="110" y="198" width="40" height="76" rx="18"/></g>
-  <path d="M86 150l8-14 8 14" stroke="#D9876A" stroke-width="4" fill="none"/></svg></svg></div>
-<div class="mini-sticker" style="left:56%;top:6%;transform:rotate(7deg)"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-  <rect width="200" height="300" fill="#ffd6c9"/><circle cx="100" cy="160" r="78" fill="#fff"/>
-  <circle cx="100" cy="160" r="58" fill="#f6d27a"/><circle cx="80" cy="145" r="12" fill="#D9876A"/>
-  <circle cx="118" cy="170" r="12" fill="#D9876A"/><circle cx="104" cy="132" r="7" fill="#5aa469"/></svg></svg></div>
-<div class="mini-sticker" style="left:30%;top:40%;transform:rotate(3deg)"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-  <defs><linearGradient id="sky-p22" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2F6F5E"/><stop offset=".55" stop-color="#EDB49C"/><stop offset="1" stop-color="#ffd27a"/></linearGradient></defs>
-  <rect width="200" height="300" fill="url(#sky-p22)"/>
-  <circle cx="132" cy="150" r="34" fill="#fff3c4"/>
-  <g fill="#2E4A42"><rect x="10" y="150" width="22" height="80"/><rect x="36" y="120" width="18" height="110"/><rect x="58" y="160" width="26" height="70"/>
-  <rect x="150" y="140" width="16" height="90"/><rect x="170" y="170" width="24" height="60"/></g>
-  <rect y="228" width="200" height="72" fill="#3D5E54"/><g fill="#EDB49C" opacity=".7"><rect x="112" y="240" width="40" height="3"/><rect x="118" y="252" width="28" height="3"/><rect x="124" y="264" width="16" height="3"/></g>
-  <g fill="#1F2A26"><circle cx="80" cy="244" r="9"/><rect x="72" y="252" width="16" height="48" rx="7"/><circle cx="104" cy="248" r="8"/><rect x="97" y="255" width="14" height="45" rx="6"/></g></svg></svg></div></div>
-              <div class="col-lg container-carousel-promotion">
-                <div>
-                  <h2>Free 20 sheets + gift wrap</h2>
-                  <p>Festive frames. Gift-ready packaging. Free next-day delivery.<br />Order by 18 December for Christmas.</p>
-                  <a href="purchase.html"><button class="buynow-button">Buy now</button></a>
-                </div>
-              </div>
+
+          <div class="promo-controls">
+            <button class="promo-arrow" type="button" data-bs-target="#promoCarousel" data-bs-slide="prev">
+              <i class="fa-solid fa-chevron-left" aria-hidden="true"></i><span class="visually-hidden">Previous</span>
+            </button>
+            <div class="carousel-indicators promo-dots">
+              <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="11.11 Mega Sale"></button>
+              <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="1" aria-label="12.12 Christmas gifting"></button>
+              <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="2" aria-label="Back to school"></button>
             </div>
-          </div>
-          <div class="carousel-item">
-            <div class="promo-banner-img promo-3"><h3>Back to School</h3></div>
-            <div class="row container-carousel-content flex-lg-nowrap">
-              <div class="col-lg-4 container-promo-visual"><div class="mini-sticker" style="left:8%;top:10%;transform:rotate(-6deg)"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-  <rect width="200" height="300" fill="#bfe8d6"/><circle cx="100" cy="190" r="70" fill="#f2a65a"/>
-  <path d="M48 150l10-60 32 40zM152 150l-10-60-32 40z" fill="#f2a65a"/>
-  <circle cx="78" cy="180" r="8" fill="#2E4A42"/><circle cx="122" cy="180" r="8" fill="#2E4A42"/>
-  <path d="M92 205q8 8 16 0" stroke="#2E4A42" stroke-width="4" fill="none" stroke-linecap="round"/></svg></svg></div>
-<div class="mini-sticker" style="left:56%;top:6%;transform:rotate(7deg)"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-  <defs><linearGradient id="sky-p31" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2F6F5E"/><stop offset=".55" stop-color="#EDB49C"/><stop offset="1" stop-color="#ffd27a"/></linearGradient></defs>
-  <rect width="200" height="300" fill="url(#sky-p31)"/>
-  <circle cx="132" cy="150" r="34" fill="#fff3c4"/>
-  <g fill="#2E4A42"><rect x="10" y="150" width="22" height="80"/><rect x="36" y="120" width="18" height="110"/><rect x="58" y="160" width="26" height="70"/>
-  <rect x="150" y="140" width="16" height="90"/><rect x="170" y="170" width="24" height="60"/></g>
-  <rect y="228" width="200" height="72" fill="#3D5E54"/><g fill="#EDB49C" opacity=".7"><rect x="112" y="240" width="40" height="3"/><rect x="118" y="252" width="28" height="3"/><rect x="124" y="264" width="16" height="3"/></g>
-  <g fill="#1F2A26"><circle cx="80" cy="244" r="9"/><rect x="72" y="252" width="16" height="48" rx="7"/><circle cx="104" cy="248" r="8"/><rect x="97" y="255" width="14" height="45" rx="6"/></g></svg></svg></div>
-<div class="mini-sticker" style="left:30%;top:40%;transform:rotate(3deg)"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-  <rect width="200" height="300" fill="#ffd6c9"/><circle cx="100" cy="160" r="78" fill="#fff"/>
-  <circle cx="100" cy="160" r="58" fill="#f6d27a"/><circle cx="80" cy="145" r="12" fill="#D9876A"/>
-  <circle cx="118" cy="170" r="12" fill="#D9876A"/><circle cx="104" cy="132" r="7" fill="#5aa469"/></svg></svg></div></div>
-              <div class="col-lg container-carousel-promotion">
-                <div>
-                  <h2>Extra 10% off for students</h2>
-                  <p>Journal spreads. Hall events. Laptop stickers.<br />Join Pixelle Club with your student email in January.</p>
-                  <button type="button" class="buynow-button" data-open-member>Join &amp; get 10% off</button>
-                </div>
-              </div>
-            </div>
+            <button class="promo-arrow" type="button" data-bs-target="#promoCarousel" data-bs-slide="next">
+              <i class="fa-solid fa-chevron-right" aria-hidden="true"></i><span class="visually-hidden">Next</span>
+            </button>
           </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#promoCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#promoCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span>
-        </button>
       </div>
     </section>
     </main>
