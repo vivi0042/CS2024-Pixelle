@@ -2243,10 +2243,34 @@
   }
   
   /* ---------- Specs ---------- */
-  .specs-page h1 { letter-spacing: -0.045em; font-weight: 600; }
-  hr.line { border-color: var(--line); opacity: 1; }
-  .specs-page .responsive-table { background: #fff; border-radius: 24px; border: 1px solid var(--line); overflow: hidden; }
-  .specs-page th { color: var(--sage-deep); font-family: var(--ff-head); }
+  /* ---------- Specs: same layout as before, F2 type and colours, no boxes ---------- */
+  .specs-page h1 {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: clamp(40px, 5vw, 64px);
+    letter-spacing: -0.05em;
+    text-shadow: none;
+    margin-bottom: 6px;
+  }
+  .specs-banner p { color: #57534E; font-size: 17px; }
+  hr.line { border: 0; border-top: 1.5px solid #BDB5A8; opacity: 1; margin: 44px 0; }
+  .specs-page .responsive-table { background: transparent; border: 0; }
+  .specs-page th {
+    color: var(--ink);
+    font: 600 28px/1.1 var(--ff-head);
+    letter-spacing: -0.035em;
+    padding-right: 24px;
+  }
+  .specs-page td {
+    color: var(--ink);
+    font-size: 16px;
+    padding: 0 16px 14px 0;
+  }
+  .specs-page td:first-of-type:not(:only-child) { color: #57534E; }
+  .specs-page td ul { padding-left: 18px; margin: 0; }
+  @media (max-width: 768px) {
+    .specs-page th { font-size: 24px; }
+  }
   
   /* ---------- Contact / Service banner ---------- */
   .image-container {
