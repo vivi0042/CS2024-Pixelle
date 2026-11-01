@@ -2595,9 +2595,14 @@
   
   .tile-split { flex-direction: row; align-items: stretch; }
   .tile-split > div:first-child { display: flex; flex-direction: column; justify-content: space-between; gap: 10px; flex: 1; }
-  .bento-journal { position: relative; flex: 1; min-height: 160px; }
-  .bento-journal .mini-sticker { width: 46%; }
-  .journal-note { position: absolute; left: 6%; bottom: -6px; font-size: 20px; z-index: 3; background: var(--butter); padding: 0 6px; border-radius: 6px; }
+  .bento-journal { flex: 1; display: flex; align-items: center; justify-content: center; }
+  .bento-journal img {
+    width: 100%;
+    max-width: 340px;
+    height: auto;
+    transform: rotate(-3deg);
+    filter: drop-shadow(0 16px 18px rgba(90, 70, 20, 0.18));
+  }
   
   /* ---------- Promo card ---------- */
   .home-promo { padding: 40px 5% 80px; max-width: 1180px; margin: 0 auto; }
@@ -2645,16 +2650,23 @@
     transition: width 0.25s ease;
   }
   .carousel-indicators.promo-dots .active { width: 26px; background-color: var(--sage); }
-  .promo-polaroid { position: absolute; width: 15%; }
-  .promo-polaroid-left { left: 4%; top: 12%; }
-  .promo-polaroid-right { right: 4%; bottom: 10%; }
-  .polaroid-note {
-    display: block;
-    text-align: center;
-    font-size: 16px;
-    margin-top: 4px;
+  /* side photos live inside each slide, so each promotion has its own pair
+     and they fade in and out with the slide; positioned against the whole card */
+  .promo-card .carousel,
+  .promo-card .carousel-inner,
+  .promo-card .carousel-item { position: static; }
+  .promo-polaroid {
+    position: absolute;
+    width: 19%;
+    max-width: 230px;
+    height: auto;
+    filter: drop-shadow(0 18px 22px rgba(24, 24, 27, 0.16));
+    pointer-events: none;
   }
-  
+  .pos-top-left     { left: 3%;  top: 7%;    transform: rotate(-6deg); }
+  .pos-bottom-right { right: 3%; bottom: 7%; transform: rotate(5deg); }
+  .pos-top-right    { right: 7%; top: 14%;    transform: rotate(4deg); }
+  .pos-bottom-left  { left: 7%;  bottom: 16%; transform: rotate(-4deg); }
   /* ---------- Responsive ---------- */
   @media (max-width: 991px) {
     .bento-grid { grid-template-columns: repeat(2, 1fr); }
@@ -2676,7 +2688,6 @@
     .bento-grid { grid-template-columns: 1fr; }
     .tile-wide { grid-column: auto; }
     .tile-split { flex-direction: column; }
-    .bento-journal { min-height: 210px; }
     .bento-tile { min-height: 0; }
     .home-promo { padding: 24px 4% 56px; }
     .promo-card { border-radius: 24px; padding: 36px 6%; }
@@ -2730,4 +2741,15 @@
   .promo-arrow:focus:not(:focus-visible) { outline: none; }
   @media (max-width: 575px) {
     .promo-arrow { width: 34px; height: 34px; flex: none; }
+  }
+  
+  /* Specs banner product photos */
+  .specs-photo {
+    display: block;
+    width: auto;
+    max-width: min(100%, 300px);
+    max-height: 240px;
+    height: auto;
+    margin: 0 auto;
+    filter: drop-shadow(0 24px 24px rgba(24, 24, 27, 0.18));
   }
