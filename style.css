@@ -2466,21 +2466,69 @@
   .avatars-lg span { width: 38px; height: 38px; font-size: 12px; border-color: var(--blush); margin-left: -8px; }
   .avatars-lg span:first-child { background: #fff; }
   
-  /* ---------- Hero: product image left, description right ---------- */
+  /* ---------- Hero: full-width lifestyle photo, text on the right ---------- */
   .home-hero {
+    position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
     align-items: center;
-    gap: 32px 4%;
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 48px 5% 72px;
+    height: clamp(420px, 40vw, 620px);
+    margin: 0;
+    padding: 40px 5%;
+    overflow: hidden;
+    /* matches the wall colour at the photo's right edge, so the photo blends into it */
+    background: linear-gradient(180deg, #FDF2E9 0%, #F5EAE1 50%, #EEE4DA 100%);
     text-align: left;
   }
-  .home-hero-stage { position: relative; grid-column: 1; grid-row: 1; }
-  .home-hero-text { grid-column: 2; grid-row: 1; max-width: 500px; }
+  /* the photo keeps its 2:1 shape (so the print overlay stays lined up),
+     fills the full height and sits on the left; its right edge fades into the background */
+  .home-hero-media { position: absolute; inset: 0; container-type: size; overflow: hidden; }
+  .hero-photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    aspect-ratio: 1774 / 887;
+  }
+  .hero-photo > img { position: absolute; display: block; }
+  .hero-photo > img:first-child {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent 100%);
+    mask-image: linear-gradient(90deg, #000 82%, transparent 100%);
+  }
+  
+  /* print animation: the sunset sticker comes out of the printer's slot.
+     The movement itself is drawn by the hero script in scrolling-animation.js;
+     these rules only place the sticker exactly over the slot. Without JavaScript
+     (or with reduced motion) the finished sticker simply shows in place. */
+  .hero-feed {
+    position: absolute;
+    left: 16.855%;
+    top: 11.161%;
+    width: 23.112%;
+    height: 32.131%;
+    clip-path: polygon(71.22% 1.75%, 68.78% 0.00%, 60.49% 1.05%, 0.00% 5.61%, 5.85% 14.04%, 10.00% 21.75%, 13.66% 30.18%, 17.80% 41.75%, 22.93% 60.00%, 24.88% 68.77%, 28.54% 89.47%, 29.02% 95.44%, 99.76% 85.26%, 99.51% 81.05%, 99.02% 80.70%, 98.54% 75.79%, 95.85% 61.05%, 92.68% 47.72%, 88.78% 34.39%, 84.88% 23.86%, 80.98% 15.44%, 75.61% 6.67%);
+  }
+  .hero-paper,
+  .hero-paper-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .hero-feed.is-printing .hero-paper { visibility: hidden; }
+  /* soft wash behind the text so it always reads clearly */
+  .home-hero-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(244, 233, 224, 0) 45%, rgba(244, 233, 224, 0.55) 70%);
+  }
+  .home-hero-text { position: relative; z-index: 1; grid-column: 2; max-width: 460px; }
   .home-hero-text h1 {
-    font-size: clamp(44px, 5.6vw, 80px);
+    font-size: clamp(44px, 5vw, 76px);
     letter-spacing: -0.05em;
     line-height: 0.98;
     margin: 16px 0 10px;
@@ -2490,27 +2538,7 @@
   .home-hero-text .f2-hero-note { margin: 0 0 22px; transform: rotate(-1.5deg); transform-origin: left; }
   .home-hero-cta { display: flex; gap: 12px; justify-content: flex-start; flex-wrap: wrap; }
   .home-hero-proof { margin: 18px 0 0; font-size: 13px; color: #57534E; display: flex; align-items: center; justify-content: flex-start; flex-wrap: wrap; gap: 4px; }
-  
-  .home-hero-svg { width: 100%; max-width: 640px; height: auto; display: block; margin: 0 auto; }
-  .stage-chip {
-    position: absolute;
-    left: 24px;
-    padding: 6px 12px;
-    border-radius: 999px;
-    background: var(--stone);
-    border: 1px solid var(--line);
-    font: 600 12px var(--ff-head);
-    color: var(--ink);
-  }
-  .stage-chip-top { top: 22px; }
-  .stage-chip-bottom { bottom: 22px; }
-  .stage-note {
-    position: absolute;
-    right: 8%;
-    bottom: 22px;
-    font-size: 22px;
-    transform: rotate(-4deg);
-  }
+  .home-hero .avatars span { border-color: #F4E9E0; }
   
   /* ---------- Sticker Studio band ---------- */
   .home-studio {
@@ -2632,14 +2660,17 @@
     .bento-grid { grid-template-columns: repeat(2, 1fr); }
     .promo-card { padding: 44px 8%; }
     .promo-polaroid { display: none; }
-    .stage-note { display: none; }
-    .home-hero { grid-template-columns: 1fr; text-align: center; padding: 32px 5% 48px; }
-    .home-hero-stage, .home-hero-text { grid-column: 1; grid-row: auto; }
-    .home-hero-text { margin: 0 auto; }
+    .home-hero { grid-template-columns: 1fr; min-height: 0; margin: 0; padding: 0 0 48px; border-radius: 0; background: none; text-align: center; }
+    .home-hero { height: auto; }
+    .home-hero-media { position: relative; inset: auto; aspect-ratio: 4 / 3; margin-bottom: 28px; }
+    .home-hero-media::after { display: none; }
+    .hero-photo { height: auto; width: max(100cqw, 200cqh); top: 50%; transform: translateY(-50%); left: calc((100cqw - max(100cqw, 200cqh)) * 0.3); }
+    .hero-photo > img:first-child { -webkit-mask-image: none; mask-image: none; }
+    .home-hero-text { grid-column: 1; margin: 0 auto; padding: 0 5%; }
     .home-hero-cta, .home-hero-proof { justify-content: center; }
+    .home-hero .avatars span { border-color: var(--stone); }
   }
   @media (max-width: 575px) {
-    .home-hero-stage { padding: 40px 0 36px; }
     .home-studio { padding: 40px 4%; }
     .home-bento { padding: 56px 4% 24px; }
     .bento-grid { grid-template-columns: 1fr; }
@@ -2700,13 +2731,3 @@
   @media (max-width: 575px) {
     .promo-arrow { width: 34px; height: 34px; flex: none; }
   }
-
-  /* Specs banner product photo */
-.specs-photo {
-  display: block;
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  margin: 0 auto;
-  filter: drop-shadow(0 24px 24px rgba(24, 24, 27, 0.18));
-}
