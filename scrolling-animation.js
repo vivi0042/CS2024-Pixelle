@@ -724,6 +724,36 @@
     else img.addEventListener("load", start);
   })();
 
+  /* ---------- About page: count the "Pixelle so far" numbers up ----------
+     Each [data-count] number starts at 0 and counts up to its value the first
+     time it scrolls into view. Without JavaScript the final numbers just show. */
+  (function () {
+    var nums = document.querySelectorAll("[data-count]");
+    if (!nums.length) return;
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    function run(el) {
+      var end = parseFloat(el.getAttribute("data-count"));
+      var dec = parseInt(el.getAttribute("data-decimals") || "0", 10);
+      var DURATION = 1600, t0 = null;
+      function tick(now) {
+        if (t0 === null) t0 = now;
+        var t = Math.min(1, (now - t0) / DURATION);
+        var eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = (end * eased).toFixed(dec);
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    nums.forEach(function (el) { el.textContent = (0).toFixed(parseInt(el.getAttribute("data-decimals") || "0", 10)); });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { run(en.target); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.6 });
+    nums.forEach(function (el) { io.observe(el); });
+  })();
+
   if (location.hash && window.bootstrap) {
     var tabBtn = document.querySelector('[data-bs-target="' + location.hash + '"]');
     if (tabBtn) bootstrap.Tab.getOrCreateInstance(tabBtn).show();

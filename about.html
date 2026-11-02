@@ -93,6 +93,7 @@
     <main id="main">
 
     <!-- body -->
+    <!-- ===== Top: About Us + our story (original layout) ===== -->
     <div class="dark-section about-page">
       <div class="main text-center" style="padding-bottom: 0">
         <div class="headers" style="padding-bottom: 24px"><h1>About Us</h1></div>
@@ -148,15 +149,28 @@
           So we built the printer we wanted: full colour, every print a sticker, zero ink, and priced fairly with affordable refills. Our name says it all: <strong>pixels</strong> you can finally hold.
         </p>
       </div>
-      <div class="row p-2 text-center">
-        <div class="col-12 col-md-4 px-5 py-4"><h3>Mission</h3><p>To get the best moments out of the camera roll and into people's hands, journals and homes, simply and affordably.</p></div>
-        <div class="col-12 col-md-4 px-5 py-4"><h3>Vision</h3><p>To be Singapore's favourite way to print memories: the first thing people reach for at every birthday, hall event and family visit.</p></div>
-        <div class="col-12 col-md-4 px-5 py-4"><h3>Values</h3><p>Honest specs, friendly local support, and creativity for everyone, whatever your budget.</p></div>
-      </div>
     </div>
 
-    <div class="row g-0">
-      <div class="col-12 col-md-6 about-visual"><div class="mini-sticker" style="left:8%;top:10%;transform:rotate(-6deg)"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <!-- ===== Mission / Vision / Values ===== -->
+    <section class="about-mvv" aria-label="Mission, vision and values">
+      <div class="mvv-card mvv-mission fade-up">
+        <span class="mvv-label">Mission</span>
+        <p class="mvv-text">To get the best moments out of the camera roll and into people's hands, journals and homes, simply and affordably.</p>
+      </div>
+      <div class="mvv-card mvv-vision fade-up">
+        <span class="mvv-label">Vision</span>
+        <p class="mvv-text">To be Singapore's favourite way to print memories, the first thing people reach for at birthdays, hall events and family visits.</p>
+      </div>
+      <div class="mvv-card mvv-values fade-up">
+        <span class="mvv-label">Values</span>
+        <p class="mvv-text">Honest specs, friendly local support, and creativity for everyone, whatever your budget.</p>
+      </div>
+    </section>
+
+    <!-- ===== Sustainability band: photos on the left, all text on the right ===== -->
+    <section class="about-sustain-band">
+      <div class="about-sustain-inner">
+        <div class="sustain-visual fade-up" aria-hidden="true"><div class="mini-sticker" style="left:8%;top:10%;transform:rotate(-6deg)"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
   <rect width="200" height="300" fill="#cfe6f5"/><circle cx="160" cy="60" r="26" fill="#fff3c4"/>
   <rect y="230" width="200" height="70" fill="#9fd3a8"/>
   <g fill="#2E4A42"><circle cx="70" cy="170" r="22"/><rect x="48" y="194" width="44" height="80" rx="20"/></g>
@@ -175,23 +189,45 @@
   <path d="M48 150l10-60 32 40zM152 150l-10-60-32 40z" fill="#f2a65a"/>
   <circle cx="78" cy="180" r="8" fill="#2E4A42"/><circle cx="122" cy="180" r="8" fill="#2E4A42"/>
   <path d="M92 205q8 8 16 0" stroke="#2E4A42" stroke-width="4" fill="none" stroke-linecap="round"/></svg></svg></div></div>
-      <div class="col-12 col-md-6 p-5 about-sustain">
-        <div class="mb-3"><h3 class="d-inline">Our commitment to </h3><h3 class="d-inline" style="color: #234F43">Sustainability</h3></div>
-        <p>No ink cartridges means nothing to throw away but the paper backing. Our boxes are 100% recyclable paper with no plastic trays.</p>
-        <p>Snap is built to be charged, not replaced. Its battery is user-replaceable, and we repair printers under warranty instead of swapping them out.</p>
-      </div>
-    </div>
-
-    <div class="about-numbers text-center">
-      <div class="overlay3-box">
-        <h3 class="mb-4">Pixelle so far</h3>
-        <div class="row">
-          <div class="col-12 col-md-4 mb-3"><h4 style="font-size: 56px">4</h4><p style="font-size: 20px">Printer colours</p></div>
-          <div class="col-12 col-md-4 mb-3"><h4 style="font-size: 56px">4.8★</h4><p style="font-size: 20px">Average rating</p></div>
-          <div class="col-12 col-md-4 mb-3"><h4 style="font-size: 56px">1 day</h4><p style="font-size: 20px">Island-wide delivery</p></div>
+        <div class="sustain-text fade-up">
+          <span class="sustain-eyebrow">Our commitment to</span>
+          <h2 class="sustain-title">Sustainability</h2>
+          <p class="hand sustain-note">charged, not replaced</p>
+          <p>With no ink cartridges, the only waste is the sticker backing. Our boxes are recyclable paper with no plastic trays.</p>
+          <p><strong>Snap is built to be charged, not replaced.</strong> The battery is user-replaceable, and we repair printers under warranty instead of swapping them out.</p>
+          <div class="sustain-chips">
+            <span>0 ink cartridges</span><span>Recyclable paper box</span><span>Replaceable battery</span>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- ===== Pixelle so far (numbers count up when scrolled into view) ===== -->
+    <section class="about-stats" aria-labelledby="stats-title">
+      <h2 class="stats-title fade-up" id="stats-title">Pixelle so far</h2>
+      <p class="hand stats-sub">and we're just getting started</p>
+      <div class="stats-grid">
+        <div class="stat-tile stat-mint fade-up">
+          <span class="stat-label">Printer colours</span>
+          <div class="stat-row">
+            <span class="stat-num" data-count="4" data-decimals="0">4</span>
+            <span class="stat-dots" aria-hidden="true"><i style="background:#2F6F5E"></i><i style="background:#3F3B37"></i><i style="background:#E8B8A8"></i><i style="background:#fff"></i></span>
+          </div>
+        </div>
+        <div class="stat-tile stat-sage fade-up">
+          <span class="stat-label">Average rating</span>
+          <div class="stat-row">
+            <span class="stat-num" data-count="4.8" data-decimals="1">4.8</span><span class="stat-star" aria-hidden="true">★</span>
+          </div>
+        </div>
+        <div class="stat-tile stat-blush fade-up">
+          <span class="stat-label">Island-wide delivery</span>
+          <div class="stat-row">
+            <span class="stat-num"><span data-count="1" data-decimals="0">1</span> day</span>
+          </div>
+        </div>
+      </div>
+    </section>
     </main>
     <!-- footer -->
     <footer class="container-footer-fluid">

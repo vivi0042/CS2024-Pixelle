@@ -2665,8 +2665,9 @@
   }
   .pos-top-left     { left: 3%;  top: 7%;    transform: rotate(-6deg); }
   .pos-bottom-right { right: 3%; bottom: 7%; transform: rotate(5deg); }
-  .pos-top-right    { right: 7%; top: 14%;    transform: rotate(4deg); }
-  .pos-bottom-left  { left: 7%;  bottom: 16%; transform: rotate(-4deg); }
+  .pos-top-right    { right: 3%; top: 7%;    transform: rotate(6deg); }
+  .pos-bottom-left  { left: 3%;  bottom: 7%; transform: rotate(-5deg); }
+  
   /* ---------- Responsive ---------- */
   @media (max-width: 991px) {
     .bento-grid { grid-template-columns: repeat(2, 1fr); }
@@ -2752,4 +2753,86 @@
     height: auto;
     margin: 0 auto;
     filter: drop-shadow(0 24px 24px rgba(24, 24, 27, 0.18));
+  }
+  
+  /* =========================================================
+     ABOUT PAGE (about.html): intro, mission/vision/values cards,
+     sustainability band, "Pixelle so far" counting stats
+     ========================================================= */
+  .about-page { padding-bottom: 48px; }
+  .about-mvv {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    width: min(1180px, 90%);
+    margin: 0 auto;
+    padding: 56px 0 64px;
+  }
+  .mvv-card { border-radius: 24px; padding: 26px 28px 30px; }
+  .mvv-mission { position: relative; overflow: hidden; background: var(--sage); }
+  .mvv-mission::after {
+    content: "";
+    position: absolute;
+    right: 0; bottom: 0;
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--sage-deep) 50%, var(--blush) 50%);
+    border-top-left-radius: 14px;
+  }
+  .mvv-vision { background: var(--blush); }
+  .mvv-values { background: var(--butter); }
+  .mvv-label { display: block; font: 600 11px var(--ff-head); letter-spacing: 0.08em; text-transform: uppercase; color: #6B4A3A; margin-bottom: 8px; }
+  .mvv-values .mvv-label { color: #6B5520; }
+  .mvv-mission .mvv-label { color: #DCEBE4; }
+  .mvv-text { margin: 0; font: 500 19px/1.35 var(--ff-head); letter-spacing: -0.015em; color: var(--ink); }
+  .mvv-mission .mvv-text { color: #fff; }
+  
+  .about-sustain-band { background: var(--band); padding: 64px 0; }
+  .about-sustain-inner {
+    width: min(1180px, 90%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .sustain-eyebrow { font: 500 13px var(--ff-head); color: #3F3B37; }
+  .sustain-title { font-size: clamp(40px, 5vw, 60px); letter-spacing: -0.05em; margin: 4px 0 0; }
+  .sustain-note { margin: 4px 0 18px; font-size: 22px; transform: rotate(-1.5deg); transform-origin: left; }
+  .sustain-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sustain-chips span { background: #fff; border-radius: 999px; padding: 7px 14px; font: 600 12px var(--ff-head); color: var(--ink); }
+  .sustain-visual {
+    position: relative;
+    min-height: 380px;
+    background: var(--blush);
+    border-radius: 28px;
+    overflow: hidden;
+  }
+  .sustain-visual .mini-sticker { width: 40%; }
+  .sustain-text p { color: #3F3B37; font-size: 16px; max-width: 520px; }
+  .sustain-text strong { color: var(--ink); }
+  .sustain-text .sustain-chips { margin-top: 18px; }
+  .sustain-text .sustain-note { font-size: 22px; color: var(--sage-deep); }
+  .about-stats { width: min(1180px, 90%); margin: 0 auto; padding: 72px 0 80px; text-align: center; }
+  .stats-title { font-size: clamp(32px, 4vw, 48px); letter-spacing: -0.045em; margin: 0; }
+  .stats-sub { margin: 4px 0 30px; font-size: 22px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; text-align: left; }
+  .stat-tile { border-radius: 24px; padding: 22px 24px; min-height: 190px; display: flex; flex-direction: column; justify-content: space-between; }
+  .stat-mint { background: #DFE8E2; }
+  .stat-sage { background: var(--sage); }
+  .stat-blush { background: var(--blush); }
+  .stat-label { font: 500 14px var(--ff-head); color: #3F3B37; }
+  .stat-sage .stat-label { color: #DCEBE4; }
+  .stat-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; }
+  .stat-num { font: 600 clamp(56px, 6vw, 84px)/0.9 var(--ff-head); letter-spacing: -0.05em; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .stat-sage .stat-num { color: #fff; }
+  .stat-star { color: var(--sparkle); font-size: 28px; margin-right: auto; padding-bottom: 6px; }
+  .stat-dots { display: flex; gap: 5px; padding-bottom: 8px; }
+  .stat-dots i { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(24, 24, 27, 0.08); }
+  
+  @media (max-width: 767px) {
+    .about-sustain-inner { grid-template-columns: 1fr; }
+    .sustain-visual { min-height: 300px; }
+    .about-mvv { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .stat-tile { min-height: 150px; }
   }
