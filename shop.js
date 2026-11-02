@@ -18,6 +18,30 @@
     ]
   };
 
+  // What's in the box, per bundle and colour (shown as the first photo)
+  var BUNDLE_SHOTS = {
+    starter: {
+      sage: "images/purchase/StarterBundle-SageMist.png",
+      coral: "images/purchase/StarterBundle-BlushPink.png",
+      cream: "images/purchase/StarterBundle-CloudCream.png"
+    },
+    creator: {
+      sage: "images/purchase/Sage%20Green%20Pixelle%20Printer%20Kit.png",
+      coral: "images/purchase/Blush%20Pink%20Pixelle%20Printer%20Bundle.png",
+      cream: "images/purchase/Pixelle%20Creator%20Bundle%20in%20Cream%20Tones.png"
+    }
+  };
+  var BUNDLE_ALT = {
+    starter: "Starter Bundle in COLOUR: printer, USB-C cable and 30 polaroid photo sheets",
+    creator: "Creator Bundle in COLOUR: printer, USB-C cable, 60 polaroid photo sheets, travel pouch and sticker set"
+  };
+  var COLOUR_LABEL = { sage: "Sage Mist", coral: "Blush Pink", cream: "Cloud Cream" };
+
+  function currentBundle() {
+    var r = document.querySelector('input[name="bundle"]:checked');
+    return r && BUNDLE_SHOTS[r.value] ? r.value : "creator";
+  }
+
   var carouselEl = document.getElementById("product-carousel");
   var inner = document.querySelector("[data-gallery]");
   var thumbs = document.querySelector("[data-gallery-thumbs]");
@@ -32,7 +56,9 @@
   }
 
   function build(colour) {
-    var shots = GALLERY[colour] || GALLERY.sage;
+    if (!GALLERY[colour]) colour = "sage";
+    var bundle = currentBundle();
+    var shots = [[BUNDLE_SHOTS[bundle][colour], BUNDLE_ALT[bundle].replace("COLOUR", COLOUR_LABEL[colour])]].concat(GALLERY[colour]);
     inner.innerHTML = "";
     thumbs.innerHTML = "";
     shots.forEach(function (shot, i) {
@@ -70,13 +96,19 @@
   Object.keys(GALLERY).forEach(function (key) {
     GALLERY[key].forEach(function (shot) { new Image().src = shot[0]; });
   });
+  Object.keys(BUNDLE_SHOTS).forEach(function (b) {
+    Object.keys(BUNDLE_SHOTS[b]).forEach(function (c) { new Image().src = BUNDLE_SHOTS[b][c]; });
+  });
 
   /* ---------- smooth colour switching: fade out, swap photos, fade in ---------- */
   var FADE_MS = 220;
   var current = null;
   var switchTimer = null;
+  var currentKey = null;
   function switchColour(colour) {
-    if (colour === current) return;
+    var key = colour + "|" + currentBundle();
+    if (key === currentKey) return;
+    currentKey = key;
     current = colour;
     if (reduceMotion) { build(colour); return; }
     clearTimeout(switchTimer);
@@ -96,8 +128,14 @@
     btn.addEventListener("click", function () { switchColour(btn.getAttribute("data-colour")); });
   });
 
+  // changing bundle swaps the "what's in the box" photo and jumps back to it
+  document.querySelectorAll('input[name="bundle"]').forEach(function (r) {
+    r.addEventListener("change", function () { switchColour(current); });
+  });
+
   var selected = document.querySelector(".product-image.selected[data-colour]");
   current = selected ? selected.getAttribute("data-colour") : "sage";
+  currentKey = current + "|" + currentBundle();
   build(current);
 
   /* ---------- cursor tilt (hover) + click-to-zoom ---------- */
@@ -164,6 +202,9 @@
   if (zoomBtn) zoomBtn.addEventListener("click", function () { setZoom(!zoomed); });
   // leaving the photo, changing photo or changing colour resets the zoom
   carouselEl.addEventListener("slide.bs.carousel", function () { setZoom(false); });
+  document.querySelectorAll('input[name="bundle"]').forEach(function (r) {
+    r.addEventListener("change", function () { setZoom(false); });
+  });
   document.querySelectorAll(".product-image[data-colour]").forEach(function (btn) {
     btn.addEventListener("click", function () { setZoom(false); });
   });

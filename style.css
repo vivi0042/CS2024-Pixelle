@@ -2859,3 +2859,20 @@
   }
   .about-feed > img,
   .about-feed > .print-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+/* ---------- marketplace logos (Shopee / Lazada) ---------- */
+.mkt-logo { width: 20px; height: 20px; object-fit: contain; vertical-align: -4px; margin-right: 8px; }
+.mkt-logo-lg { width: 28px; height: 28px; vertical-align: -5px; margin-right: 6px; }
+.btn-shopee::before, .btn-lazada::before { display: none !important; } /* the logo replaces the coloured dot */
+.btn-mkt { display: inline-flex; align-items: center; justify-content: center; }
+
+/* ---------- review author: round profile picture + platform logo ---------- */
+.review-author { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+.review-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex-shrink: 0; box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--line); }
+.review-author p { display: flex; flex-direction: column; line-height: 1.25; }
+.review-author p span { font-size: 13px; opacity: .75; }
+.review-platform { width: 26px; height: 26px; margin-left: auto; object-fit: contain; flex-shrink: 0; border-radius: 6px; }
+.mkt-logo { border-radius: 5px; }
+.mkt-logo-lg { border-radius: 7px; }
+/* Shop page: full Shopee / Lazada logos inside the buttons */
+.mkt-wordmark { height: 22px; width: auto; display: block; margin: 0 auto; }
+.mkt-wordmark-lz { width: 84px; object-fit: cover; } /* crops the empty space around the Lazada logo file */
