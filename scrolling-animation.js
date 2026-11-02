@@ -100,7 +100,7 @@
     if (Date.now() - load(LS, "pixelle-member-dismissed", 0) < 7 * 864e5) return;
     setTimeout(function () {
       if (!document.querySelector(".modal.show") && !isMember()) openMember();
-    }, 6000);
+    }, 4000);
   }
   if (memberModal) {
     showMemberState();
@@ -110,8 +110,8 @@
     document.querySelectorAll("[data-open-member]").forEach(function (b) {
       b.addEventListener("click", function (e) { e.preventDefault(); openMember(); });
     });
-    if (load(LS, "pixelle-consent", null)) scheduleMember();
-    else document.addEventListener("pixelle:consent", scheduleMember, { once: true });
+    // Show the offer a few seconds after landing, whether or not the cookie banner has been answered.
+    scheduleMember();
   }
 
   /* ---------- live social proof (DEMO DATA: replace with real analytics / order counts) ---------- */
