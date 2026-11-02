@@ -106,3 +106,136 @@
   white-space: nowrap;
   vertical-align: middle;
 }
+
+/* ---------- floating product + cursor tilt ---------- */
+.shop-gallery {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --zoom: 1;
+  --zoom-x: 50%;
+  --zoom-y: 50%;
+}
+.shop-gallery .carousel-item img {
+  /* tilt + zoom (set by shop.js) — the photo itself is unchanged */
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) scale(var(--zoom));
+  transform-origin: var(--zoom-x) var(--zoom-y);
+  cursor: zoom-in;
+  transform-style: preserve-3d;
+  will-change: transform;
+  /* gentle idle float uses the separate `translate` property, so it never fights the tilt */
+  animation: shop-float 4.5s ease-in-out infinite;
+}
+@keyframes shop-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -10px; }
+}
+/* pause the float while the visitor is tilting, so the product feels "held" */
+.shop-gallery.is-tilting .carousel-item img {
+  animation-play-state: paused;
+}
+
+/* ---------- smooth colour switching ---------- */
+.shop-gallery .carousel-inner,
+.shop-gallery-thumbs {
+  transition: opacity 0.22s ease, filter 0.22s ease;
+}
+.shop-gallery.is-switching .carousel-inner,
+.shop-gallery-thumbs.is-switching {
+  opacity: 0;
+  filter: blur(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shop-gallery .carousel-item img { animation: none; transform: none; }
+  .shop-gallery .carousel-inner,
+  .shop-gallery-thumbs { transition: none; }
+}
+
+/* ---------- click-to-zoom ---------- */
+.shop-gallery.zoom-anim .carousel-item img {
+  transition: transform 0.35s ease;
+}
+.shop-gallery.is-zoomed .carousel-item img {
+  cursor: zoom-out;
+  animation-play-state: paused;
+  filter: none; /* drop the shadow while inspecting details */
+}
+.shop-gallery.is-zoomed .carousel-inner {
+  touch-action: none; /* let a finger pan the zoomed photo instead of scrolling */
+}
+.shop-gallery.is-zoomed .carousel-control-prev,
+.shop-gallery.is-zoomed .carousel-control-next {
+  opacity: 0;
+  pointer-events: none;
+}
+.shop-zoom-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 12px rgba(24, 24, 27, 0.08);
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+.shop-zoom-btn:hover,
+.shop-zoom-btn[aria-pressed="true"] {
+  background: var(--sage);
+  border-color: var(--sage);
+  color: #fff;
+  transform: scale(1.06);
+}
+.shop-gallery-hint {
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ---------- smoother photo-to-photo crossfade + thumbnail hover ---------- */
+.shop-gallery.carousel-fade .carousel-item {
+  transition-duration: 0.45s;
+}
+.shop-gallery-thumbs button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.shop-gallery-thumbs button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px -8px rgba(24, 24, 27, 0.35);
+}
+
+/* ---------- add-to-cart flyer (animated by GSAP) ---------- */
+.shop-flyer {
+  position: fixed;
+  z-index: 2000;
+  object-fit: contain;
+  pointer-events: none;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 16px 30px -10px rgba(24, 24, 27, 0.45);
+  will-change: transform;
+}
+.shop-flyer-paper {
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  color: var(--sage);
+  border: 2px solid var(--sage);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shop-gallery.zoom-anim .carousel-item img,
+  .shop-gallery.carousel-fade .carousel-item,
+  .shop-gallery-thumbs button { transition: none; }
+}
+
+/* keep the "Added to cart" toast clear of the bag icon so the landing + bounce stays visible */
+.toast-container.top-0.end-0 {
+  top: 72px !important;
+}
