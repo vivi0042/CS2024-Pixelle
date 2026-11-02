@@ -239,3 +239,34 @@
 .toast-container.top-0.end-0 {
   top: 72px !important;
 }
+
+/* ---------- "How Others Are Sticking It" Instagram photos ---------- */
+.ig-photo {
+  position: relative;
+  margin: 0 0 6px;
+  box-shadow: 0 10px 22px -14px rgba(24, 24, 27, 0.45);
+}
+.ig-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.ig-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  color: #fff;
+  background: rgba(46, 74, 66, 0.35);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.ig-photo:hover img { transform: scale(1.06); }
+.ig-photo:hover .ig-overlay { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .ig-photo img, .ig-overlay { transition: none; }
+  .ig-photo:hover img { transform: none; }
+}
