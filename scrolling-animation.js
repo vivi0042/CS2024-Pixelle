@@ -187,10 +187,13 @@
     refill100: { name: "Sticker Paper · 100 sheets", price: 54.9 },
   };
   var PROMOS = { PIXELCLUB10: { pct: 10, min: 0, label: "10% off first order (member)" } };
-  var COLOUR_NAMES = { navy: "Deep Evergreen", coral: "Blush Peach", cream: "Cloud Cream", sage: "Sage Mist" };
-  var COLOUR_HEX = { navy: "#2E4A42", coral: "#D9876A", cream: "#e4dccb", sage: "#5f8a75" };
+  var COLOUR_NAMES = { sage: "Sage Mist", coral: "Blush Pink", cream: "Cloud Cream" };
+  var COLOUR_HEX = { sage: "#B9D2BC", coral: "#EBB1AA", cream: "#EDE1C8" };
 
-  function getCart() { return load(LS, "pixelle-cart", []); }
+  function getCart() {
+    // Skip items saved under colours we no longer sell (e.g. the retired Deep Evergreen).
+    return load(LS, "pixelle-cart", []).filter(function (i) { return !i.colour || COLOUR_NAMES[i.colour]; });
+  }
   function setCart(c) { save(LS, "pixelle-cart", c); renderCount(); }
   function money(n) { return "S$" + n.toFixed(2); }
   function renderCount() {
@@ -218,7 +221,7 @@
   /* ---------- purchase page ---------- */
   var buy = document.getElementById("purchase");
   if (buy) {
-    var state = { colour: "navy", sku: "creator" };
+    var state = { colour: "sage", sku: "creator" };
     var stage = document.getElementById("product-carousel");
     var priceEl = document.getElementById("price");
     var wasEl = document.getElementById("price-was");
@@ -236,7 +239,7 @@
       renderStock();
     }
     /* Stock per colour. DEMO DATA: in production this comes from the inventory system. */
-    var STOCK = { navy: 23, coral: 9, cream: 16, sage: 6 };
+    var STOCK = { sage: 23, coral: 9, cream: 6 };
     var addBtn = document.getElementById("add-to-cart");
     function renderStock() {
       var c = state.colour;
@@ -308,7 +311,7 @@
       row.innerHTML =
         '<td><div class="d-flex gap-3 align-items-start"><div class="cart-thumb" style="width:72px;height:72px;border-radius:12px;background:' +
         (item.colour ? COLOUR_HEX[item.colour] : "#fde6dc") + ';display:grid;place-items:center;color:#fff;font-size:28px;flex:none">' +
-        '<i class="fa-solid ' + (item.colour ? "fa-print" : "fa-note-sticky") + '" style="color:' + (item.colour === "cream" ? "#2E4A42" : item.colour ? "#F3F0EA" : "#c4461d") + '"></i></div>' +
+        '<i class="fa-solid ' + (item.colour ? "fa-print" : "fa-note-sticky") + '" style="color:' + (item.colour ? "#2E4A42" : "#c4461d") + '"></i></div>' +
         '<div><h5 style="font-size:17px;margin-bottom:4px">' + p.name + '</h5><p style="margin:0"><small>' + swatch +
         (item.colour ? '<label><input type="checkbox" data-gift="' + idx + '"' + (item.gift ? " checked" : "") + ' /> Gift wrapping (free)</label>' : "") +
         "</small></p></div></div></td>" +
