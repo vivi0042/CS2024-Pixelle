@@ -2,18 +2,19 @@
 (function () {
   "use strict";
 
-  // Photos for each colour: [file, alt text, "lifestyle" for full-bleed scene shots]
+  // Photos for each colour (images/purchase/): [file, alt text]
   var GALLERY = {
     sage: [
-      ["images/sageMist.png", "Pixelle Snap in Sage Mist printing a landscape photo"],
-      ["images/hero-pixelle-snap.jpg", "Pixelle Snap in Sage Mist on a table, printing a sunset photo", "lifestyle"]
+      ["images/purchase/Pixelle-SageMist-02.png", "Pixelle Snap in Sage Mist printing a landscape photo"],
+      ["images/purchase/Pixelle-SageMist-01.png", "Pixelle Snap in Sage Mist, front view"]
     ],
     coral: [
-      ["images/blushPink.png", "Pixelle Snap in Blush Pink, front view"],
-      ["images/blushPinkPrinter.png", "Pixelle Snap in Blush Pink printing a sunset photo sent from a phone"]
+      ["images/purchase/Pixelle-BlushPink-02.png", "Pixelle Snap in Blush Pink printing a landscape photo"],
+      ["images/purchase/Pixelle-BlushPink-01.png", "Pixelle Snap in Blush Pink, front view"]
     ],
     cream: [
-      ["images/cloudCream.png", "Pixelle Snap in Cloud Cream printing a photo of two teddy bears"]
+      ["images/purchase/Pixelle-CloudCream-02.png", "Pixelle Snap in Cloud Cream printing a landscape photo"],
+      ["images/purchase/Pixelle-CloudCream-01.png", "Pixelle Snap in Cloud Cream, front view"]
     ]
   };
 
