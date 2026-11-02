@@ -631,36 +631,31 @@
   renderAccount();
 
   /* open an inspiration tab from a hash link */
-  /* ---------- Home hero: sticker printing out of the slot ----------
-     The finished sticker is described as a strip of 60 thin bands that follow
-     its curve (EDGE_L / EDGE_R = left and right edge, bottom to top).
-     While printing, the top of the picture comes out of the slot first and
-     travels up along those bands, so the sticker bends back like real paper.
-     SLOT hides anything that is still inside the printer. */
-  (function () {
-    var feed = document.querySelector(".hero-feed");
-    var img = feed && feed.querySelector(".hero-paper");
-    if (!feed || !img) return;
+  /* ---------- Sticker printing out of a printer slot ----------
+     Used by the home hero and the About page. Each printer gives the sticker's
+     outline as 60 thin bands that follow its curve (left/right edge, bottom to top)
+     plus a SLOT outline that hides anything still inside the printer. The picture
+     comes out of the slot top edge first and travels up along the bands, so the
+     sticker bends like real paper. */
+  function printFeed(feed, cfg) {
+    var img = feed && feed.querySelector("img");
+    if (!img) return;
     if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    var EDGE_L = [[111.0,283.0],[114.0,279.5],[117.6,277.4],[119.0,272.6],[118.0,267.6],[117.5,262.5],[117.0,257.3],[116.0,252.3],[114.6,247.6],[113.6,242.6],[112.0,237.9],[111.0,232.9],[110.0,228.0],[109.0,223.0],[108.0,218.1],[106.4,213.4],[105.0,208.6],[103.8,203.8],[102.1,199.1],[101.0,194.2],[99.4,189.4],[98.0,184.7],[96.1,180.1],[95.0,175.2],[93.5,170.5],[91.8,165.8],[90.0,161.2],[88.0,156.6],[86.1,152.1],[84.4,147.4],[82.7,142.7],[81.0,138.1],[79.0,133.5],[77.0,129.0],[75.0,124.4],[73.0,119.9],[71.0,115.4],[68.9,110.9],[66.5,106.5],[64.1,102.1],[62.0,97.6],[59.4,93.4],[57.0,89.0],[54.6,84.6],[52.2,80.2],[49.8,75.8],[47.0,71.7],[44.4,67.4],[41.3,63.3],[38.2,59.2],[35.1,55.1],[32.7,50.7],[29.0,46.9],[25.9,42.9],[22.8,38.8],[19.0,35.0],[15.2,31.2],[11.4,27.4],[7.6,23.6],[3.8,19.8],[0.0,16.0]];
-    var EDGE_R = [[409.0,249.0],[409.0,243.9],[408.0,239.3],[408.0,234.2],[406.6,229.6],[405.2,225.2],[404.0,220.6],[403.6,215.6],[402.2,211.2],[401.0,206.6],[400.0,201.9],[399.0,197.2],[398.0,192.6],[396.9,187.9],[395.0,183.7],[394.0,179.0],[393.0,174.3],[391.1,170.1],[390.0,165.4],[388.1,161.1],[387.0,156.5],[385.2,152.2],[384.0,147.6],[382.0,143.3],[380.8,138.8],[379.0,134.4],[377.1,130.1],[375.6,125.6],[374.0,121.2],[372.0,117.0],[370.0,112.7],[368.3,108.3],[366.1,104.1],[364.0,100.0],[362.5,95.5],[360.3,91.3],[358.1,87.1],[356.0,83.0],[353.8,78.8],[351.6,74.6],[349.0,70.6],[346.5,66.5],[344.4,62.4],[342.0,58.3],[339.3,54.3],[336.4,50.4],[333.5,46.5],[330.6,42.6],[327.8,38.8],[324.2,35.2],[321.3,31.3],[318.0,27.5],[314.8,23.8],[311.2,20.2],[307.3,17.3],[303.6,14.0],[299.8,10.8],[295.9,8.0],[292.1,5.1],[287.9,2.9],[284.0,0.0]];
-    var SLOT = [[292.0,5.0],[282.0,0.0],[248.0,3.0],[0.0,16.0],[24.0,40.0],[41.0,62.0],[56.0,86.0],[73.0,119.0],[94.0,171.0],[102.0,196.0],[117.0,255.0],[119.0,272.0],[409.0,243.0],[408.0,231.0],[406.0,230.0],[404.0,216.0],[393.0,174.0],[380.0,136.0],[364.0,98.0],[348.0,68.0],[332.0,44.0],[310.0,19.0]];
-    var W = 410, H = 285, N = EDGE_L.length - 1;
+    var EDGE_L = cfg.L, EDGE_R = cfg.R, SLOT = cfg.SLOT, W = cfg.W, H = cfg.H, N = EDGE_L.length - 1;
 
     var canvas = document.createElement("canvas");
     var scale = Math.min(2, window.devicePixelRatio || 1);
     canvas.width = W * scale; canvas.height = H * scale;
-    canvas.className = "hero-paper-canvas";
+    canvas.className = "print-canvas";
     canvas.setAttribute("aria-hidden", "true");
     var ctx = canvas.getContext("2d");
 
     function lerp(a, b, t) { return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]; }
-    function lineAt(u) { // band line at position u (0 = slot, N = top edge), as [left, right]
+    function lineAt(u) {
       u = Math.max(0, Math.min(N, u));
       var i = Math.min(N - 1, Math.floor(u)), t = u - i;
       return [lerp(EDGE_L[i], EDGE_L[i + 1], t), lerp(EDGE_R[i], EDGE_R[i + 1], t)];
     }
-    // draw the image triangle s0,s1,s2 onto the canvas triangle d0,d1,d2
     function tri(s0, s1, s2, d0, d1, d2) {
       var den = (s1[0] - s0[0]) * (s2[1] - s0[1]) - (s2[0] - s0[0]) * (s1[1] - s0[1]);
       if (Math.abs(den) < 1e-6) return;
@@ -671,7 +666,7 @@
       var e = d0[0] - a * s0[0] - c * s0[1];
       var f = d0[1] - b * s0[0] - d * s0[1];
       ctx.save();
-      ctx.beginPath(); // grow the triangle slightly so bands meet without hairline gaps
+      ctx.beginPath();
       var cx = (d0[0] + d1[0] + d2[0]) / 3, cy = (d0[1] + d1[1] + d2[1]) / 3;
       [d0, d1, d2].forEach(function (p, k) {
         var dx = p[0] - cx, dy = p[1] - cy, len = Math.sqrt(dx * dx + dy * dy) || 1;
@@ -680,49 +675,71 @@
       });
       ctx.closePath(); ctx.clip();
       ctx.transform(a, b, c, d, e, f);
-      ctx.drawImage(img, 0, 0);
+      ctx.drawImage(img, 0, 0, W, H);
       ctx.restore();
     }
-    function draw(p) { // p = 0 (inside the printer) to 1 (fully printed)
+    function draw(p) {
       ctx.setTransform(scale, 0, 0, scale, 0, 0);
       ctx.clearRect(0, 0, W, H);
       ctx.save();
       ctx.beginPath();
       SLOT.forEach(function (pt, i) { if (i) ctx.lineTo(pt[0], pt[1]); else ctx.moveTo(pt[0], pt[1]); });
       ctx.closePath(); ctx.clip();
-      var out = p * N, shift = N - out;   // how much has come out / is still inside
-      // drawn from the top band down; each band reaches a little into the one above,
-      // so the soft edges between bands are always covered (no visible seams)
+      var out = p * N, shift = N - out;
       for (var i = Math.ceil(out) - 1; i >= 0; i--) {
         var top = Math.min(i + 1.8, out);
-        var dA = lineAt(i), dB = lineAt(top);             // where this band sits now
-        var sA = lineAt(i + shift), sB = lineAt(top + shift); // which part of the picture it shows
+        var dA = lineAt(i), dB = lineAt(top);
+        var sA = lineAt(i + shift), sB = lineAt(top + shift);
         tri(sA[0], sA[1], sB[1], dA[0], dA[1], dB[1]);
         tri(sA[0], sB[1], sB[0], dA[0], dB[1], dB[0]);
       }
       ctx.restore();
     }
-    function ease(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; } // gentle start and finish
-    function start() {
+    function ease(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+    function play() {
       feed.appendChild(canvas);
       feed.classList.add("is-printing");
       draw(0);
-      var DELAY = 800, DURATION = 3600, t0 = null;
+      var DELAY = cfg.delay || 800, DURATION = cfg.duration || 3600, t0 = null;
       function tick(now) {
         if (t0 === null) t0 = now;
         var t = Math.min(1, Math.max(0, (now - t0 - DELAY) / DURATION));
         draw(ease(t));
         if (t < 1) requestAnimationFrame(tick);
-        else { // swap back to the sharp original image when done
-          feed.classList.remove("is-printing");
-          canvas.remove();
-        }
+        else { feed.classList.remove("is-printing"); canvas.remove(); }
       }
       requestAnimationFrame(tick);
     }
+    function start() {
+      // wait until the printer is on screen, so visitors actually see it print
+      if ("IntersectionObserver" in window) {
+        feed.classList.add("is-printing"); // hide the finished sticker until it prints
+        var io = new IntersectionObserver(function (en) {
+          if (en[0].isIntersecting) { io.disconnect(); play(); }
+        }, { threshold: 0.4 });
+        io.observe(feed.parentNode);
+      } else play();
+    }
     if (img.complete && img.naturalWidth) start();
     else img.addEventListener("load", start);
-  })();
+  }
+
+  // home page hero (sunset sticker)
+  printFeed(document.querySelector(".hero-feed"), {
+    W: 410, H: 285,
+    L: [[111.0,283.0],[114.0,279.5],[117.6,277.4],[119.0,272.6],[118.0,267.6],[117.5,262.5],[117.0,257.3],[116.0,252.3],[114.6,247.6],[113.6,242.6],[112.0,237.9],[111.0,232.9],[110.0,228.0],[109.0,223.0],[108.0,218.1],[106.4,213.4],[105.0,208.6],[103.8,203.8],[102.1,199.1],[101.0,194.2],[99.4,189.4],[98.0,184.7],[96.1,180.1],[95.0,175.2],[93.5,170.5],[91.8,165.8],[90.0,161.2],[88.0,156.6],[86.1,152.1],[84.4,147.4],[82.7,142.7],[81.0,138.1],[79.0,133.5],[77.0,129.0],[75.0,124.4],[73.0,119.9],[71.0,115.4],[68.9,110.9],[66.5,106.5],[64.1,102.1],[62.0,97.6],[59.4,93.4],[57.0,89.0],[54.6,84.6],[52.2,80.2],[49.8,75.8],[47.0,71.7],[44.4,67.4],[41.3,63.3],[38.2,59.2],[35.1,55.1],[32.7,50.7],[29.0,46.9],[25.9,42.9],[22.8,38.8],[19.0,35.0],[15.2,31.2],[11.4,27.4],[7.6,23.6],[3.8,19.8],[0.0,16.0]],
+    R: [[409.0,249.0],[409.0,243.9],[408.0,239.3],[408.0,234.2],[406.6,229.6],[405.2,225.2],[404.0,220.6],[403.6,215.6],[402.2,211.2],[401.0,206.6],[400.0,201.9],[399.0,197.2],[398.0,192.6],[396.9,187.9],[395.0,183.7],[394.0,179.0],[393.0,174.3],[391.1,170.1],[390.0,165.4],[388.1,161.1],[387.0,156.5],[385.2,152.2],[384.0,147.6],[382.0,143.3],[380.8,138.8],[379.0,134.4],[377.1,130.1],[375.6,125.6],[374.0,121.2],[372.0,117.0],[370.0,112.7],[368.3,108.3],[366.1,104.1],[364.0,100.0],[362.5,95.5],[360.3,91.3],[358.1,87.1],[356.0,83.0],[353.8,78.8],[351.6,74.6],[349.0,70.6],[346.5,66.5],[344.4,62.4],[342.0,58.3],[339.3,54.3],[336.4,50.4],[333.5,46.5],[330.6,42.6],[327.8,38.8],[324.2,35.2],[321.3,31.3],[318.0,27.5],[314.8,23.8],[311.2,20.2],[307.3,17.3],[303.6,14.0],[299.8,10.8],[295.9,8.0],[292.1,5.1],[287.9,2.9],[284.0,0.0]],
+    SLOT: [[292.0,5.0],[282.0,0.0],[248.0,3.0],[0.0,16.0],[24.0,40.0],[41.0,62.0],[56.0,86.0],[73.0,119.0],[94.0,171.0],[102.0,196.0],[117.0,255.0],[119.0,272.0],[409.0,243.0],[408.0,231.0],[406.0,230.0],[404.0,216.0],[393.0,174.0],[380.0,136.0],[364.0,98.0],[348.0,68.0],[332.0,44.0],[310.0,19.0]]
+  });
+
+  // About page (blush pink printer)
+  printFeed(document.querySelector(".about-feed"), {
+    W: 220, H: 164,
+    L: [[10.0,164.0],[10.1,161.5],[10.1,158.9],[10.2,156.4],[10.2,153.9],[10.3,151.4],[10.3,148.9],[10.4,146.4],[10.4,143.9],[10.5,141.4],[10.5,138.9],[10.6,136.5],[10.6,134.0],[10.7,131.6],[10.7,129.1],[10.8,126.7],[10.8,124.3],[10.9,121.9],[11.0,119.5],[11.0,117.1],[11.1,114.7],[11.1,112.3],[11.2,110.0],[11.2,107.6],[11.3,105.2],[11.4,102.9],[11.4,100.6],[11.5,98.2],[11.5,95.9],[11.6,93.6],[11.7,91.3],[11.7,89.0],[11.8,86.8],[11.8,84.5],[11.9,82.2],[12.0,80.0],[12.0,77.7],[12.1,75.5],[12.1,73.2],[12.2,71.0],[12.3,68.8],[12.3,66.6],[12.4,64.4],[12.5,62.2],[12.5,60.0],[12.6,57.9],[12.7,55.7],[12.7,53.5],[12.8,51.4],[12.9,49.3],[12.9,47.1],[13.0,45.0],[13.1,42.9],[13.1,40.8],[13.2,38.7],[13.3,36.6],[13.3,34.5],[13.4,32.5],[13.5,30.4],[13.5,28.3],[13.6,26.3]],
+    R: [[210.0,164.0],[209.9,161.5],[209.9,158.9],[209.8,156.4],[209.8,153.9],[209.7,151.4],[209.7,148.9],[209.6,146.4],[209.6,143.9],[209.5,141.4],[209.5,138.9],[209.4,136.5],[209.4,134.0],[209.3,131.6],[209.3,129.1],[209.2,126.7],[209.2,124.3],[209.1,121.9],[209.0,119.5],[209.0,117.1],[208.9,114.7],[208.9,112.3],[208.8,110.0],[208.8,107.6],[208.7,105.2],[208.6,102.9],[208.6,100.6],[208.5,98.2],[208.5,95.9],[208.4,93.6],[208.3,91.3],[208.3,89.0],[208.2,86.8],[208.2,84.5],[208.1,82.2],[208.0,80.0],[208.0,77.7],[207.9,75.5],[207.9,73.2],[207.8,71.0],[207.7,68.8],[207.7,66.6],[207.6,64.4],[207.5,62.2],[207.5,60.0],[207.4,57.9],[207.3,55.7],[207.3,53.5],[207.2,51.4],[207.1,49.3],[207.1,47.1],[207.0,45.0],[206.9,42.9],[206.9,40.8],[206.8,38.7],[206.7,36.6],[206.7,34.5],[206.6,32.5],[206.5,30.4],[206.5,28.3],[206.4,26.3]],
+    SLOT: [[0,0],[220,0],[220,161],[0,161]],
+    delay: 500
+  });
 
   /* ---------- About page: count the "Pixelle so far" numbers up ----------
      Each [data-count] number starts at 0 and counts up to its value the first

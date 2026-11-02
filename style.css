@@ -2512,13 +2512,14 @@
     clip-path: polygon(71.22% 1.75%, 68.78% 0.00%, 60.49% 1.05%, 0.00% 5.61%, 5.85% 14.04%, 10.00% 21.75%, 13.66% 30.18%, 17.80% 41.75%, 22.93% 60.00%, 24.88% 68.77%, 28.54% 89.47%, 29.02% 95.44%, 99.76% 85.26%, 99.51% 81.05%, 99.02% 80.70%, 98.54% 75.79%, 95.85% 61.05%, 92.68% 47.72%, 88.78% 34.39%, 84.88% 23.86%, 80.98% 15.44%, 75.61% 6.67%);
   }
   .hero-paper,
-  .hero-paper-canvas {
+  .print-canvas {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
   }
-  .hero-feed.is-printing .hero-paper { visibility: hidden; }
+  .hero-feed.is-printing .hero-paper,
+  .about-feed.is-printing > img { visibility: hidden; }
   /* soft wash behind the text so it always reads clearly */
   .home-hero-media::after {
     content: "";
@@ -2801,13 +2802,17 @@
   .sustain-chips { display: flex; flex-wrap: wrap; gap: 8px; }
   .sustain-chips span { background: #fff; border-radius: 999px; padding: 7px 14px; font: 600 12px var(--ff-head); color: var(--ink); }
   .sustain-visual {
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     min-height: 380px;
-    background: var(--blush);
-    border-radius: 28px;
-    overflow: hidden;
   }
-  .sustain-visual .mini-sticker { width: 40%; }
+  .sustain-visual img {
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    filter: drop-shadow(0 22px 22px rgba(24, 24, 27, 0.16));
+  }
   .sustain-text p { color: #3F3B37; font-size: 16px; max-width: 520px; }
   .sustain-text strong { color: var(--ink); }
   .sustain-text .sustain-chips { margin-top: 18px; }
@@ -2836,3 +2841,21 @@
     .stats-grid { grid-template-columns: 1fr; }
     .stat-tile { min-height: 150px; }
   }
+  
+  /* About page printer photo + print animation (same effect as the home hero) */
+  .about-printer { position: relative; width: 100%; max-width: 560px; margin: 0 auto; }
+  .about-printer > img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 22px 22px rgba(24, 24, 27, 0.14));
+  }
+  .about-feed {
+    position: absolute;
+    left: 37.363%;
+    top: 12.821%;
+    width: 26.862%;
+    height: 26.282%;
+  }
+  .about-feed > img,
+  .about-feed > .print-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
