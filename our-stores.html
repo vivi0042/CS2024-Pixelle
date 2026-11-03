@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="./style.css?v=5" />
     <!-- Swiper.js (Where to Buy page only): events carousel -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="./stores.css?v=9" />
+    <link rel="stylesheet" href="./stores.css?v=11" />
     <!-- favicon -->
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
     <title>Where to Buy Pixelle | Online Store, Shopee, Lazada & Pop-ups</title>
@@ -131,102 +131,99 @@
         </div>
       </div>
 
-      <!-- Pop-ups & events carousel (Swiper.js, see stores.js + stores.css) -->
+      <!-- Pop-ups & events carousel (Swiper.js, see stores.js + stores.css).
+           Upcoming events: set data-ev-start / data-ev-end (YYYY-MM-DD) on the card. "Save the date" shows until the end date, then hides itself. -->
       <section class="ev-section" aria-labelledby="events-title" data-ev-section>
         <div class="ev-head">
           <div>
             <span class="ev-eyebrow">Pop-ups &amp; collaborations</span>
             <h2 id="events-title" class="ev-heading">Pixelle Pop-Ups &amp; Events</h2>
-            <p class="ev-intro">Come print a free sticker on us, try every colour in person and pick up event-only bundles.</p>
+            <p class="ev-intro">Where we've been printing little memories with you. Come say hi, print a free sticker and try every colour in person at our next one.</p>
           </div>
           <div class="ev-nav">
             <button type="button" class="ev-arrow ev-prev" aria-label="Previous events"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button>
             <button type="button" class="ev-arrow ev-next" aria-label="Next events"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
           </div>
         </div>
-        <div class="swiper ev-swiper" aria-label="Upcoming Pixelle events">
+        <div class="swiper ev-swiper" aria-label="Pixelle pop-ups and events">
           <div class="swiper-wrapper">
             <article class="swiper-slide ev-card">
               <div class="ev-photo">
                 <!-- replace with a real event photo (portrait works best) -->
-                <img src="images/purchase/Pixelle-BlushPink-02.png" alt="Pixelle Snap printing a photo at the holiday gift-wrapping table" width="1254" height="1254" loading="lazy" />
-                <span class="ev-date">12 – 24 Dec 2026</span>
+                <img src="images/purchase/Pixelle-BlushPink-02.png" alt="Pixelle Snap printing a photo at the Mercury Fest booth" width="1254" height="1254" loading="lazy" />
               </div>
               <div class="ev-body">
-                <p class="ev-loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Holiday Pop-up · Orchard</p>
-                <h3 class="ev-title">Christmas gift-wrapping station</h3>
-                <p class="ev-desc">Print a photo on the spot and we'll wrap your Pixelle with a festive frame card. Free gift wrapping all day.</p>
-                <button type="button" class="ev-save" data-ev-ics data-start="20261212" data-end="20261225" data-title="Pixelle: Christmas gift-wrapping station" data-where="Holiday Pop-up · Orchard"><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Save the date</button>
+                <p class="ev-loc">@Singapore Expo</p>
+                <h3 class="ev-title">Mercury Fest 2026</h3>
+                <p class="ev-desc">Mercury Fest was our biggest pop-up yet! Surrounded by amazing local independent creators, we loved meeting everyone and sharing the joy of printing little memories.</p>
               </div>
             </article>
             <article class="swiper-slide ev-card">
               <div class="ev-photo">
                 <!-- replace with a real event photo (portrait works best) -->
-                <img src="images/purchase/HallMemories.png" alt="Photo stickers pinned on a corkboard with fairy lights in a hall room" width="1254" height="1254" loading="lazy" />
-                <span class="ev-date">12 – 16 Jan 2027</span>
+                <img src="images/purchase/HallMemories.png" alt="Photo stickers of friends pinned on a corkboard" width="1254" height="1254" loading="lazy" />
               </div>
               <div class="ev-body">
-                <p class="ev-loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Campus Pop-up · North</p>
-                <h3 class="ev-title">Back-to-school week</h3>
-                <p class="ev-desc">Decorate your hall room before the semester starts. Your first sticker is on us, plus an event-only Starter Bundle.</p>
-                <button type="button" class="ev-save" data-ev-ics data-start="20270112" data-end="20270117" data-title="Pixelle: Back-to-school week" data-where="Campus Pop-up · North"><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Save the date</button>
+                <p class="ev-loc">@Nanyang Technological University</p>
+                <h3 class="ev-title">NTU Fest 2026</h3>
+                <p class="ev-desc">Back to campus, where memories are made! We loved seeing students capture their favourite moments with friends and turn them into little keepsakes.</p>
               </div>
             </article>
-            <article class="swiper-slide ev-card">
+            <article class="swiper-slide ev-card" data-ev-start="2026-12-05" data-ev-end="2026-12-06">
+              <div class="ev-photo">
+                <!-- replace with a real event photo (portrait works best) -->
+                <img src="images/purchase/Small-BusinessPackaging.png" alt="Handmade treats wrapped with Pixelle photo stickers" width="1254" height="1254" loading="lazy" />
+              </div>
+              <div class="ev-body">
+                <p class="ev-loc">@Suntec Singapore</p>
+                <p class="ev-when" data-ev-upcoming hidden><i class="fa-regular fa-calendar" aria-hidden="true"></i> Sat 5 – Sun 6 Dec 2026</p>
+                <h3 class="ev-title">Public Garden 2026</h3>
+                <p class="ev-desc">A weekend surrounded by creativity and independent makers! We brought Pixelle to the creative community, sharing little prints, handmade treasures and lots of inspiration.</p>
+                <button type="button" class="ev-save" data-ev-ics data-ev-upcoming data-title="Pixelle at Public Garden 2026" data-where="Suntec Singapore" hidden><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Save the date</button>
+              </div>
+            </article>
+            <article class="swiper-slide ev-card" data-ev-start="2026-11-14" data-ev-end="2027-01-03">
               <div class="ev-photo">
                 <!-- replace with a real event photo (portrait works best) -->
                 <img src="images/purchase/Pixelle-SageMist-02.png" alt="Sage Mist Pixelle Snap printing a landscape photo" width="1254" height="1254" loading="lazy" />
-                <span class="ev-date">19 – 23 Jan 2027</span>
               </div>
               <div class="ev-body">
-                <p class="ev-loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Campus Pop-up · Central</p>
-                <h3 class="ev-title">Freshmen orientation fair</h3>
-                <p class="ev-desc">Snap a photo with your new orientation group and walk away with matching stickers in under a minute.</p>
-                <button type="button" class="ev-save" data-ev-ics data-start="20270119" data-end="20270124" data-title="Pixelle: Freshmen orientation fair" data-where="Campus Pop-up · Central"><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Save the date</button>
+                <p class="ev-loc">@Singapore International Photography Festival</p>
+                <p class="ev-when" data-ev-upcoming hidden><i class="fa-regular fa-calendar" aria-hidden="true"></i> 14 Nov 2026 – 3 Jan 2027</p>
+                <h3 class="ev-title">Beyond the Camera Roll</h3>
+                <p class="ev-desc">A celebration of photography beyond the screen! We met fellow photo lovers and turned their favourite shots into memories they could hold, peel and stick.</p>
+                <button type="button" class="ev-save" data-ev-ics data-ev-upcoming data-title="Pixelle at Beyond the Camera Roll" data-where="Singapore International Photography Festival" hidden><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Save the date</button>
               </div>
             </article>
-            <article class="swiper-slide ev-card">
+            <article class="swiper-slide ev-card" data-ev-start="2026-11-21" data-ev-end="2026-11-21">
               <div class="ev-photo">
                 <!-- replace with a real event photo (portrait works best) -->
-                <img src="images/purchase/ScrapbookJournal.png" alt="Travel journal decorated with Pixelle photo stickers" width="1254" height="1254" loading="lazy" />
-                <span class="ev-date">Sat 6 Feb 2027</span>
+                <img src="images/purchase/ScrapbookJournal.png" alt="A journal decorated with Pixelle photo stickers at the café workshop" width="1254" height="1254" loading="lazy" />
               </div>
               <div class="ev-body">
-                <p class="ev-loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Craft Market · Tiong Bahru</p>
-                <h3 class="ev-title">Journaling &amp; zine fair</h3>
-                <p class="ev-desc">Bring a notebook, borrow our washi tapes and print stickers straight from your camera roll.</p>
-                <button type="button" class="ev-save" data-ev-ics data-start="20270206" data-end="20270207" data-title="Pixelle: Journaling & zine fair" data-where="Craft Market · Tiong Bahru"><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Save the date</button>
+                <p class="ev-loc">@Pixelle × Journaling Café</p>
+                <p class="ev-when" data-ev-upcoming hidden><i class="fa-regular fa-calendar" aria-hidden="true"></i> Sat 21 Nov 2026</p>
+                <h3 class="ev-title">Sip, Print &amp; Stick</h3>
+                <p class="ev-desc">Good coffee, cosy corners and a little creativity! Our journaling workshop brought everyone together to print their favourite moments and make them part of their own story.</p>
+                <button type="button" class="ev-save" data-ev-ics data-ev-upcoming data-title="Pixelle at Sip, Print & Stick" data-where="Pixelle × Journaling Café" hidden><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Save the date</button>
               </div>
             </article>
-            <article class="swiper-slide ev-card">
+            <article class="swiper-slide ev-card" data-ev-start="2026-12-19" data-ev-end="2026-12-20">
               <div class="ev-photo">
                 <!-- replace with a real event photo (portrait works best) -->
-                <img src="images/purchase/Small-BusinessPackaging.png" alt="Bake boxes tied with twine and sealed with Pixelle photo stickers" width="1254" height="1254" loading="lazy" />
-                <span class="ev-date">Sat 20 Feb 2027</span>
+                <img src="images/purchase/Cozy%20Cat%20Scrapbooking%20Desk%20Setup.png" alt="Personalised pet photo stickers in a scrapbook next to a Pixelle Snap" width="1254" height="1254" loading="lazy" />
               </div>
               <div class="ev-body">
-                <p class="ev-loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Collab · Home bakers, Bedok</p>
-                <h3 class="ev-title">Sticker your packaging</h3>
-                <p class="ev-desc">A hands-on workshop with local home bakers on thank-you stickers that customers actually keep.</p>
-                <button type="button" class="ev-save" data-ev-ics data-start="20270220" data-end="20270221" data-title="Pixelle: Sticker your packaging" data-where="Collab · Home bakers, Bedok"><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Save the date</button>
-              </div>
-            </article>
-            <article class="swiper-slide ev-card">
-              <div class="ev-photo">
-                <!-- replace with a real event photo (portrait works best) -->
-                <img src="images/purchase/Cozy%20Cat%20Scrapbooking%20Desk%20Setup.png" alt="A ginger cat next to a scrapbook full of its own photo stickers" width="1254" height="1254" loading="lazy" />
-                <span class="ev-date">Sun 7 Mar 2027</span>
-              </div>
-              <div class="ev-body">
-                <p class="ev-loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Collab · Cat café, Katong</p>
-                <h3 class="ev-title">Pet portrait sticker day</h3>
-                <p class="ev-desc">Bring a photo of your furkid and print a sheet of pet portrait stickers. Proceeds go to a local shelter.</p>
-                <button type="button" class="ev-save" data-ev-ics data-start="20270307" data-end="20270308" data-title="Pixelle: Pet portrait sticker day" data-where="Collab · Cat café, Katong"><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Save the date</button>
+                <p class="ev-loc">@Singapore Creative Flea Market</p>
+                <p class="ev-when" data-ev-upcoming hidden><i class="fa-regular fa-calendar" aria-hidden="true"></i> Sat 19 – Sun 20 Dec 2026</p>
+                <h3 class="ev-title">Made to Stick</h3>
+                <p class="ev-desc">A weekend of discovering local gems and making new memories! From personalised photo stickers to cute Pixelle merch, there was a little something for everyone.</p>
+                <button type="button" class="ev-save" data-ev-ics data-ev-upcoming data-title="Pixelle at Made to Stick" data-where="Singapore Creative Flea Market" hidden><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Save the date</button>
               </div>
             </article>
           </div>
         </div>
-        <p class="ev-note"><i class="fa-brands fa-instagram" aria-hidden="true"></i> Venues and timings are confirmed on our Instagram @pixellesg a week before each event.</p>
+        <p class="ev-note"><i class="fa-brands fa-instagram" aria-hidden="true"></i> Follow @pixellesg on Instagram to hear about our next pop-up first.</p>
       </section>
     </div>
     </main>
@@ -398,6 +395,6 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="scrolling-animation.js?v=6"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.js"></script>
-    <script src="stores.js?v=9"></script>
+    <script src="stores.js?v=11"></script>
   </body>
 </html>

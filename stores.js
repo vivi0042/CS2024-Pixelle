@@ -1,11 +1,52 @@
 /* Pixelle — Where to Buy (our-stores.html): pop-ups & events carousel.
-   Swiper.js: 2 cards on desktop, ~1.1 on phones, arrows + swipe, slow endless autoplay. */
+   Swiper.js: 1 wide card per view, ~1.1 on phones, arrows + swipe, slow endless autoplay. */
 (function () {
   "use strict";
 
   var section = document.querySelector("[data-ev-section]");
   if (!section) return;
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- upcoming events: show the date + "Save the date" until the event ends ---------- */
+  var today = new Date();
+  var todayKey = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+  function key(iso) { return parseInt(iso.replace(/-/g, ""), 10); }
+  section.querySelectorAll(".ev-card[data-ev-end]").forEach(function (card) {
+    var upcoming = key(card.getAttribute("data-ev-end")) >= todayKey;
+    card.querySelectorAll("[data-ev-upcoming]").forEach(function (el) { el.hidden = !upcoming; });
+  });
+
+  // "Save the date": download a calendar file (.ics); nothing is sent anywhere
+  section.addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-ev-ics]");
+    if (!btn) return;
+    var card = btn.closest(".ev-card");
+    var start = card.getAttribute("data-ev-start").replace(/-/g, "");
+    var endDate = new Date(card.getAttribute("data-ev-end") + "T00:00:00");
+    endDate.setDate(endDate.getDate() + 1);           // calendar all-day events end the day after
+    var end = endDate.getFullYear() + String(endDate.getMonth() + 1).padStart(2, "0") + String(endDate.getDate()).padStart(2, "0");
+    var title = btn.getAttribute("data-title");
+    var ics = [
+      "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Pixelle//Events//EN", "BEGIN:VEVENT",
+      "UID:" + start + "-" + title.replace(/[^a-z0-9]+/gi, "-").toLowerCase() + "@pixelle.sg",
+      "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z",
+      "DTSTART;VALUE=DATE:" + start, "DTEND;VALUE=DATE:" + end,
+      "SUMMARY:" + title, "LOCATION:" + btn.getAttribute("data-where") + ", Singapore",
+      "DESCRIPTION:Come print a free sticker with Pixelle! Follow @pixellesg for booth details.",
+      "END:VEVENT", "END:VCALENDAR"
+    ].join("\r\n");
+    var url = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = title.replace(/^Pixelle at /, "").replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase() + ".ics";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    var label = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-check" aria-hidden="true"></i> Added';
+    setTimeout(function () { btn.innerHTML = label; }, 1800);
+  });
 
   if (window.Swiper) {
     var swiper = new window.Swiper(section.querySelector(".ev-swiper"), {
@@ -30,11 +71,10 @@
         slideLabelMessage: "Event {{index}} of {{slidesLength}}"
       },
       breakpoints: {
-        576: { slidesPerView: 1.25, spaceBetween: 20 },
-        992: { slidesPerView: 2, spaceBetween: 24 }   // desktop: 2 events side by side
+        576: { slidesPerView: 1, spaceBetween: 24 }   // tablet + desktop: one wide card per view
       }
     });
-    // keyboard users: hold still while focus is inside the carousel (e.g. on "Save the date")
+    // keyboard users: hold still while focus is inside the carousel
     if (swiper.autoplay) {
       var box = section.querySelector(".ev-swiper");
       box.addEventListener("focusin", function () { swiper.autoplay.pause(); });
@@ -47,33 +87,6 @@
     section.querySelectorAll(".ev-card").forEach(function (c) { c.style.flex = "0 0 min(90%,520px)"; c.style.scrollSnapAlign = "start"; });
     section.querySelector(".ev-nav").hidden = true;
   }
-
-  // "Save the date": download a calendar file (.ics) for the event; nothing is sent anywhere
-  section.addEventListener("click", function (e) {
-    var btn = e.target.closest("[data-ev-ics]");
-    if (!btn) return;
-    var d = btn.dataset;
-    var ics = [
-      "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Pixelle//Events//EN", "BEGIN:VEVENT",
-      "UID:" + d.start + "-" + d.title.replace(/[^a-z0-9]+/gi, "-").toLowerCase() + "@pixelle.sg",
-      "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z",
-      "DTSTART;VALUE=DATE:" + d.start, "DTEND;VALUE=DATE:" + d.end,
-      "SUMMARY:" + d.title, "LOCATION:" + d.where + ", Singapore",
-      "DESCRIPTION:Times and venue are confirmed on Instagram @pixellesg a week before.",
-      "END:VEVENT", "END:VCALENDAR"
-    ].join("\r\n");
-    var url = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
-    var a = document.createElement("a");
-    a.href = url;
-    a.download = d.title.replace(/^Pixelle: /, "").replace(/[^a-z0-9]+/gi, "-").toLowerCase() + ".ics";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
-    var label = btn.innerHTML;
-    btn.innerHTML = '<i class="fa-solid fa-check" aria-hidden="true"></i> Added';
-    setTimeout(function () { btn.innerHTML = label; }, 1800);
-  });
 
   // fade the section in the first time it scrolls into view
   if (reduce || !("IntersectionObserver" in window)) return;
