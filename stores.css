@@ -1,4 +1,17 @@
-/* Pixelle — Where to Buy (our-stores.html): pop-ups & events carousel (Swiper.js). */
+/* Pixelle — Where to Buy (our-stores.html): store cards + pop-ups & events carousel (Swiper.js). */
+
+/* ---------- Shopee / Lazada store cards ---------- */
+.box[data-store="lazada"] { background: #E4E8FB; border-color: #E4E8FB; }
+.box[data-store] .btn-visit {
+  min-width: 120px;
+  color: #fff;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.box[data-store="shopee"] .btn-visit { background: #EE4D2D; }
+.box[data-store="shopee"] .btn-visit:hover { background: #D7401F; transform: translateY(-2px); }
+.box[data-store="lazada"] .btn-visit { background: #0B0F7D; }
+.box[data-store="lazada"] .btn-visit:hover { background: #070A5A; transform: translateY(-2px); }
+.box[data-store] .btn-visit:focus-visible { outline: 3px solid #18181B; outline-offset: 3px; }
 
 .ev-section {
   --ev-sage: #2E4A42;

@@ -1,5 +1,5 @@
 /* Pixelle — Where to Buy (our-stores.html): pop-ups & events carousel.
-   Swiper.js: 3 cards on desktop, ~1.2 on phones, arrows + swipe, no autoplay. */
+   Swiper.js: 2 cards on desktop, ~1.1 on phones, arrows + swipe, slow endless autoplay. */
 (function () {
   "use strict";
 
@@ -8,12 +8,17 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (window.Swiper) {
-    new window.Swiper(section.querySelector(".ev-swiper"), {
+    var swiper = new window.Swiper(section.querySelector(".ev-swiper"), {
       slidesPerView: 1.1,           // phones: one card plus a peek of the next
       spaceBetween: 16,
-      speed: reduce ? 0 : 600,
+      speed: reduce ? 0 : 1200,     // slow, gentle glide
+      loop: true,                   // endless: after the last event it carries on from the first
+      autoplay: reduce ? false : {
+        delay: 4500,                // each view stays put for 4.5 s so there's time to read
+        pauseOnMouseEnter: true,    // hovering a card holds the carousel still
+        disableOnInteraction: false // keeps going after someone uses the arrows or swipes
+      },
       grabCursor: true,
-      watchOverflow: true,
       navigation: {
         prevEl: section.querySelector(".ev-prev"),
         nextEl: section.querySelector(".ev-next")
@@ -29,6 +34,12 @@
         992: { slidesPerView: 2, spaceBetween: 24 }   // desktop: 2 events side by side
       }
     });
+    // keyboard users: hold still while focus is inside the carousel (e.g. on "Save the date")
+    if (swiper.autoplay) {
+      var box = section.querySelector(".ev-swiper");
+      box.addEventListener("focusin", function () { swiper.autoplay.pause(); });
+      box.addEventListener("focusout", function (e) { if (!box.contains(e.relatedTarget)) swiper.autoplay.resume(); });
+    }
   } else {
     // Swiper didn't load: fall back to a native horizontal scroll so every event is still reachable
     var wrapper = section.querySelector(".swiper-wrapper");
