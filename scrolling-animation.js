@@ -181,18 +181,31 @@
 
   /* ---------- cart ---------- */
   var PRODUCTS = {
-    starter: { name: "Pixelle Snap · Starter", price: 99.9 },
-    creator: { name: "Pixelle Snap · Creator Bundle", price: 139.9 },
-    refill50: { name: "Sticker Paper · 50 sheets", price: 29.9 },
-    refill100: { name: "Sticker Paper · 100 sheets", price: 54.9 },
+    starter: { name: "Pixelle Snap · Starter Bundle", price: 59.9 },
+    creator: { name: "Pixelle Snap · Creator Bundle", price: 69.9 },
+    refill30: { name: "Sticker Paper · 30 sheets", price: 19.9 },
+    refill60: { name: "Sticker Paper · 60 sheets", price: 29.9 },
   };
+  /* Two-stage cart rewards, based on the item subtotal before promo codes. */
+  var GIFT_MIN = 70;          // stage 1: free sticker merch
+  var FREE_SHIP_MIN = 99;     // stage 2: free delivery
+  var SHIPPING_FEE = 4.9;     // delivery fee below FREE_SHIP_MIN
+  var PHOTO = { sage: "SageMist", coral: "BlushPink", cream: "CloudCream" };
+  var EXPRESS_FEE = 9.9;      // express delivery is always charged
+  var SHIP_METHODS = {
+    standard: { label: "Standard delivery", eta: "Next working day" },
+    express: { label: "Express delivery", eta: "Same day if you order by 12 PM" }
+  };
+  function shipMethod() { var m = load(SS, "pixelle-ship", "standard"); return SHIP_METHODS[m] ? m : "standard"; }
+  function shipFee(method, sub) { return method === "express" ? EXPRESS_FEE : sub >= FREE_SHIP_MIN ? 0 : SHIPPING_FEE; }
   var PROMOS = { PIXELCLUB10: { pct: 10, min: 0, label: "10% off first order (member)" } };
   var COLOUR_NAMES = { sage: "Sage Mist", coral: "Blush Pink", cream: "Cloud Cream" };
   var COLOUR_HEX = { sage: "#B9D2BC", coral: "#EBB1AA", cream: "#EDE1C8" };
 
   function getCart() {
     // Skip items saved under colours we no longer sell (e.g. the retired Deep Evergreen).
-    return load(LS, "pixelle-cart", []).filter(function (i) { return !i.colour || COLOUR_NAMES[i.colour]; });
+    // (and products we no longer sell, e.g. the old 50/100-sheet refills)
+    return load(LS, "pixelle-cart", []).filter(function (i) { return PRODUCTS[i.sku] && (!i.colour || COLOUR_NAMES[i.colour]); });
   }
   function setCart(c) { save(LS, "pixelle-cart", c); renderCount(); }
   function money(n) { return "S$" + n.toFixed(2); }
@@ -213,8 +226,18 @@
     var code = load(SS, "pixelle-promo", null);
     var promo = code && PROMOS[code] && sub >= PROMOS[code].min ? PROMOS[code] : null;
     var off = promo ? Math.round(sub * promo.pct) / 100 : 0;
-    var total = Math.max(0, sub - off);
-    return { sub: sub, promo: promo, code: code, off: off, total: total, gst: total * 9 / 109 };
+    var gift = sub >= GIFT_MIN;
+    var method = shipMethod();
+    var ship = cart.length ? shipFee(method, sub) : 0;
+    var total = Math.max(0, sub - off) + ship;
+    return { sub: sub, promo: promo, code: code, off: off, gift: gift, ship: ship, method: method, total: total, gst: total * 9 / 109 };
+  }
+  // 0 = nothing unlocked, 1 = free sticker merch, 2 = merch + free delivery
+  function rewardTier(sub) { return sub >= FREE_SHIP_MIN ? 2 : sub >= GIFT_MIN ? 1 : 0; }
+  function rewardHint(sub) {
+    if (sub >= FREE_SHIP_MIN) return "You've unlocked free sticker merch and free delivery!";
+    if (sub >= GIFT_MIN) return "Add " + money(FREE_SHIP_MIN - sub) + " more for free delivery.";
+    return "Add " + money(GIFT_MIN - sub) + " more for free sticker merch.";
   }
   renderCount();
 
@@ -226,7 +249,7 @@
     var priceEl = document.getElementById("price");
     var wasEl = document.getElementById("price-was");
     var colourLabel = document.getElementById("colour-name");
-    var WAS = { starter: 119.9, creator: 169.9 };
+    var WAS = { starter: 79.9, creator: 89.9 };
     function paint() {
       var c = state.colour;
       stage.querySelectorAll(".printer-svg").forEach(function (svg) {
@@ -274,12 +297,12 @@
       if (qty > left) { showToast("Sorry, only " + left + " left in " + COLOUR_NAMES[c] + "."); return; }
       addItem(state.sku, state.colour, qty);
       renderStock();
-      showToast("Added " + qty + " × " + PRODUCTS[state.sku].name + " (" + COLOUR_NAMES[state.colour] + ") to cart");
+      showToast("Added " + qty + " × " + PRODUCTS[state.sku].name + " (" + COLOUR_NAMES[state.colour] + ") to cart. " + rewardHint(totals(getCart()).sub));
     });
     document.querySelectorAll("[data-add-refill]").forEach(function (b) {
       b.addEventListener("click", function () {
         addItem(b.getAttribute("data-add-refill"), null, 1);
-        showToast("Added " + PRODUCTS[b.getAttribute("data-add-refill")].name + " to cart");
+        showToast("Added " + PRODUCTS[b.getAttribute("data-add-refill")].name + " to cart. " + rewardHint(totals(getCart()).sub));
       });
     });
     var fav = document.getElementById("favourite");
@@ -308,10 +331,13 @@
       var swatch = item.colour
         ? '<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' + COLOUR_HEX[item.colour] + ';margin-right:6px;vertical-align:middle"></span>Colour: ' + COLOUR_NAMES[item.colour] + "<br />"
         : "";
+      var thumb = item.colour
+        ? '<img src="images/purchase/Pixelle-' + PHOTO[item.colour] + '-01.png" alt="" style="width:100%;height:100%;object-fit:contain" />'
+        : '<i class="fa-solid fa-note-sticky" style="color:#c4461d"></i>';
       row.innerHTML =
         '<td><div class="d-flex gap-3 align-items-start"><div class="cart-thumb" style="width:72px;height:72px;border-radius:12px;background:' +
-        (item.colour ? COLOUR_HEX[item.colour] : "#fde6dc") + ';display:grid;place-items:center;color:#fff;font-size:28px;flex:none">' +
-        '<i class="fa-solid ' + (item.colour ? "fa-print" : "fa-note-sticky") + '" style="color:' + (item.colour ? "#2E4A42" : "#c4461d") + '"></i></div>' +
+        (item.colour ? "#fff;border:1px solid #e7e5e4;padding:4px" : "#fde6dc") + ';display:grid;place-items:center;color:#fff;font-size:28px;flex:none">' +
+        thumb + "</div>" +
         '<div><h5 style="font-size:17px;margin-bottom:4px">' + p.name + '</h5><p style="margin:0"><small>' + swatch +
         (item.colour ? '<label><input type="checkbox" data-gift="' + idx + '"' + (item.gift ? " checked" : "") + ' /> Gift wrapping (free)</label>' : "") +
         "</small></p></div></div></td>" +
@@ -322,7 +348,19 @@
       cartBody.appendChild(row);
     });
     var t = totals(cart);
+    if (t.gift) {
+      // stage-1 reward appears as its own free line
+      var giftRow = document.createElement("tr");
+      giftRow.className = "cart-gift-row";
+      giftRow.innerHTML =
+        '<td><div class="d-flex gap-3 align-items-center"><div class="cart-thumb cart-gift-thumb"><i class="fa-solid fa-gift" aria-hidden="true"></i></div>' +
+        '<div><h5 style="font-size:17px;margin-bottom:4px">Pixelle sticker merch</h5><p style="margin:0"><small>Free gift for spending ' + money(GIFT_MIN) + " or more</small></p></div></div></td>" +
+        '<td><s>' + money(9.9) + '</s></td><td>1</td><td><strong class="cart-free">FREE</strong></td>';
+      cartBody.appendChild(giftRow);
+    }
+    renderRewards(t);
     document.getElementById("sum-sub").textContent = money(t.sub);
+    document.getElementById("sum-ship").innerHTML = (t.method === "express" ? "<small>Express</small> " : "") + (t.ship ? money(t.ship) : '<strong class="cart-free">FREE</strong>');
     document.getElementById("sum-total").textContent = money(t.total);
     document.getElementById("sum-gst").textContent = money(t.gst);
     var chip = document.getElementById("promo-applied");
@@ -332,6 +370,107 @@
       document.getElementById("promo-off").textContent = "-" + money(t.off);
     }
   }
+  /* ---------- cart rewards: 2-stage progress bar, add-ons, confetti ---------- */
+  var rewardsBox = document.getElementById("cart-rewards");
+  var addonsBox = document.getElementById("cart-addons");
+  var ADDONS = ["refill30", "refill60"];
+  function renderRewards(t) {
+    if (!rewardsBox) return;
+    var sub = t.sub;
+    var msg = rewardsBox.querySelector("[data-reward-msg]");
+    if (sub >= FREE_SHIP_MIN) {
+      msg.innerHTML = '<i class="fa-solid fa-champagne-glasses" aria-hidden="true"></i> Yay! You\'ve unlocked <strong>free sticker merch</strong> and <strong>free delivery</strong>.';
+    } else if (sub >= GIFT_MIN) {
+      msg.innerHTML = "Free sticker merch unlocked! Add <strong>" + money(FREE_SHIP_MIN - sub) + "</strong> more to save " + money(SHIPPING_FEE) + " on delivery.";
+    } else {
+      msg.innerHTML = "Add <strong>" + money(GIFT_MIN - sub) + "</strong> more to unlock <strong>free sticker merch</strong>!";
+    }
+    rewardsBox.querySelector("[data-reward-fill]").style.width = Math.min(100, sub / FREE_SHIP_MIN * 100) + "%";
+    rewardsBox.querySelector(".cart-rewards-bar").setAttribute("aria-valuenow", sub.toFixed(2));
+    rewardsBox.querySelectorAll("[data-reward-min]").forEach(function (m) {
+      var on = sub >= +m.getAttribute("data-reward-min");
+      m.classList.toggle("unlocked", on);
+      m.querySelector(".cart-reward-lock").className = "cart-reward-lock fa-solid " + (on ? "fa-circle-check" : "fa-lock");
+    });
+    renderAddons(sub);
+    celebrate(rewardTier(sub));
+  }
+  function renderAddons(sub) {
+    if (!addonsBox) return;
+    var list = addonsBox.querySelector("[data-addon-list]");
+    list.innerHTML = ADDONS.map(function (sku) {
+      var p = PRODUCTS[sku];
+      var after = sub + p.price;
+      var tag = "";
+      if (sub < FREE_SHIP_MIN && after >= FREE_SHIP_MIN) tag = '<span class="addon-tag"><i class="fa-solid fa-truck-fast"></i> Unlocks free delivery</span>';
+      else if (sub < GIFT_MIN && after >= GIFT_MIN) tag = '<span class="addon-tag"><i class="fa-solid fa-gift"></i> Unlocks free merch</span>';
+      return '<div class="addon-card"><div class="addon-thumb"><i class="fa-solid fa-note-sticky" aria-hidden="true"></i></div>' +
+        '<div class="addon-body"><h4>' + p.name.replace("Sticker Paper · ", "Sticker paper refill, ") + "</h4>" +
+        '<p class="mb-1"><strong>' + money(p.price) + "</strong> <small>(" + money(p.price / parseInt(sku.replace("refill", ""), 10)) + "/print)</small></p>" + tag +
+        '<button type="button" class="buy-now-button addon-add" data-addon="' + sku + '"><i class="fa-solid fa-plus"></i> Add to cart</button></div></div>';
+    }).join("");
+  }
+  if (addonsBox) {
+    addonsBox.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-addon]");
+      if (!b) return;
+      addItem(b.getAttribute("data-addon"), null, 1);
+      showToast("Added " + PRODUCTS[b.getAttribute("data-addon")].name + " to cart");
+      renderCart();
+    });
+  }
+  // Confetti when a new reward is unlocked. The last celebrated stage is kept for this visit only.
+  function celebrate(tier) {
+    var seen = load(SS, "pixelle-tier", 0);
+    save(SS, "pixelle-tier", tier);
+    if (tier <= seen) return;
+    showToast(tier === 2 ? "Free delivery unlocked! 🎉" : "Free sticker merch unlocked! 🎉");
+    confetti();
+  }
+  function confetti() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var canvas = document.createElement("canvas");
+    canvas.className = "confetti-canvas";
+    canvas.setAttribute("aria-hidden", "true");
+    document.body.appendChild(canvas);
+    var ctx = canvas.getContext("2d");
+    var dpr = window.devicePixelRatio || 1;
+    var W = window.innerWidth, H = window.innerHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.scale(dpr, dpr);
+    var COLOURS = ["#2E4A42", "#B9D2BC", "#EBB1AA", "#EDE1C8", "#F4E2B0", "#D9876A"];
+    var bits = [];
+    [0.2, 0.8].forEach(function (x0) {           // two bursts, left and right
+      for (var i = 0; i < 90; i++) {
+        var angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.6;
+        var speed = 9 + Math.random() * 9;
+        bits.push({
+          x: W * x0, y: H * 0.65,
+          vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+          w: 6 + Math.random() * 6, h: 8 + Math.random() * 8,
+          r: Math.random() * Math.PI, vr: (Math.random() - 0.5) * 0.3,
+          c: COLOURS[i % COLOURS.length]
+        });
+      }
+    });
+    var start = performance.now();
+    (function frame(now) {
+      var t = now - start;
+      ctx.clearRect(0, 0, W, H);
+      bits.forEach(function (b) {
+        b.vy += 0.32; b.vx *= 0.99; b.vy *= 0.99;
+        b.x += b.vx; b.y += b.vy; b.r += b.vr;
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, 1 - t / 2800);
+        ctx.translate(b.x, b.y); ctx.rotate(b.r);
+        ctx.fillStyle = b.c;
+        ctx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h * Math.abs(Math.cos(b.r * 2)));
+        ctx.restore();
+      });
+      if (t < 2800) requestAnimationFrame(frame); else canvas.remove();
+    })(start);
+  }
+
   if (cartBody) {
     cartBody.addEventListener("change", function (e) {
       var cart = getCart();
@@ -371,6 +510,127 @@
     renderCart();
   }
 
+  /* ---------- checkout + payment: order summary with photos ---------- */
+  var coSummary = document.querySelector("[data-co-summary]");
+  function itemThumb(item) {
+    return item.colour
+      ? '<img src="images/purchase/Pixelle-' + PHOTO[item.colour] + '-01.png" alt="" />'
+      : '<i class="fa-solid fa-note-sticky" aria-hidden="true"></i>';
+  }
+  function renderCoSummary() {
+    if (!coSummary) return;
+    var cart = getCart();
+    var t = totals(cart);
+    var count = cart.reduce(function (n, i) { return n + i.qty; }, 0);
+    var html = cart.map(function (i) {
+      var p = PRODUCTS[i.sku];
+      return '<li class="co-item"><span class="co-thumb' + (i.colour ? "" : " co-thumb-paper") + '">' + itemThumb(i) +
+        '<span class="co-qty" aria-label="Quantity ' + i.qty + '">' + i.qty + "</span></span>" +
+        '<span class="co-item-name">' + p.name + (i.colour ? "<small>" + COLOUR_NAMES[i.colour] + (i.gift ? " · gift wrapped" : "") + "</small>" : "") + "</span>" +
+        '<span class="co-item-price">' + money(p.price * i.qty) + "</span></li>";
+    }).join("");
+    if (t.gift) {
+      html += '<li class="co-item"><span class="co-thumb co-thumb-gift"><i class="fa-solid fa-gift" aria-hidden="true"></i><span class="co-qty">1</span></span>' +
+        '<span class="co-item-name">[FREE GIFT] Pixelle sticker merch<small>For spending ' + money(GIFT_MIN) + " or more</small></span>" +
+        '<span class="co-item-price">FREE</span></li>';
+    }
+    coSummary.querySelector("[data-co-items]").innerHTML = html;
+    var rows = '<div><span>Subtotal · ' + count + (count === 1 ? " item" : " items") + "</span><span>" + money(t.sub) + "</span></div>";
+    if (t.promo) rows += '<div class="co-discount"><span><i class="fa-solid fa-tag"></i> ' + t.code + "</span><span>-" + money(t.off) + "</span></div>";
+    rows += "<div><span>" + SHIP_METHODS[t.method].label + "</span><span>" + (t.ship ? money(t.ship) : "FREE") + "</span></div>";
+    rows += '<div class="co-total"><span>Total</span><span><small>SGD</small> ' + money(t.total) + "</span></div>";
+    rows += '<div class="co-gst"><span>Including ' + money(t.gst) + " in GST</span></div>";
+    coSummary.querySelector("[data-co-totals]").innerHTML = rows;
+    var hint = coSummary.querySelector("[data-co-hint]");
+    if (hint) {
+      hint.hidden = t.sub >= FREE_SHIP_MIN;
+      hint.innerHTML = '<i class="fa-solid fa-truck-fast"></i> ' + rewardHint(t.sub) + ' <a href="cart.html">Add more</a>';
+    }
+    document.querySelectorAll("[data-pay-total]").forEach(function (el) { el.textContent = money(t.total); });
+  }
+  if (coSummary) {
+    if (!getCart().length) window.location.replace("cart.html");
+    var coPromo = coSummary.querySelector("[data-co-promo]");
+    if (coPromo) {
+      coPromo.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var input = coPromo.querySelector("input");
+        var msg = coSummary.querySelector("[data-co-promo-msg]");
+        var code = input.value.trim().toUpperCase();
+        if (!PROMOS[code]) msg.textContent = "Enter a valid discount code.";
+        else { save(SS, "pixelle-promo", code); msg.textContent = "Code applied!"; input.value = ""; }
+        renderCoSummary();
+      });
+    }
+    renderCoSummary();
+  }
+
+  /* ---------- delivery details: kept in this tab only until the order is placed ---------- */
+  var DELIVERY_FIELDS = ["email", "phone", "firstname", "lastname", "address", "address2", "postal"];
+  var checkoutForm = document.querySelector('form[data-validate="checkout"]');
+  if (checkoutForm) {
+    var saved = load(SS, "pixelle-delivery", null);
+    if (saved) {
+      DELIVERY_FIELDS.forEach(function (n) { var f = checkoutForm.querySelector('[name="' + n + '"]'); if (f && saved[n]) f.value = saved[n]; });
+      var ack = checkoutForm.querySelector('[name="pdpa-ack"]');
+      if (ack) ack.checked = true;
+    }
+  }
+
+  /* ---------- payment page: review, delivery method, payment method ---------- */
+  var payForm = document.querySelector('form[data-validate="payment"]');
+  if (payForm) {
+    var d = load(SS, "pixelle-delivery", null);
+    if (!d) { window.location.replace("checkout.html"); }
+    else {
+      var esc = function (v) { var el = document.createElement("span"); el.textContent = v || ""; return el.innerHTML; };
+      payForm.querySelector('[data-review="contact"]').innerHTML = esc(d.email) + "<br />" + esc(d.phone);
+      payForm.querySelector('[data-review="address"]').innerHTML =
+        esc(d.firstname + " " + d.lastname) + "<br />" + esc(d.address) + (d.address2 ? ", " + esc(d.address2) : "") + "<br />Singapore " + esc(d.postal);
+    }
+    // delivery method
+    function paintShip() {
+      var sub = totals(getCart()).sub;
+      var m = shipMethod();
+      payForm.querySelectorAll('input[name="ship"]').forEach(function (r) {
+        r.checked = r.value === m;
+        var fee = shipFee(r.value, sub);
+        var price = payForm.querySelector('[data-ship-price="' + r.value + '"]');
+        price.innerHTML = fee ? money(fee) : '<strong class="co-free">FREE</strong>';
+        if (r.value === "standard" && sub < FREE_SHIP_MIN) price.innerHTML += '<small>Free over ' + money(FREE_SHIP_MIN) + "</small>";
+      });
+      payForm.querySelectorAll(".co-option").forEach(function (o) { o.classList.toggle("checked", o.querySelector("input").checked); });
+    }
+    payForm.addEventListener("change", function (e) {
+      if (e.target.name === "ship") { save(SS, "pixelle-ship", e.target.value); paintShip(); renderCoSummary(); }
+      if (e.target.name === "method") paintMethod();
+    });
+    // payment method: the chosen option opens its panel
+    function paintMethod() {
+      var chosen = payForm.querySelector('input[name="method"]:checked');
+      payForm.querySelectorAll('input[name="method"]').forEach(function (r) {
+        var opt = r.closest(".co-option");
+        opt.classList.toggle("checked", r.checked);
+        var panel = payForm.querySelector('[data-method-panel="' + r.value + '"]');
+        if (panel) panel.hidden = !r.checked;
+      });
+      var btn = payForm.querySelector("[data-pay-label]");
+      var labels = { card: "Pay now", paynow: "Pay with PayNow", applepay: "Pay with Apple Pay", googlepay: "Pay with Google Pay", grabpay: "Pay with GrabPay" };
+      btn.textContent = labels[chosen.value] || "Pay now";
+    }
+    var more = payForm.querySelector("[data-more-pay]");
+    if (more) {
+      more.addEventListener("click", function () {
+        var list = payForm.querySelector("[data-more-list]");
+        list.hidden = !list.hidden;
+        more.setAttribute("aria-expanded", list.hidden ? "false" : "true");
+        more.querySelector("i").className = list.hidden ? "fa-solid fa-plus" : "fa-solid fa-minus";
+      });
+    }
+    paintShip();
+    paintMethod();
+  }
+
   /* ---------- order summaries (checkout, payment) ---------- */
   document.querySelectorAll("[data-order-summary]").forEach(function (box) {
     var cart = getCart();
@@ -381,7 +641,8 @@
         '</td><td style="text-align:right">' + money(PRODUCTS[i.sku].price * i.qty) + "</td></tr>";
     }).join("");
     if (t.promo) rows += '<tr><td>Promotion (' + t.code + ')</td><td style="text-align:right">-' + money(t.off) + "</td></tr>";
-    rows += '<tr><td>Shipping</td><td style="text-align:right">FREE</td></tr>' +
+    if (t.gift) rows += '<tr><td>Pixelle sticker merch (free gift)</td><td style="text-align:right">FREE</td></tr>';
+    rows += '<tr><td>Delivery</td><td style="text-align:right">' + (t.ship ? money(t.ship) : "FREE") + "</td></tr>" +
       '<tr><td><strong>Total</strong></td><td style="text-align:right"><strong>' + money(t.total) + "</strong></td></tr>" +
       '<tr><td>9% GST incl.</td><td style="text-align:right">' + money(t.gst) + "</td></tr>";
     box.innerHTML = rows;
@@ -553,14 +814,26 @@
       // Prototype: nothing is sent or stored. In production this would POST over HTTPS (see PDPA policy).
       var kind = form.getAttribute("data-validate");
       if (kind === "checkout") {
-        save(SS, "pixelle-delivery-ok", true);
+        // Kept in sessionStorage (this tab only) so the next step can show "Ship to"; cleared once the order is placed.
+        var details = {};
+        DELIVERY_FIELDS.forEach(function (n) { var f = form.querySelector('[name="' + n + '"]'); details[n] = f ? f.value.trim() : ""; });
+        save(SS, "pixelle-delivery", details);
         window.location.href = "payment.html";
       } else if (kind === "payment") {
         var t = totals(getCart());
-        save(SS, "pixelle-order", { no: "PX" + Date.now().toString().slice(-8), total: money(t.total) });
+        var who = load(SS, "pixelle-delivery", {}) || {};
+        save(SS, "pixelle-order", {
+          no: "PX" + Date.now().toString().slice(-8), total: money(t.total), first: who.firstname || "",
+          method: SHIP_METHODS[t.method].label, eta: SHIP_METHODS[t.method].eta, gift: t.gift
+        });
+        var payBtn = form.querySelector('button[type="submit"]');
+        payBtn.disabled = true;
+        payBtn.innerHTML = '<span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Processing…';
         setCart([]);
-        try { SS.removeItem("pixelle-promo"); } catch (err) { /* ignore */ }
-        window.location.href = "acknowledgement.html";
+        ["pixelle-promo", "pixelle-delivery", "pixelle-ship", "pixelle-tier", "pixelle-delivery-ok"].forEach(function (k) {
+          try { SS.removeItem(k); } catch (err) { /* ignore */ }
+        });
+        setTimeout(function () { window.location.href = "acknowledgement.html"; }, 1200);
       } else if (kind === "login") {
         // Demo login: there is no account database, so greet as "Member".
         setUser("Member", document.getElementById("l-remember").checked);
@@ -615,13 +888,19 @@
     if (order) {
       ack.textContent = order.no;
       document.getElementById("order-total").textContent = order.total;
+      var thanks = document.getElementById("order-thanks");
+      if (thanks && order.first) thanks.textContent = "Thank you, " + titleCase(order.first) + "!";
+      var ship = document.getElementById("order-ship");
+      if (ship && order.method) {
+        ship.innerHTML = '<i class="fa-solid fa-truck-fast"></i> ' + order.method + " · " + order.eta +
+          (order.gift ? '<br /><i class="fa-solid fa-gift"></i> Free Pixelle sticker merch included' : "");
+        ship.hidden = false;
+      }
     }
   }
 
   /* payment guard: must come through checkout */
-  if (document.querySelector('form[data-validate="payment"]') && !load(SS, "pixelle-delivery-ok", false)) {
-    window.location.replace("checkout.html");
-  }
+  // (the payment page sends visitors back to checkout if delivery details are missing; see "payment page" above)
 
   /* copy code */
   document.querySelectorAll("[data-copy]").forEach(function (btn) {

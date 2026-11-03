@@ -1,0 +1,148 @@
+/* Pixelle — Cart page (cart.html): rewards bar, free gift line, add-ons, confetti.
+   Kept separate from the shared style.css; loaded only on the Cart page. */
+
+/* ---------- 2-stage rewards bar ---------- */
+.cart-rewards {
+  height: auto;
+  margin-bottom: 16px;
+  padding: 22px 26px 64px;
+  align-items: stretch;
+}
+.cart-rewards-msg {
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 26px;
+}
+.cart-rewards-msg strong { color: var(--sage-deep, #2E4A42); }
+.cart-rewards-track {
+  position: relative;
+  margin: 0 18px 0 6px;
+}
+.cart-rewards-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--line, #e7e5e4);
+  overflow: hidden;
+}
+.cart-rewards-bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #B9D2BC, #2E4A42);
+  transition: width 0.8s cubic-bezier(.22, 1, .36, 1);
+}
+.cart-reward {
+  position: absolute;
+  top: 5px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cart-reward-dot {
+  width: 36px;
+  height: 36px;
+  margin-top: -18px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  color: #A8A29E;
+  border: 2px solid var(--line, #e7e5e4);
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.cart-reward-label {
+  margin-top: 6px;
+  font-size: 12.5px;
+  line-height: 1.25;
+  color: #78716C;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: nowrap;
+}
+.cart-reward-amt { font-weight: 600; }
+.cart-reward[data-reward-min="99"] .cart-reward-label { align-items: flex-end; }
+/* last milestone sits at the very end of the bar, label right-aligned so it stays inside the card */
+.cart-reward[data-reward-min="99"] { left: auto; right: -18px; transform: none; align-items: flex-end; }
+.cart-reward.unlocked .cart-reward-dot {
+  background: #2E4A42;
+  border-color: #2E4A42;
+  color: #fff;
+  transform: scale(1.08);
+}
+.cart-reward.unlocked .cart-reward-label { color: #2E4A42; font-weight: 600; }
+.cart-reward.unlocked .cart-reward-lock { color: #2F8F5B; }
+@media (max-width: 575px) {
+  .cart-rewards { padding: 18px 16px 54px; }
+  .cart-reward-name { display: none; } /* phones: amounts only; the message above names the reward */
+}
+
+/* ---------- free gift line + FREE labels ---------- */
+.cart-gift-row td { background: #F3F8F4; }
+.cart-gift-thumb {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  color: #fff;
+  background: linear-gradient(135deg, #B9D2BC, #2E4A42);
+}
+.cart-free { color: #2F8F5B; letter-spacing: .02em; }
+
+/* ---------- recommended add-ons ---------- */
+.cart-addons { height: auto; align-items: stretch; }
+.addon-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+.addon-card {
+  display: flex;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 16px;
+  background: #F5F3EF;
+}
+.addon-thumb {
+  width: 64px;
+  height: 64px;
+  flex: none;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  color: #c4461d;
+  background: #fde6dc;
+}
+.addon-body h4 { font-size: 15px; margin: 0 0 4px; }
+.addon-tag {
+  display: inline-block;
+  margin-bottom: 6px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #2E4A42;
+  background: #DCE8DD;
+}
+.addon-add { display: block; font-size: 14px; padding: 6px 14px; margin-top: 2px; }
+
+/* ---------- confetti ---------- */
+.confetti-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 2000;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cart-rewards-bar span, .cart-reward-dot { transition: none; }
+}
