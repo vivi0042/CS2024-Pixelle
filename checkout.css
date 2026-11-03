@@ -262,3 +262,6 @@
   border-radius: 10px;
   font-size: 15px;
 }
+
+.co-thumb { overflow: visible; }
+.co-thumb img.co-thumb-cover { object-fit: cover; padding: 0; border-radius: 13px; }

@@ -191,6 +191,10 @@
   var FREE_SHIP_MIN = 99;     // stage 2: free delivery
   var SHIPPING_FEE = 4.9;     // delivery fee below FREE_SHIP_MIN
   var PHOTO = { sage: "SageMist", coral: "BlushPink", cream: "CloudCream" };
+  var REFILL_PHOTO = {
+    refill30: "images/purchase/Pixelle%2030-sheet%20Sticker%20Sheets.png",
+    refill60: "images/purchase/Pixelle%2060-Sheet%20Polaroid%20Sticker%20Box.png"
+  };
   var EXPRESS_FEE = 9.9;      // express delivery is always charged
   var SHIP_METHODS = {
     standard: { label: "Standard delivery", eta: "Next working day" },
@@ -333,10 +337,10 @@
         : "";
       var thumb = item.colour
         ? '<img src="images/purchase/Pixelle-' + PHOTO[item.colour] + '-01.png" alt="" style="width:100%;height:100%;object-fit:contain" />'
-        : '<i class="fa-solid fa-note-sticky" style="color:#c4461d"></i>';
+        : '<img src="' + REFILL_PHOTO[item.sku] + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:12px" />';
       row.innerHTML =
         '<td><div class="d-flex gap-3 align-items-start"><div class="cart-thumb" style="width:72px;height:72px;border-radius:12px;background:' +
-        (item.colour ? "#fff;border:1px solid #e7e5e4;padding:4px" : "#fde6dc") + ';display:grid;place-items:center;color:#fff;font-size:28px;flex:none">' +
+        (item.colour ? "#fff;border:1px solid #e7e5e4;padding:4px" : "#fff;border:1px solid #e7e5e4;overflow:hidden") + ';display:grid;place-items:center;color:#fff;font-size:28px;flex:none">' +
         thumb + "</div>" +
         '<div><h5 style="font-size:17px;margin-bottom:4px">' + p.name + '</h5><p style="margin:0"><small>' + swatch +
         (item.colour ? '<label><input type="checkbox" data-gift="' + idx + '"' + (item.gift ? " checked" : "") + ' /> Gift wrapping (free)</label>' : "") +
@@ -404,7 +408,7 @@
       var tag = "";
       if (sub < FREE_SHIP_MIN && after >= FREE_SHIP_MIN) tag = '<span class="addon-tag"><i class="fa-solid fa-truck-fast"></i> Unlocks free delivery</span>';
       else if (sub < GIFT_MIN && after >= GIFT_MIN) tag = '<span class="addon-tag"><i class="fa-solid fa-gift"></i> Unlocks free merch</span>';
-      return '<div class="addon-card"><div class="addon-thumb"><i class="fa-solid fa-note-sticky" aria-hidden="true"></i></div>' +
+      return '<div class="addon-card"><div class="addon-thumb"><img src="' + REFILL_PHOTO[sku] + '" alt="" /></div>' +
         '<div class="addon-body"><h4>' + p.name.replace("Sticker Paper · ", "Sticker paper refill, ") + "</h4>" +
         '<p class="mb-1"><strong>' + money(p.price) + "</strong> <small>(" + money(p.price / parseInt(sku.replace("refill", ""), 10)) + "/print)</small></p>" + tag +
         '<button type="button" class="buy-now-button addon-add" data-addon="' + sku + '"><i class="fa-solid fa-plus"></i> Add to cart</button></div></div>';
@@ -515,7 +519,7 @@
   function itemThumb(item) {
     return item.colour
       ? '<img src="images/purchase/Pixelle-' + PHOTO[item.colour] + '-01.png" alt="" />'
-      : '<i class="fa-solid fa-note-sticky" aria-hidden="true"></i>';
+      : '<img class="co-thumb-cover" src="' + REFILL_PHOTO[item.sku] + '" alt="" />';
   }
   function renderCoSummary() {
     if (!coSummary) return;
@@ -524,7 +528,7 @@
     var count = cart.reduce(function (n, i) { return n + i.qty; }, 0);
     var html = cart.map(function (i) {
       var p = PRODUCTS[i.sku];
-      return '<li class="co-item"><span class="co-thumb' + (i.colour ? "" : " co-thumb-paper") + '">' + itemThumb(i) +
+      return '<li class="co-item"><span class="co-thumb">' + itemThumb(i) +
         '<span class="co-qty" aria-label="Quantity ' + i.qty + '">' + i.qty + "</span></span>" +
         '<span class="co-item-name">' + p.name + (i.colour ? "<small>" + COLOUR_NAMES[i.colour] + (i.gift ? " · gift wrapped" : "") + "</small>" : "") + "</span>" +
         '<span class="co-item-price">' + money(p.price * i.qty) + "</span></li>";
@@ -822,9 +826,23 @@
       } else if (kind === "payment") {
         var t = totals(getCart());
         var who = load(SS, "pixelle-delivery", {}) || {};
+        var payChoice = form.querySelector('input[name="method"]:checked');
+        var PAY_LABELS = { card: "Card ending 4242", paynow: "PayNow", applepay: "Apple Pay", googlepay: "Google Pay", grabpay: "GrabPay" };
+        var now = new Date();
+        // Everything the receipt needs, saved once. Refreshing the receipt page only re-reads this; it never places a new order.
         save(SS, "pixelle-order", {
-          no: "PX" + Date.now().toString().slice(-8), total: money(t.total), first: who.firstname || "",
-          method: SHIP_METHODS[t.method].label, eta: SHIP_METHODS[t.method].eta, gift: t.gift
+          no: "PX-" + now.getFullYear() + "-" + String(Date.now()).slice(-5),
+          date: now.toISOString(),
+          first: who.firstname || "",
+          items: getCart().map(function (i) {
+            var bundle = { starter: "Starter Bundle", creator: "Creator Bundle" }[i.sku];
+            return bundle
+              ? { name: "Pixelle Snap · " + COLOUR_NAMES[i.colour], detail: bundle + " × " + i.qty + (i.gift ? " · gift wrapped" : ""), price: PRODUCTS[i.sku].price * i.qty }
+              : { name: "Polaroid Sticker Sheets", detail: PRODUCTS[i.sku].name.replace("Sticker Paper · ", "") + " × " + i.qty, price: PRODUCTS[i.sku].price * i.qty };
+          }),
+          gift: t.gift, sub: t.sub, code: t.promo ? t.code : "", off: t.off, ship: t.ship,
+          method: SHIP_METHODS[t.method].label, eta: SHIP_METHODS[t.method].eta,
+          pay: PAY_LABELS[payChoice ? payChoice.value : "card"], total: t.total, gst: t.gst, printed: false
         });
         var payBtn = form.querySelector('button[type="submit"]');
         payBtn.disabled = true;
@@ -881,25 +899,8 @@
     });
   }
 
-  /* acknowledgement */
-  var ack = document.getElementById("order-no");
-  if (ack) {
-    var order = load(SS, "pixelle-order", null);
-    if (order) {
-      ack.textContent = order.no;
-      document.getElementById("order-total").textContent = order.total;
-      var thanks = document.getElementById("order-thanks");
-      if (thanks && order.first) thanks.textContent = "Thank you, " + titleCase(order.first) + "!";
-      var ship = document.getElementById("order-ship");
-      if (ship && order.method) {
-        ship.innerHTML = '<i class="fa-solid fa-truck-fast"></i> ' + order.method + " · " + order.eta +
-          (order.gift ? '<br /><i class="fa-solid fa-gift"></i> Free Pixelle sticker merch included' : "");
-        ship.hidden = false;
-      }
-    }
-  }
+  /* acknowledgement: rendered by receipt.js from the saved order */
 
-  /* payment guard: must come through checkout */
   // (the payment page sends visitors back to checkout if delivery details are missing; see "payment page" above)
 
   /* copy code */

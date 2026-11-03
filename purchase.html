@@ -24,7 +24,7 @@
     <!-- styling css -->
     <link rel="stylesheet" href="./style.css?v=5" />
     <!-- Shop page styles (kept separate from the shared stylesheet) -->
-    <link rel="stylesheet" href="./shop.css?v=5" />
+    <link rel="stylesheet" href="./shop.css?v=6" />
     <!-- favicon -->
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
     <title>Buy Pixelle Snap | Photo Sticker Printer from S$59.90</title>
@@ -179,14 +179,24 @@
         </div>
 
         <div class="cart-card mt-4" style="height: auto">
-          <h3>Sticker paper refills</h3>
-          <div class="d-flex justify-content-between align-items-center w-100 mt-2">
-            <span>30 sheets · S$19.90</span>
-            <button type="button" class="buy-now-button" data-add-refill="refill30">Add</button>
-          </div>
-          <div class="d-flex justify-content-between align-items-center w-100 mt-2">
-            <span>60 sheets · S$29.90 <small>(S$0.50/print)</small></span>
-            <button type="button" class="buy-now-button" data-add-refill="refill60">Add</button>
+          <h3>Add-ons: sticker sheet refills</h3>
+          <div class="shop-refills">
+            <div class="shop-refill">
+              <img src="images/purchase/Pixelle%2030-sheet%20Sticker%20Sheets.png" alt="Pixelle Polaroid Sticker Sheets, box of 30" width="1254" height="1254" loading="lazy" />
+              <div class="shop-refill-body">
+                <strong>30 sheets</strong>
+                <span>S$19.90 <small>(S$0.66/print)</small></span>
+              </div>
+              <button type="button" class="buy-now-button" data-add-refill="refill30" aria-label="Add 30-sheet refill to cart">Add</button>
+            </div>
+            <div class="shop-refill">
+              <img src="images/purchase/Pixelle%2060-Sheet%20Polaroid%20Sticker%20Box.png" alt="Pixelle Polaroid Sticker Sheets, box of 60" width="1254" height="1254" loading="lazy" />
+              <div class="shop-refill-body">
+                <strong>60 sheets <span class="shop-badge">Best value</span></strong>
+                <span>S$29.90 <small>(S$0.50/print)</small></span>
+              </div>
+              <button type="button" class="buy-now-button" data-add-refill="refill60" aria-label="Add 60-sheet refill to cart">Add</button>
+            </div>
           </div>
         </div>
       </div>
@@ -392,9 +402,9 @@
     <!-- bootstrap script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="scrolling-animation.js?v=5"></script>
+    <script src="scrolling-animation.js?v=6"></script>
     <!-- GSAP (Shop page only): add-to-cart animation -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="shop.js?v=5"></script>
+    <script src="shop.js?v=6"></script>
   </body>
 </html>

@@ -285,7 +285,7 @@
     if (!badge || !bag || !gsap || reduceMotion || !source) return; // count already updated by the cart script
     // hold the old number until the product "lands"
     badge.textContent = before ? String(before) : "";
-    var f = makeFlyer(source.from, isPaper, source.src);
+    var f = makeFlyer(source.from, isPaper || !source.src, source.src);
     var end = bagPoint();
     var dx = end.x - f.cx;
     var dy = end.y - f.cy;
@@ -325,6 +325,10 @@
     }, false);
   }
   document.querySelectorAll("[data-add-refill]").forEach(function (b) {
-    wireAddButton(b, function () { return { from: b, src: "" }; }, true);
+    // fly the refill box photo into the bag (falls back to a paper icon if there's no photo)
+    wireAddButton(b, function () {
+      var img = b.closest(".shop-refill") && b.closest(".shop-refill").querySelector("img");
+      return img && onScreen(img) ? { from: img, src: img.currentSrc || img.src } : { from: b, src: "" };
+    }, false);
   });
 })();

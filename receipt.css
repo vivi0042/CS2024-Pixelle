@@ -1,0 +1,197 @@
+/* Pixelle — order receipt (acknowledgement.html).
+   "Retro thermal receipt meets cute stationery": the receipt feeds out of a Pixelle Snap slot. */
+
+.rc-page {
+  --rc-paper: #FFFEF8;
+  --rc-ink: #3A4A43;
+  --rc-muted: #7C8580;
+  --rc-sage: #5E7D6E;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 36px 16px 56px;
+  text-align: center;
+}
+
+/* ---------- heading ---------- */
+.rc-head { position: relative; margin-bottom: 22px; }
+.rc-eyebrow {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--rc-sage);
+}
+.rc-title {
+  margin: 0;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--rc-ink);
+}
+.rc-title i { font-size: .7em; vertical-align: 3px; color: #D98A82; }
+.rc-sub { margin: 4px 0 0; color: var(--rc-muted); }
+
+/* ---------- the printer + paper ---------- */
+.rc-machine { position: relative; padding: 0 12px; }
+.rc-printer {
+  position: relative;
+  z-index: 2;
+  height: 34px;
+  border-radius: 18px 18px 10px 10px;
+  background: linear-gradient(#DCE8DD, #B9D2BC);
+  box-shadow: 0 10px 18px -12px rgba(46, 74, 66, .6), inset 0 1px 0 rgba(255, 255, 255, .7);
+}
+.rc-slot {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 8px;
+  height: 7px;
+  border-radius: 6px;
+  background: #2E4A42;
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, .45);
+}
+.rc-led {
+  position: absolute;
+  top: 7px;
+  right: 18px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7BC47F;
+  box-shadow: 0 0 6px #7BC47F;
+}
+/* the paper comes out from under the slot */
+.rc-feed {
+  position: relative;
+  margin: -12px 30px 0;
+  overflow: hidden;
+  padding-bottom: 12px;             /* room for the torn edge */
+  filter: drop-shadow(0 10px 14px rgba(24, 24, 27, .12));
+}
+.rc-paper {
+  position: relative;
+  padding: 30px 24px 22px;
+  background:
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, .012) 0 2px, transparent 2px 4px),
+    var(--rc-paper);
+  color: var(--rc-ink);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+  will-change: transform;
+}
+/* zig-zag tear-off edge */
+.rc-paper::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 10px;
+  background: conic-gradient(from -45deg at bottom, var(--rc-paper) 90deg, transparent 0) 0 0 / 18px 100% repeat-x;
+}
+.rc-paper hr {
+  margin: 16px 0;
+  border: 0;
+  border-top: 1.5px dashed #C9CEC9;
+  opacity: 1;
+}
+.rc-brand { text-align: center; }
+.rc-logo {
+  margin: 0;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--rc-sage);
+}
+.rc-tag, .rc-status, .rc-rows dt, .rc-total, .rc-gst {
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.rc-tag { margin: 0; font-size: 11.5px; color: var(--rc-muted); }
+.rc-status {
+  margin: 0 0 12px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--rc-sage);
+}
+.rc-rows { margin: 0; }
+.rc-rows > div { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; }
+.rc-rows dt { font-weight: 400; font-size: 13px; color: var(--rc-muted); padding-top: 1px; }
+.rc-rows dd { margin: 0; text-align: right; }
+.rc-rows dd small { display: block; color: var(--rc-muted); font-size: 12px; }
+.rc-discount dd { color: var(--rc-sage); }
+
+.rc-items { list-style: none; margin: 0; padding: 0; }
+.rc-items li { display: grid; grid-template-columns: 1fr auto; column-gap: 12px; padding: 5px 0; }
+.rc-items strong { font-weight: 600; }
+.rc-items small { grid-column: 1 / -1; color: var(--rc-muted); font-size: 13px; }
+.rc-items .rc-reward strong, .rc-items .rc-reward span { color: var(--rc-sage); }
+
+.rc-total {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+}
+.rc-gst { margin: 2px 0 14px; text-align: right; font-size: 11.5px; color: var(--rc-muted); }
+.rc-barcode { display: block; width: 78%; height: 46px; margin: 0 auto; }
+.rc-barcode-no {
+  margin: 4px 0 10px;
+  text-align: center;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: .3em;
+  color: var(--rc-muted);
+}
+.rc-thanks {
+  margin: 0;
+  text-align: center;
+  font-family: "Caveat", cursive;
+  font-size: 24px;
+  color: var(--rc-sage);
+}
+
+/* ---------- after the receipt ---------- */
+.rc-after { margin-top: 18px; }
+.rc-note, .rc-help { color: var(--rc-muted); font-size: 14px; }
+.rc-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 6px 0 14px; }
+.rc-actions .buynow-button, .rc-actions .learnmore-button { margin: 0; }
+.rc-proto { font-size: 12.5px; color: var(--rc-muted); }
+.rc-empty[hidden] { display: none; }
+
+/* small confetti pieces around the heading (animated by receipt.js) */
+.rc-bit {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  width: 7px;
+  height: 11px;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+@media (max-width: 480px) {
+  .rc-title { font-size: 28px; }
+  .rc-feed { margin: -12px 14px 0; }
+  .rc-paper { padding: 26px 18px 20px; font-size: 14px; }
+}
+
+/* ---------- Print receipt: only the receipt, black on white ---------- */
+@media print {
+  body > :not(main), .rc-head, .rc-printer, .rc-after, .rc-empty { display: none !important; }
+  body, .rc-page { background: #fff !important; }
+  .rc-page { padding: 0; max-width: 360px; }
+  .rc-feed { margin: 0; overflow: visible; filter: none; }
+  .rc-paper { transform: none !important; background: #fff; color: #000; box-shadow: none; }
+  .rc-paper::after { display: none; }
+  .rc-logo, .rc-status, .rc-thanks, .rc-items .rc-reward strong, .rc-items .rc-reward span, .rc-discount dd { color: #000; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rc-paper { will-change: auto; }
+}

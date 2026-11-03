@@ -270,3 +270,24 @@
   .ig-photo img, .ig-overlay { transition: none; }
   .ig-photo:hover img { transform: none; }
 }
+
+/* ---------- add-ons: refill cards with photos ---------- */
+.shop-refills { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 10px; }
+.shop-refill {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px;
+  border-radius: 16px;
+  background: #F5F3EF;
+}
+.shop-refill img {
+  width: 72px;
+  height: 72px;
+  flex: none;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.shop-refill-body { flex: 1; display: flex; flex-direction: column; font-size: 15px; }
+.shop-refill-body small { color: #78716C; }
+.shop-refill .shop-badge { font-size: 11px; }
