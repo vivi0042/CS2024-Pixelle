@@ -23,6 +23,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter+Tight:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <!-- styling css -->
     <link rel="stylesheet" href="./style.css?v=5" />
+    <!-- Swiper.js (Where to Buy page only): events carousel -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="./stores.css?v=8" />
     <!-- favicon -->
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
     <title>Where to Buy Pixelle | Online Store, Shopee, Lazada & Pop-ups</title>
@@ -128,16 +131,103 @@
         </div>
       </div>
 
-      <div class="headers mt-5" style="padding-bottom: 24px">
-        <h1 style="font-size: 40px">Try it at our pop-ups</h1>
-        <p>Print a free sticker on us, and pick one up with an event-only bundle.</p>
-      </div>
-      <div class="row g-3">
-        <div class="col-md-4"><div class="box"><div class="box-content"><h2>Campus Pop-up · North</h2><p>Back-to-school week<br />12 – 16 Jan 2027, 11 AM – 6 PM</p></div></div></div>
-        <div class="col-md-4"><div class="box"><div class="box-content"><h2>Campus Pop-up · Central</h2><p>Freshmen orientation fair<br />19 – 23 Jan 2027, 11 AM – 6 PM</p></div></div></div>
-        <div class="col-md-4"><div class="box"><div class="box-content"><h2>Weekend Craft Market</h2><p>Journaling &amp; zine fair<br />Sat 6 Feb 2027, 12 – 8 PM</p></div></div></div>
-      </div>
-      <p class="mt-3" style="font-size: 13px">Pop-up venues are announced on our Instagram @pixellesg a week before each event.</p>
+      <!-- Pop-ups & events carousel (Swiper.js, see stores.js + stores.css) -->
+      <section class="ev-section" aria-labelledby="events-title" data-ev-section>
+        <div class="ev-head">
+          <div>
+            <span class="ev-eyebrow">Pop-ups &amp; collaborations</span>
+            <h2 id="events-title" class="ev-heading">Pixelle Pop-Ups &amp; Events</h2>
+            <p class="ev-intro">Come print a free sticker on us, try every colour in person and pick up event-only bundles.</p>
+          </div>
+          <div class="ev-nav">
+            <button type="button" class="ev-arrow ev-prev" aria-label="Previous events"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button>
+            <button type="button" class="ev-arrow ev-next" aria-label="Next events"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="swiper ev-swiper" aria-label="Upcoming Pixelle events">
+          <div class="swiper-wrapper">
+            <article class="swiper-slide ev-card">
+              <div class="ev-photo">
+                <!-- replace with a real event photo (portrait works best) -->
+                <img src="images/purchase/Pixelle-BlushPink-02.png" alt="Pixelle Snap printing a photo at the holiday gift-wrapping table" width="1254" height="1254" loading="lazy" />
+                <span class="ev-date">12 – 24 Dec 2026</span>
+              </div>
+              <div class="ev-body">
+                <p class="ev-loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Holiday Pop-up · Orchard</p>
+                <h3 class="ev-title">Christmas gift-wrapping station</h3>
+                <p class="ev-desc">Print a photo on the spot and we'll wrap your Pixelle with a festive frame card. Free gift wrapping all day.</p>
+                <button type="button" class="ev-save" data-ev-ics data-start="20261212" data-end="20261225" data-title="Pixelle: Christmas gift-wrapping station" data-where="Holiday Pop-up · Orchard"><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Save the date</button>
+              </div>
+            </article>
+            <article class="swiper-slide ev-card">
+              <div class="ev-photo">
+                <!-- replace with a real event photo (portrait works best) -->
+                <img src="images/purchase/HallMemories.png" alt="Photo stickers pinned on a corkboard with fairy lights in a hall room" width="1254" height="1254" loading="lazy" />
+                <span class="ev-date">12 – 16 Jan 2027</span>
+              </div>
+              <div class="ev-body">
+                <p class="ev-loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Campus Pop-up · North</p>
+                <h3 class="ev-title">Back-to-school week</h3>
+                <p class="ev-desc">Decorate your hall room before the semester starts. Your first sticker is on us, plus an event-only Starter Bundle.</p>
+                <button type="button" class="ev-save" data-ev-ics data-start="20270112" data-end="20270117" data-title="Pixelle: Back-to-school week" data-where="Campus Pop-up · North"><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Save the date</button>
+              </div>
+            </article>
+            <article class="swiper-slide ev-card">
+              <div class="ev-photo">
+                <!-- replace with a real event photo (portrait works best) -->
+                <img src="images/purchase/Pixelle-SageMist-02.png" alt="Sage Mist Pixelle Snap printing a landscape photo" width="1254" height="1254" loading="lazy" />
+                <span class="ev-date">19 – 23 Jan 2027</span>
+              </div>
+              <div class="ev-body">
+                <p class="ev-loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Campus Pop-up · Central</p>
+                <h3 class="ev-title">Freshmen orientation fair</h3>
+                <p class="ev-desc">Snap a photo with your new orientation group and walk away with matching stickers in under a minute.</p>
+                <button type="button" class="ev-save" data-ev-ics data-start="20270119" data-end="20270124" data-title="Pixelle: Freshmen orientation fair" data-where="Campus Pop-up · Central"><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Save the date</button>
+              </div>
+            </article>
+            <article class="swiper-slide ev-card">
+              <div class="ev-photo">
+                <!-- replace with a real event photo (portrait works best) -->
+                <img src="images/purchase/ScrapbookJournal.png" alt="Travel journal decorated with Pixelle photo stickers" width="1254" height="1254" loading="lazy" />
+                <span class="ev-date">Sat 6 Feb 2027</span>
+              </div>
+              <div class="ev-body">
+                <p class="ev-loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Craft Market · Tiong Bahru</p>
+                <h3 class="ev-title">Journaling &amp; zine fair</h3>
+                <p class="ev-desc">Bring a notebook, borrow our washi tapes and print stickers straight from your camera roll.</p>
+                <button type="button" class="ev-save" data-ev-ics data-start="20270206" data-end="20270207" data-title="Pixelle: Journaling & zine fair" data-where="Craft Market · Tiong Bahru"><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Save the date</button>
+              </div>
+            </article>
+            <article class="swiper-slide ev-card">
+              <div class="ev-photo">
+                <!-- replace with a real event photo (portrait works best) -->
+                <img src="images/purchase/Small-BusinessPackaging.png" alt="Bake boxes tied with twine and sealed with Pixelle photo stickers" width="1254" height="1254" loading="lazy" />
+                <span class="ev-date">Sat 20 Feb 2027</span>
+              </div>
+              <div class="ev-body">
+                <p class="ev-loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Collab · Home bakers, Bedok</p>
+                <h3 class="ev-title">Sticker your packaging</h3>
+                <p class="ev-desc">A hands-on workshop with local home bakers on thank-you stickers that customers actually keep.</p>
+                <button type="button" class="ev-save" data-ev-ics data-start="20270220" data-end="20270221" data-title="Pixelle: Sticker your packaging" data-where="Collab · Home bakers, Bedok"><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Save the date</button>
+              </div>
+            </article>
+            <article class="swiper-slide ev-card">
+              <div class="ev-photo">
+                <!-- replace with a real event photo (portrait works best) -->
+                <img src="images/purchase/Cozy%20Cat%20Scrapbooking%20Desk%20Setup.png" alt="A ginger cat next to a scrapbook full of its own photo stickers" width="1254" height="1254" loading="lazy" />
+                <span class="ev-date">Sun 7 Mar 2027</span>
+              </div>
+              <div class="ev-body">
+                <p class="ev-loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Collab · Cat café, Katong</p>
+                <h3 class="ev-title">Pet portrait sticker day</h3>
+                <p class="ev-desc">Bring a photo of your furkid and print a sheet of pet portrait stickers. Proceeds go to a local shelter.</p>
+                <button type="button" class="ev-save" data-ev-ics data-start="20270307" data-end="20270308" data-title="Pixelle: Pet portrait sticker day" data-where="Collab · Cat café, Katong"><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Save the date</button>
+              </div>
+            </article>
+          </div>
+        </div>
+        <p class="ev-note"><i class="fa-brands fa-instagram" aria-hidden="true"></i> Venues and timings are confirmed on our Instagram @pixellesg a week before each event.</p>
+      </section>
     </div>
     </main>
     <!-- footer -->
@@ -307,5 +397,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="scrolling-animation.js?v=6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.js"></script>
+    <script src="stores.js?v=8"></script>
   </body>
 </html>
