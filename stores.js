@@ -1,5 +1,5 @@
 /* Pixelle — Where to Buy (our-stores.html): pop-ups & events carousel.
-   Swiper.js: 1 wide card per view, ~1.1 on phones, arrows + swipe, slow endless autoplay. */
+   Swiper.js: ~1.5 cards on desktop, ~1.1 on phones, side arrows + swipe, slow endless autoplay. */
 (function () {
   "use strict";
 
@@ -50,7 +50,7 @@
 
   if (window.Swiper) {
     var swiper = new window.Swiper(section.querySelector(".ev-swiper"), {
-      slidesPerView: 1.1,           // phones: one card plus a peek of the next
+      slidesPerView: 1.08,          // phones: one card plus a peek of the next
       spaceBetween: 16,
       speed: reduce ? 0 : 1200,     // slow, gentle glide
       loop: true,                   // endless: after the last event it carries on from the first
@@ -71,7 +71,8 @@
         slideLabelMessage: "Event {{index}} of {{slidesLength}}"
       },
       breakpoints: {
-        576: { slidesPerView: 1, spaceBetween: 24 }   // tablet + desktop: one wide card per view
+        576: { slidesPerView: 1.2, spaceBetween: 20 },
+        992: { slidesPerView: 1.5, spaceBetween: 24 }  // desktop: one card + half of the next
       }
     });
     // keyboard users: hold still while focus is inside the carousel
@@ -85,7 +86,7 @@
     var wrapper = section.querySelector(".swiper-wrapper");
     wrapper.style.cssText = "display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px";
     section.querySelectorAll(".ev-card").forEach(function (c) { c.style.flex = "0 0 min(90%,520px)"; c.style.scrollSnapAlign = "start"; });
-    section.querySelector(".ev-nav").hidden = true;
+    section.querySelectorAll(".ev-arrow").forEach(function (b) { b.hidden = true; });
   }
 
   // fade the section in the first time it scrolls into view

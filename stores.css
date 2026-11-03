@@ -48,20 +48,29 @@
   letter-spacing: -0.03em;
 }
 .ev-intro { margin: 8px 0 0; max-width: 560px; }
-.ev-nav { display: flex; gap: 10px; flex: none; }
+/* arrows sit on the left and right edges of the carousel, vertically centred */
+.ev-carousel { position: relative; }
 .ev-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
   width: 48px;
   height: 48px;
+  margin-top: -24px;
   border-radius: 50%;
   border: 1.5px solid var(--ev-sage);
   background: #fff;
+  box-shadow: 0 8px 20px -10px rgba(24, 24, 27, 0.45);
   color: var(--ev-sage);
   display: grid;
   place-items: center;
   font-size: 17px;
   transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
 }
-.ev-arrow:hover { background: var(--ev-sage); color: #fff; transform: translateY(-2px); }
+.ev-prev { left: -22px; }
+.ev-next { right: -22px; }
+.ev-arrow:hover { background: var(--ev-sage); color: #fff; transform: scale(1.06); }
+.ev-arrow[hidden] { display: none; }
 .ev-arrow:focus-visible { outline: 3px solid var(--ev-cream); outline-offset: 3px; }
 .ev-arrow.swiper-button-disabled { opacity: 0.35; pointer-events: none; }
 
@@ -74,6 +83,7 @@
 .ev-card {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  min-height: clamp(380px, 33vw, 470px);
   overflow: hidden;
   border-radius: 24px;
   background: var(--ev-mint);
@@ -83,8 +93,7 @@
 .ev-card:nth-child(3n) { background: #F6EEDC; }
 .ev-photo {
   position: relative;
-  aspect-ratio: 4 / 5;           /* portrait */
-  min-height: 100%;
+  min-width: 0;                  /* fills exactly its half; the card height makes it portrait */
   overflow: hidden;              /* the zoomed photo stays inside the card */
   background: #fff;
 }
@@ -105,7 +114,7 @@
   flex-direction: column;
   justify-content: flex-end;     /* text sits at the bottom, with open space above */
   align-items: flex-start;
-  padding: 48px 48px 52px;
+  padding: 32px 32px 34px;
 }
 .ev-loc {
   display: inline-block;
@@ -120,12 +129,12 @@
 .ev-title {
   margin: 0 0 8px;
   font-family: "Inter Tight", sans-serif;
-  font-size: clamp(26px, 3vw, 36px);
+  font-size: clamp(22px, 2.4vw, 28px);
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--ev-sage);
 }
-.ev-desc { margin: 0; max-width: 440px; font-size: 17px; line-height: 1.6; color: #44403C; }
+.ev-desc { margin: 0; font-size: 15px; line-height: 1.6; color: #44403C; }
 .ev-when {
   margin: 0 0 6px;
   font-size: 14px;
@@ -137,8 +146,8 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 22px;
-  padding: 12px 22px;
+  margin-top: 18px;
+  padding: 10px 20px;
   border: 0;
   border-radius: 999px;
   background: var(--ev-sage);
@@ -151,8 +160,8 @@
 .ev-save:focus-visible { outline: 3px solid var(--ev-cream); outline-offset: 3px; }
 /* phones: photo on top, text underneath */
 @media (max-width: 575px) {
-  .ev-card { grid-template-columns: 1fr; }
-  .ev-photo { aspect-ratio: 4 / 3; min-height: 0; }
+  .ev-card { grid-template-columns: 1fr; min-height: 0; }
+  .ev-photo { aspect-ratio: 4 / 3; }
   .ev-body { padding: 18px 18px 22px; }
   .ev-title { font-size: 22px; }
   .ev-desc { font-size: 15px; }
@@ -175,11 +184,15 @@
 .ev-section.ev-ready.ev-in .ev-card { opacity: 1; transform: none; }
 
 @media (min-width: 576px) and (max-width: 991px) {
-  .ev-body { padding: 32px 28px 36px; }
+  .ev-body { padding: 26px 24px 28px; }
+}
+@media (max-width: 1100px) {
+  .ev-prev { left: 8px; }   /* keep the arrows on screen when there's no side margin */
+  .ev-next { right: 8px; }
 }
 @media (max-width: 767px) {
   .ev-section { margin-top: 40px; padding-top: 24px; }
-  .ev-nav { display: none; }      /* phones swipe instead */
+  .ev-arrow { display: none; }    /* phones swipe instead */
 }
 
 @media (prefers-reduced-motion: reduce) {
