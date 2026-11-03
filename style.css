@@ -2876,3 +2876,75 @@
 /* Shop page: full Shopee / Lazada logos inside the buttons */
 .mkt-wordmark { height: 22px; width: auto; display: block; margin: 0 auto; }
 .mkt-wordmark-lz { width: 84px; object-fit: cover; } /* crops the empty space around the Lazada logo file */
+
+/* ---------- Overview: feature highlight photos ----------
+   Every tile keeps the same 4:3 rounded box as the original placeholders.
+   .gif-photo  = full photo that fills the box edge to edge
+   .gif-cutout = product cut-out (transparent background) on the tile colour */
+.highlight-container .gif {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 22px;
+  overflow: hidden;
+}
+.highlight-container .gif.gif-photo { padding: 0; background: none; }
+.highlight-container .gif.gif-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+.highlight-container .gif.gif-cutout { padding: 18px; }
+.highlight-container .gif.gif-cutout img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 14px 16px rgba(24, 24, 27, 0.14));
+}
+/* Party Mode tile: warm cream instead of sage */
+.scroll-content:nth-child(4) .gif { background: #F5EDDD; }
+
+/* Zero-ink technology tile: same beige as the label pills, no shadow around them */
+.scroll-content:nth-child(1) .gif { background: #F5EFE7; }
+.scroll-content:nth-child(1) .gif img { filter: none; }
+
+#reviews.dark-section {
+  background: #FBE1D9;   /* soft pink from the blush Pixelle printer */
+  background-image: none;
+  margin-bottom: -24px;
+  padding-bottom: 88px;
+}
+
+/* "What will you stick?" tab photos */
+.container-promo-visual.stick-photo {
+  aspect-ratio: 16/9;
+  min-height: 0;
+  padding: 0;
+}
+.container-promo-visual.stick-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Overview Print / Share photos */
+.workout-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 22px;
+}
+.workout-collage {
+  min-height: 0;
+}
+.workout-collage img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 22px;
+}
