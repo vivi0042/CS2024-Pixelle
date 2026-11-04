@@ -91,58 +91,88 @@
       </div>
     </div>
     <main id="main">
-
-    <!-- body -->
-    <div class="main pdpa-page">
-      <div class="headers"><h1>Personal Data Protection Act</h1></div>
-      <h2>Privacy Policy for Pixelle</h2>
-      <p><b>Last Updated: 29 October 2026</b></p>
-      <div class="pdpa-summary">
-        <p class="mb-0"><b>The short version:</b> we collect only what we need to deliver your order, answer your questions and service your printer. We ask before sending marketing, we never sell your data, and you can ask us to see, correct or delete it at any time at <a href="mailto:dpo@pixelle.sg">dpo@pixelle.sg</a>.</p>
-      </div>
-      <p>At Pixelle, safeguarding your privacy is a top priority. This policy explains how we collect, use, disclose and protect your personal data in line with Singapore's Personal Data Protection Act 2012 (PDPA). Purchases made on Shopee or Lazada are also covered by those platforms' own privacy policies.</p>
-
-      <h3>1. Personal data we collect</h3>
-      <p><b>Checkout:</b> name, email, phone number and delivery address, to process and deliver your order. Payment is handled by our payment provider. We never see or store full card numbers.</p>
-      <p><b>Contact form:</b> name, email, subject, an optional usage interest and your message, to reply to your enquiry.</p>
-      <p><b>Member account:</b> first and last name, email, a password and (optionally) your birthday month, to manage your Pixelle Club membership and orders. Passwords are stored only in hashed form by our e-commerce platform and are never visible to staff. To greet you, the site keeps just your first name in your browser while you're logged in (until you close the tab, or until you log out if you chose "Keep me logged in").</p>
-      <p><b>Service requests:</b> name, email, phone, where you bought your printer, order number and fault description, to arrange mail-in repair or replacement.</p>
-      <p><b>Pixelle Club (pop-up, footer or contact form):</b> your first name and email address, only if you tick the consent box, to send your 10% welcome code, member deals and sticker templates. We store a "member" flag in your browser so the pop-up doesn't show again; your name and email are not stored there.</p>
-      <p><b>Cookies and local storage:</b> your cookie choice, cart contents and favourites are stored in your own browser. Analytics cookies are used only if you choose "Accept all". See section 8.</p>
-      <p><b>Sticker Studio photos:</b> photos you preview in the Sticker Studio are processed only in your browser. They are <b>never uploaded</b> to us or anyone else.</p>
-      <p>Please don't send us NRIC numbers or card details in messages. We will never ask for them.</p>
-
-      <h3>2. Consent</h3>
-      <p>Every form asks for your consent with an unticked checkbox before we collect data. Marketing consent is always a separate, optional checkbox and is never required to buy, ask a question or get service.</p>
-
-      <h3>3. Withdrawing consent</h3>
-      <p>You can withdraw consent at any time by clicking "unsubscribe" in any email or by emailing our Data Protection Officer. We'll act on your request within 10 working days. If you withdraw consent for an open order or service request, we'll tell you how this affects it.</p>
-
-      <h3>4. Do Not Call (DNC) Registry</h3>
-      <p>We send marketing only by email, and only with your consent. We don't send marketing calls, SMS or WhatsApp messages to Singapore numbers. If this changes, we'll check the DNC Registry first unless you've given clear and unambiguous consent.</p>
-
-      <h3>5. Who we share data with</h3>
-      <p><b>Service providers:</b> payment processors, delivery partners, email and customer-support tools, under contracts that require them to protect your data.</p>
+      <div id="pixelle-privacy-page" class="main">
+        <style>
+          #pixelle-privacy-page { max-width: 1260px; margin: 0 auto; padding: 40px clamp(20px, 5vw, 64px) 64px; }
+          #pixelle-privacy-page .privacy-header { text-align: center; margin: 0 0 40px; }
+          #pixelle-privacy-page .privacy-header h1 { font-size: clamp(34px, 4vw, 48px); line-height: 1.15; letter-spacing: -.03em; margin: 0 0 12px; }
+          #pixelle-privacy-page .privacy-subtitle { font-size: 18px; color: #3f5148; margin: 0 0 10px; }
+          #pixelle-privacy-page .privacy-updated { font-size: 13px; font-weight: 400; color: #57534e; margin: 0; }
+          #pixelle-privacy-page .privacy-layout { display: grid; grid-template-columns: 210px minmax(0, 760px); gap: 48px; justify-content: center; align-items: start; }
+          #pixelle-privacy-page .privacy-toc { position: sticky; top: 96px; max-height: calc(100vh - 120px); overflow-y: auto; scrollbar-color: #2f6f5e #e8e5de; scrollbar-width: thin; }
+          #pixelle-privacy-page .privacy-toc h2 { margin: 0 0 14px; font-size: 19px; letter-spacing: -.02em; }
+          #pixelle-privacy-page .privacy-toc ol { padding: 0; margin: 0; list-style: none; }
+          #pixelle-privacy-page .privacy-toc li + li { margin-top: 4px; }
+          #pixelle-privacy-page .privacy-toc a { display: block; padding: 9px 10px; border-radius: 8px; color: #3f5148; font-size: 14px; line-height: 1.5; text-decoration: none; }
+          #pixelle-privacy-page .privacy-toc a:hover { background: #dcece5; color: #245247; text-decoration: underline; }
+          #pixelle-privacy-page .privacy-article { min-width: 0; max-width: 760px; font-size: 16px; line-height: 1.75; overflow-wrap: anywhere; }
+          #pixelle-privacy-page .privacy-article p { font-size: 16px; line-height: 1.75; margin: 0 0 16px; }
+          #pixelle-privacy-page .privacy-summary { background: #dcece5; padding: 24px 28px; border-radius: 20px; margin-bottom: 28px; }
+          #pixelle-privacy-page .privacy-summary h2 { margin: 0 0 12px; font-size: 22px; letter-spacing: -.02em; }
+          #pixelle-privacy-page .privacy-summary ul { padding-left: 22px; margin: 0; }
+          #pixelle-privacy-page .privacy-summary li + li { margin-top: 8px; }
+          #pixelle-privacy-page .privacy-section { margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--line, #dedbd3); }
+          #pixelle-privacy-page .privacy-section > h2 { margin: 0 0 18px; font-size: 25px; line-height: 1.3; letter-spacing: -.02em; scroll-margin-top: 110px; }
+          #pixelle-privacy-page .privacy-data-item { margin: 0 0 22px; }
+          #pixelle-privacy-page .privacy-data-item h3 { font-size: 17px; font-weight: 600; line-height: 1.4; margin: 0 0 6px; }
+          #pixelle-privacy-page .privacy-data-item p { margin: 0; }
+          #pixelle-privacy-page .privacy-cookie-button { background: #2f6f5e; color: white; border: 0; border-radius: 999px; min-height: 48px; padding: 12px 22px; font: 500 15px/1.5 var(--ff-body, 'Inter', sans-serif); }
+          #pixelle-privacy-page .privacy-cookie-button:hover { background: #245247; }
+          #pixelle-privacy-page .privacy-contact { background: #dcece5; border: 0; padding: 26px 28px; border-radius: 20px; }
+          #pixelle-privacy-page .privacy-contact p:last-child { margin-bottom: 0; }
+          #pixelle-privacy-page .privacy-contact a[href^="mailto:"] { display: inline-block; font-weight: 600; }
+          #pixelle-privacy-page a { text-underline-offset: 3px; }
+          #pixelle-privacy-page a:focus-visible, #pixelle-privacy-page button:focus-visible, #pixelle-privacy-page h2:focus-visible { outline: 3px solid #2f6f5e; outline-offset: 3px; }
+          @media (max-width: 900px) {
+            #pixelle-privacy-page .privacy-layout { grid-template-columns: minmax(0, 760px); gap: 28px; }
+            #pixelle-privacy-page .privacy-toc { position: static; max-height: none; overflow: visible; padding-bottom: 24px; border-bottom: 1px solid var(--line, #dedbd3); }
+            #pixelle-privacy-page .privacy-toc ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 12px; }
+            #pixelle-privacy-page .privacy-toc li + li { margin-top: 0; }
+          }
+          @media (max-width: 480px) {
+            #pixelle-privacy-page { padding: 28px 20px 48px; }
+            #pixelle-privacy-page .privacy-header { margin-bottom: 28px; }
+            #pixelle-privacy-page .privacy-subtitle { font-size: 16px; }
+            #pixelle-privacy-page .privacy-toc ol { grid-template-columns: minmax(0, 1fr); }
+            #pixelle-privacy-page .privacy-summary, #pixelle-privacy-page .privacy-contact { padding: 22px 20px; }
+            #pixelle-privacy-page .privacy-section > h2 { font-size: 23px; }
+            #pixelle-privacy-page .privacy-cookie-button { width: 100%; }
+          }
+</style>
+        <header class="privacy-header"><h1>Privacy Policy</h1><p class="privacy-subtitle">Personal Data Protection Act (PDPA)</p><p class="privacy-updated">Last updated: <time datetime="2026-10-29">29 October 2026</time></p></header>
+        <div class="privacy-layout">
+          <nav class="privacy-toc" aria-labelledby="privacy-contents"><h2 id="privacy-contents">On this page</h2><ol><li><a href="#data-collected">1. Personal data we collect</a></li><li><a href="#consent">2. Consent</a></li><li><a href="#withdrawal">3. Withdrawing consent</a></li><li><a href="#dnc">4. Do Not Call (DNC) Registry</a></li><li><a href="#sharing">5. Who we share data with</a></li><li><a href="#transfers">6. International transfers</a></li><li><a href="#protection-retention">7. Protection and retention</a></li><li><a href="#cookies">8. Cookies</a></li><li><a href="#access-correction">9. Access and correction</a></li><li><a href="#privacy-contact">10. Contact our Data Protection Officer</a></li></ol></nav>
+          <article class="privacy-article" aria-label="Pixelle privacy policy">
+            <section class="privacy-summary" aria-labelledby="privacy-summary-heading"><h2 id="privacy-summary-heading">Summary</h2><ul>
+              <li>We collect only what we need to deliver your order, answer your questions and service your printer.</li>
+              <li>We ask before sending marketing.</li>
+              <li>We never sell your data.</li>
+              <li>You can ask us to see, correct or delete it at any time at <a href="mailto:dpo@pixelle.sg">dpo@pixelle.sg</a>.</li>
+            </ul></section>
+            <p>At Pixelle, safeguarding your privacy is a top priority. This policy explains how we collect, use, disclose and protect your personal data in line with Singapore's Personal Data Protection Act 2012 (PDPA). Purchases made on Shopee or Lazada are also covered by those platforms' own privacy policies.</p>
+            <section class="privacy-section" aria-labelledby="data-collected"><h2 id="data-collected" tabindex="-1">1. Personal data we collect</h2><div class="privacy-data-item"><h3>Checkout:</h3><p> name, email, phone number and delivery address, to process and deliver your order. Payment is handled by our payment provider. We never see or store full card numbers.</p></div>
+      <div class="privacy-data-item"><h3>Contact form:</h3><p> name, email, subject, an optional usage interest and your message, to reply to your enquiry.</p></div>
+      <div class="privacy-data-item"><h3>Member account:</h3><p> first and last name, email, a password and (optionally) your birthday month, to manage your Pixelle Club membership and orders. Passwords are stored only in hashed form by our e-commerce platform and are never visible to staff. To greet you, the site keeps just your first name in your browser while you're logged in (until you close the tab, or until you log out if you chose "Keep me logged in").</p></div>
+      <div class="privacy-data-item"><h3>Service requests:</h3><p> name, email, phone, where you bought your printer, order number and fault description, to arrange mail-in repair or replacement.</p></div>
+      <div class="privacy-data-item"><h3>Pixelle Club (pop-up, footer or contact form):</h3><p> your first name and email address, only if you tick the consent box, to send your 10% welcome code, member deals and sticker templates. We store a "member" flag in your browser so the pop-up doesn't show again; your name and email are not stored there.</p></div>
+      <div class="privacy-data-item"><h3>Cookies and local storage:</h3><p> your cookie choice, cart contents and favourites are stored in your own browser. Analytics cookies are used only if you choose "Accept all". See section 8.</p></div>
+      <div class="privacy-data-item"><h3>Sticker Studio photos:</h3><p> photos you preview in the Sticker Studio are processed only in your browser. They are <b>never uploaded</b> to us or anyone else.</p></div>
+      <p>Please don't send us NRIC numbers or card details in messages. We will never ask for them.</p></section>
+<section class="privacy-section" aria-labelledby="consent"><h2 id="consent" tabindex="-1">2. Consent</h2><p>Every form asks for your consent with an unticked checkbox before we collect data. Marketing consent is always a separate, optional checkbox and is never required to buy, ask a question or get service.</p></section>
+<section class="privacy-section" aria-labelledby="withdrawal"><h2 id="withdrawal" tabindex="-1">3. Withdrawing consent</h2><p>You can withdraw consent at any time by clicking "unsubscribe" in any email or by emailing our Data Protection Officer. We'll act on your request within 10 working days. If you withdraw consent for an open order or service request, we'll tell you how this affects it.</p></section>
+<section class="privacy-section" aria-labelledby="dnc"><h2 id="dnc" tabindex="-1">4. Do Not Call (DNC) Registry</h2><p>We send marketing only by email, and only with your consent. We don't send marketing calls, SMS or WhatsApp messages to Singapore numbers. If this changes, we'll check the DNC Registry first unless you've given clear and unambiguous consent.</p></section>
+<section class="privacy-section" aria-labelledby="sharing"><h2 id="sharing" tabindex="-1">5. Who we share data with</h2><p><b>Service providers:</b> payment processors, delivery partners, email and customer-support tools, under contracts that require them to protect your data.</p>
       <p><b>Marketplaces:</b> only an order number you give us, to verify a Shopee or Lazada purchase for warranty.</p>
-      <p><b>Legal requirements:</b> where required by law or to prevent fraud. We never sell or rent your personal data.</p>
-
-      <h3>6. International transfers</h3>
-      <p>Some providers may store data on servers outside Singapore. When this happens, we make sure your data is protected to a standard comparable to the PDPA, as required by its Transfer Limitation Obligation.</p>
-
-      <h3>7. Protection and retention</h3>
-      <p>Form data is sent over encrypted HTTPS. Access is limited to staff who need it and protected by two-factor authentication. Order records are kept for 5 years for tax purposes. Enquiries and service records are kept for 12 months after your last contact, and newsletter data until you unsubscribe. In the unlikely event of a notifiable data breach, we will inform the Personal Data Protection Commission (PDPC) and affected individuals as required by law.</p>
-
-      <h3 id="cookies">8. Cookies</h3>
-      <p><b>Essential only:</b> we store your cookie choice and your cart in your browser so the site works.<br /><b>Accept all:</b> we may also use analytics cookies to count visits and see which pages help people most. We don't use advertising cookies. You can change your choice anytime with "Cookie settings" at the bottom of every page.</p>
-
-      <h3>9. Access and correction</h3>
-      <p>You can ask for a copy of the personal data we hold about you, how it's been used in the past year, or ask us to correct it. We'll respond within 30 days.</p>
-
-      <h3>10. Contact our Data Protection Officer</h3>
-      <p>Data Protection Officer, Pixelle · <a href="mailto:dpo@pixelle.sg">dpo@pixelle.sg</a><br />If you're not satisfied with our response, you may contact the PDPC at <a href="https://www.pdpc.gov.sg" target="_blank" rel="noopener">pdpc.gov.sg</a>.</p>
-
-      <p class="mt-4" style="font-size: 13px"><i>Prototype note: this is a student project. Forms on this site do not send or store any personal data.</i></p>
-    </div>
+      <p><b>Legal requirements:</b> where required by law or to prevent fraud. We never sell or rent your personal data.</p></section>
+<section class="privacy-section" aria-labelledby="transfers"><h2 id="transfers" tabindex="-1">6. International transfers</h2><p>Some providers may store data on servers outside Singapore. When this happens, we make sure your data is protected to a standard comparable to the PDPA, as required by its Transfer Limitation Obligation.</p></section>
+<section class="privacy-section" aria-labelledby="protection-retention"><h2 id="protection-retention" tabindex="-1">7. Protection and retention</h2><p>Form data is sent over encrypted HTTPS. Access is limited to staff who need it and protected by two-factor authentication. Order records are kept for 5 years for tax purposes. Enquiries and service records are kept for 12 months after your last contact, and newsletter data until you unsubscribe. In the unlikely event of a notifiable data breach, we will inform the Personal Data Protection Commission (PDPC) and affected individuals as required by law.</p></section>
+<section class="privacy-section" aria-labelledby="cookies"><h2 id="cookies" tabindex="-1">8. Cookies</h2><p><b>Essential only:</b> we store your cookie choice and your cart in your browser so the site works.<br /><b>Accept all:</b> we may also use analytics cookies to count visits and see which pages help people most. We don't use advertising cookies. You can change your choice anytime with "Cookie settings" at the bottom of every page.</p>
+<button type="button" class="privacy-cookie-button" data-open-cookies>Manage cookie preferences</button></section>
+<section class="privacy-section" aria-labelledby="access-correction"><h2 id="access-correction" tabindex="-1">9. Access and correction</h2><p>You can ask for a copy of the personal data we hold about you, how it's been used in the past year, or ask us to correct it. We'll respond within 30 days.</p></section>
+<section class="privacy-section privacy-contact" aria-labelledby="privacy-contact"><h2 id="privacy-contact" tabindex="-1">10. Contact our Data Protection Officer</h2><p>Data Protection Officer, Pixelle · <a href="mailto:dpo@pixelle.sg">dpo@pixelle.sg</a><br />If you're not satisfied with our response, you may contact the PDPC at <a href="https://www.pdpc.gov.sg" target="_blank" rel="noopener">pdpc.gov.sg</a>.</p></section>
+          </article>
+        </div>
+      </div>
     </main>
     <!-- footer -->
     <footer class="container-footer-fluid">
@@ -204,8 +234,7 @@
         <div class="col-12 footer-item">
           <p class="footer-small">
             <br />
-            Copyright © 2026 Pixelle. Student project prototype, not a real store. ·
-            <a href="pdpa.html">Privacy</a> · <button type="button" data-open-cookies>Cookie settings</button>
+            Copyright © 2026 Pixelle
           </p>
         </div>
       </div>

@@ -786,6 +786,21 @@
     });
   }
 
+  /* Require a complete email domain, including a suffix such as .com or .edu.sg. */
+  function validateEmailDomain(field) {
+    var value = field.value.trim();
+    var completeEmail = /^[^\s@]+@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.){1,3}[a-z]{2,}$/i;
+    field.setCustomValidity(!value || completeEmail.test(value)
+      ? "" : "Enter a complete email address with 2 to 4 domain parts, such as x@gmail.com or x@e.ntu.edu.sg.");
+  }
+  document.querySelectorAll('input[type="email"]').forEach(function (field) {
+    field.addEventListener("input", function () { validateEmailDomain(field); });
+    field.addEventListener("blur", function () { validateEmailDomain(field); });
+    if (field.form) {
+      field.form.addEventListener("submit", function () { validateEmailDomain(field); }, true);
+    }
+  });
+
   /* ---------- forms with PDPA consent ---------- */
   function validate(form) {
     var first = null;
@@ -895,7 +910,7 @@
       if (!consent.checked) { status.textContent = "Please tick the consent box to join."; consent.focus(); return; }
       news.reset();
       joinClub("");
-      status.textContent = "Welcome to Pixelle Club! Your 10% first-order code is PIXELCLUB10.";
+      status.innerHTML = "Welcome to Pixelle Club! You'll now start receiving special offers and updates! Your discount code is <strong>PIXELCLUB10</strong> for 10% off your first order. Want to manage orders? <a href=\"account.html#signup-pane\">Create an account</a>.";
     });
   }
 
@@ -1054,8 +1069,15 @@
     nums.forEach(function (el) { io.observe(el); });
   })();
 
-  if (location.hash && window.bootstrap) {
-    var tabBtn = document.querySelector('[data-bs-target="' + location.hash + '"]');
+  function showTabFromHash() {
+    if (!location.hash || !window.bootstrap) return;
+    var pane = document.getElementById(location.hash.slice(1));
+    if (!pane) return;
+    var tabBtn = Array.from(document.querySelectorAll("[data-bs-target]")).find(function (button) {
+      return button.getAttribute("data-bs-target") === location.hash;
+    });
     if (tabBtn) bootstrap.Tab.getOrCreateInstance(tabBtn).show();
   }
+  showTabFromHash();
+  window.addEventListener("hashchange", showTabFromHash);
 })();

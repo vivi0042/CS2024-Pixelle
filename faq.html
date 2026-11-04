@@ -26,6 +26,11 @@
     <!-- favicon -->
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
     <title>FAQ | Pixelle Snap</title>
+    <style>
+      .faq-container .faq-search-wrap { position: relative; margin-bottom: 8px; }
+      .faq-container .faq-search-wrap > i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #2f6f5e; font-size: 17px; pointer-events: none; }
+      .faq-container .faq-search-wrap .faq-search { padding-left: 48px; margin-bottom: 0; }
+    </style>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -100,7 +105,10 @@
       </div>
       <div class="faq-container">
         <label for="faq-search" class="visually-hidden">Search the FAQ</label>
-        <input type="search" id="faq-search" class="faq-search" placeholder="Search e.g. refill, battery, iPhone" />
+        <div class="faq-search-wrap">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <input type="search" id="faq-search" class="faq-search" placeholder="Search e.g. refill, battery, iPhone" />
+        </div>
         <p id="faq-empty" hidden>No matches. Try another word, or <a href="contactform.html">ask us directly</a>.</p>
         <details>
           <summary><span class="faq-title">Does Pixelle Snap need ink?</span><svg class="expand-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="#2E4A42" stroke-width="2" stroke-linecap="round"/></svg></summary>
@@ -213,8 +221,7 @@
         <div class="col-12 footer-item">
           <p class="footer-small">
             <br />
-            Copyright © 2026 Pixelle. Student project prototype, not a real store. ·
-            <a href="pdpa.html">Privacy</a> · <button type="button" data-open-cookies>Cookie settings</button>
+            Copyright © 2026 Pixelle
           </p>
         </div>
       </div>

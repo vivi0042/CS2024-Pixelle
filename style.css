@@ -2948,3 +2948,24 @@
   height: auto;
   border-radius: 22px;
 }
+
+/* Account forms: keep empty feedback from adding space below the action. */
+#account-auth [data-status]:empty {
+  margin: 0 !important;
+}
+/* Keep signup consent checkboxes equal, even when a label wraps. */
+#signup-pane .consent-row input[type="checkbox"] {
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
+  margin: 3px 0 0;
+  align-self: start;
+  justify-self: start;
+}
+/* Use the existing right-hand eye button instead of Edge's native reveal control. */
+#account-auth .password-wrap input::-ms-reveal,
+#account-auth .password-wrap input::-ms-clear {
+  display: none;
+}

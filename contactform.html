@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="title" content="Send Us a Message | Pixelle" />
-    <meta name="description" content="Send Pixelle an enquiry or join Pixelle Club for 10% off your first order." />
+    <meta name="description" content="Contact Pixelle with product, order, delivery or collaboration enquiries." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="canonical" href="https://YOUR-GITHUB-USERNAME.github.io/pixelle/contactform.html" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Pixelle" />
     <meta property="og:title" content="Send Us a Message | Pixelle" />
-    <meta property="og:description" content="Send Pixelle an enquiry or join Pixelle Club for 10% off your first order." />
+    <meta property="og:description" content="Contact Pixelle with product, order, delivery or collaboration enquiries." />
     <!-- CDN for bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
@@ -93,59 +93,126 @@
     <main id="main">
 
     <!-- body -->
-    <div class="main">
+    <div class="main" id="pixelle-contact-form-page">
+      <style>
+        #pixelle-contact-form-page .contact-back { display: flex; align-items: center; gap: 9px; max-width: 626px; margin: 0 auto 16px; color: #285d4f; font-size: 14px; text-decoration: none; min-height: 32px; }
+        #pixelle-contact-form-page .contact-back:hover { text-decoration: underline; text-underline-offset: 4px; }
+        #pixelle-contact-form-page .image-container.small { min-height: 0; height: auto; margin: 0; padding: 28px 22px; border-radius: 0 0 32px 32px; }
+        #pixelle-contact-form-page .overlay-text { position: relative; z-index: 1; inset: auto; transform: none; width: 100%; text-align: center; }
+        #pixelle-contact-form-page .overlay-text h1 { margin: 0; font-size: clamp(30px, 4vw, 38px); line-height: 1.15; letter-spacing: -.03em; }
+        #pixelle-contact-form-page .overlay-text p { margin: 9px 0 0; font-size: 15px; line-height: 1.5; color: #3f5148; }
+        #pixelle-contact-form-page .inner-container { padding: 20px 32px 28px; }
+        #pixelle-contact-form-page .contact-required-mark { color: #b3261e; font-weight: 600; }
+        #pixelle-contact-form-page .contact-field { margin-bottom: 18px; }
+        #pixelle-contact-form-page .contact-field > label { margin: 0 0 7px; font-size: 15px; font-weight: 500; }
+        #pixelle-contact-form-page .contact-field input, #pixelle-contact-form-page .contact-field select, #pixelle-contact-form-page .contact-field textarea { box-sizing: border-box; min-height: 48px; width: 100%; padding: 12px; font: 400 16px/1.5 var(--ff-body, 'Inter', sans-serif); border: 1px solid var(--line, #dedbd3); border-radius: 12px; color: #20221f; background: #fff; }
+        #pixelle-contact-form-page .contact-field textarea { min-height: 140px; resize: vertical; }
+        #pixelle-contact-form-page .contact-field input:focus, #pixelle-contact-form-page .contact-field select:focus, #pixelle-contact-form-page .contact-field textarea:focus { outline: 2px solid #2f6f5e; outline-offset: 2px; }
+        #pixelle-contact-form-page .contact-field .is-invalid { border-color: #b3261e; }
+        #pixelle-contact-form-page .contact-help { margin: 7px 0 0; font-size: 13px; line-height: 1.5; color: #57534e; }
+        #pixelle-contact-form-page .consent-row { grid-template-columns: 20px minmax(0, 1fr); gap: 5px 10px; margin-top: 16px; }
+        #pixelle-contact-form-page .consent-row input[type="checkbox"] { box-sizing: border-box; width: 20px; height: 20px; min-width: 20px; min-height: 20px; margin: 2px 0 0; align-self: start; justify-self: start; accent-color: #2f6f5e; }
+        #pixelle-contact-form-page .consent-row label { font-size: 14px !important; line-height: 1.5; font-weight: 400 !important; }
+        #pixelle-contact-form-page .contact-consent-group { margin-top: 22px; padding-top: 4px; border-top: 1px solid #e9e6df; }
+        #pixelle-contact-form-page .checkout-button { min-height: 48px; margin-top: 24px; font-size: 16px; }
+        #pixelle-contact-form-page a:focus-visible, #pixelle-contact-form-page button:focus-visible, #pixelle-contact-form-page input[type="checkbox"]:focus-visible { outline: 3px solid #2f6f5e; outline-offset: 3px; }
+        #pixelle-contact-form-page .contact-status { font-size: 14px; line-height: 1.5; margin: 16px 0 0; }
+        #pixelle-contact-form-page .contact-status:empty { margin: 0; }
+        #pixelle-contact-form-page .contact-membership { margin: 22px 0 0; text-align: center; font-size: 14px; line-height: 1.6; color: #57534e; }
+        #pixelle-contact-form-page [hidden] { display: none !important; }
+        @media (max-width: 600px) {
+          #pixelle-contact-form-page .inner-container { padding: 20px 22px 24px; }
+          #pixelle-contact-form-page .image-container.small { padding: 26px 18px; }
+          #pixelle-contact-form-page .overlay-text h1 { font-size: 30px; }
+        }
+      </style>
+      <a class="contact-back" href="contact-us.html"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i>Back to contact options</a>
       <div class="form-container">
         <div class="image-container small">
-          <div class="overlay-text"><h1>Contact us</h1></div>
+          <div class="overlay-text"><h1>Send us a message</h1><p>We'll reply within one working day.</p></div>
         </div>
         <div class="inner-container">
-          <form data-validate="contact" novalidate>
-            <label for="c-name">Full Name</label>
-            <input type="text" id="c-name" name="fullname" autocomplete="name" required />
-            <div class="invalid-msg">Please tell us your name.</div>
-
-            <label for="c-email">Email Address</label>
-            <input type="email" id="c-email" name="email" autocomplete="email" required />
-            <div class="invalid-msg">Enter a valid email address.</div>
-
-            <label for="c-subject">Subject</label>
-            <select id="c-subject" name="subject" required>
-              <option value="">Choose one</option>
-              <option value="voucher">Join Pixelle Club (10% off first order)</option>
-              <option value="product">Product question</option>
-              <option value="order">Order or delivery</option>
-              <option value="collab">Collaboration</option>
-              <option value="other">Something else</option>
-            </select>
-            <div class="invalid-msg">Please choose a subject.</div>
-
-            <label for="c-use">I'd mostly print for <small>(optional)</small></label>
-            <select id="c-use" name="use">
-              <option value="">Prefer not to say</option>
-              <option>Journaling / scrapbooking</option>
-              <option>Friends &amp; events</option>
-              <option>Family</option>
-              <option>My small business</option>
-            </select>
-
-            <label for="c-message">Message <small>(optional)</small></label>
-            <textarea id="c-message" name="message" rows="5" placeholder="Include as much information as possible, such as:&#10;- Order number&#10;- A description of your question or issue&#10;Please don't include NRIC or card details."></textarea>
-
-            <!-- pdpa disclaimer -->
-            <div class="consent-row">
-              <input type="checkbox" id="pdpa-ack" name="pdpa-ack" required />
-              <label for="pdpa-ack">I consent to Pixelle using my name, email and message to reply to my enquiry (and send my member code, if requested), as set out in the <a href="pdpa.html" target="_blank">data protection policy</a>. <span style="color:#b3261e">*</span></label>
-              <div class="invalid-msg">Please tick to continue.</div>
+          <form data-validate="contact" id="pixelle-enquiry-form" novalidate>
+            <p style="margin: 0 0 18px; font-size: 13px; color: #57534e;">Required fields are indicated with <span class="contact-required-mark">*</span></p>
+            <div class="contact-field">
+              <label for="c-name">Full name <span class="contact-required-mark" aria-hidden="true">*</span></label>
+              <input type="text" id="c-name" name="fullname" autocomplete="name" aria-describedby="c-name-error" required />
+              <div class="invalid-msg" id="c-name-error">Please tell us your name.</div>
             </div>
-            <div class="consent-row">
-              <input type="checkbox" id="c-marketing" name="marketing" />
-              <label for="c-marketing">Optional: send me deal alerts and sticker ideas by email. I can unsubscribe anytime.</label>
+            <div class="contact-field">
+              <label for="c-email">Email address <span class="contact-required-mark" aria-hidden="true">*</span></label>
+              <input type="email" id="c-email" name="email" autocomplete="email" aria-describedby="c-email-error" required />
+              <div class="invalid-msg" id="c-email-error">Enter a complete email address, such as name@example.com.</div>
             </div>
-            <button type="submit" class="checkout-button">Send Enquiry</button>
-            <p data-status role="status" class="mt-3 mb-0"></p>
+            <div class="contact-field">
+              <label for="c-subject">What can we help with? <span class="contact-required-mark" aria-hidden="true">*</span></label>
+              <select id="c-subject" name="subject" aria-describedby="c-subject-error" aria-controls="contact-order-field" required>
+                <option value="">Choose a subject</option>
+                <option value="product">Product question</option>
+                <option value="order">Order or delivery</option>
+                <option value="collab">Collaboration</option>
+                <option value="other">Something else</option>
+              </select>
+              <div class="invalid-msg" id="c-subject-error">Please choose a subject.</div>
+            </div>
+            <div class="contact-field" id="contact-order-field" hidden>
+              <label for="c-order">Order number <small>(optional)</small></label>
+              <input type="text" id="c-order" name="ordernumber" autocomplete="off" aria-describedby="c-order-help" disabled />
+              <p class="contact-help" id="c-order-help">You'll find this in your order confirmation.</p>
+            </div>
+            <div class="contact-field">
+              <label for="c-message">Message <span class="contact-required-mark" aria-hidden="true">*</span></label>
+              <textarea id="c-message" name="message" rows="5" placeholder="Include as much information as possible, such as:&#10;- Order number&#10;- A description of your question or issue&#10;Please don't include NRIC or card details." aria-describedby="c-message-error" required></textarea>
+              <div class="invalid-msg" id="c-message-error">Please describe your question or issue.</div>
+            </div>
+            <div class="contact-consent-group">
+              <div class="consent-row">
+                <input type="checkbox" id="pdpa-ack" name="pdpa-ack" aria-describedby="c-consent-error" required />
+                <label for="pdpa-ack"><span class="contact-required-mark" aria-hidden="true">*</span> I consent to Pixelle using my name, email and enquiry details to reply to my message, as set out in the <a href="pdpa.html" target="_blank" rel="noopener">data protection policy</a>.</label>
+                <div class="invalid-msg" id="c-consent-error">Please tick to continue.</div>
+              </div>
+            </div>
+            <button type="submit" class="checkout-button">Send message</button>
+            <p data-status role="status" class="contact-status"></p>
           </form>
+          <p class="contact-membership">Looking to join Pixelle Club? <a href="account.html#signup-pane">Create an account</a>.</p>
         </div>
       </div>
+      <script>
+        (function () {
+          var form = document.getElementById("pixelle-enquiry-form");
+          var subject = document.getElementById("c-subject");
+          var orderField = document.getElementById("contact-order-field");
+          var orderInput = document.getElementById("c-order");
+          var message = document.getElementById("c-message");
+          function updateOrderField() {
+            var show = subject.value === "order";
+            orderField.hidden = !show;
+            orderInput.disabled = !show;
+          }
+          function validateMessage() {
+            message.setCustomValidity(message.value.trim() ? "" : "Please describe your question or issue.");
+          }
+          subject.addEventListener("change", updateOrderField);
+          message.addEventListener("input", function () {
+            validateMessage();
+            if (message.classList.contains("is-invalid")) {
+              var invalid = !message.checkValidity();
+              message.classList.toggle("is-invalid", invalid);
+              message.setAttribute("aria-invalid", invalid ? "true" : "false");
+            }
+          });
+          form.addEventListener("submit", validateMessage, true);
+          form.addEventListener("reset", function () {
+            // The reset event precedes native field resets; update conditional UI afterward.
+            setTimeout(function () {
+              message.setCustomValidity("");
+              updateOrderField();
+            }, 0);
+          });
+          updateOrderField();
+        })();
+      </script>
     </div>
     </main>
     <!-- footer -->
@@ -208,8 +275,7 @@
         <div class="col-12 footer-item">
           <p class="footer-small">
             <br />
-            Copyright © 2026 Pixelle. Student project prototype, not a real store. ·
-            <a href="pdpa.html">Privacy</a> · <button type="button" data-open-cookies>Cookie settings</button>
+            Copyright © 2026 Pixelle
           </p>
         </div>
       </div>

@@ -26,6 +26,11 @@
     <!-- favicon -->
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
     <title>Contact Us | Pixelle</title>
+    <style>
+      .contact-table .contact-service-line { display: grid; grid-template-columns: 20px minmax(0, 1fr); column-gap: 10px; }
+      .contact-table .contact-service-line > i { margin-top: .3em; text-align: center; color: inherit; font-size: .95em; }
+      .contact-table .contact-service-message { margin-top: 24px; }
+    </style>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -102,11 +107,10 @@
           <tr>
             <td>
               <h3>Customer service</h3>
-              Chat: Shopee &amp; Lazada store chat<br />
-              Email: <a href="mailto:hello@pixelle.sg">hello@pixelle.sg</a><br />
-              Hours: Monday – Friday 10 AM – 6 PM (closed on weekends and public holidays)
-              <br /><br />
-              Or drop us a message <a href="contactform.html">here</a>.
+              <div class="contact-service-line"><i class="fa-regular fa-comments" aria-hidden="true"></i><span>Chat: Shopee &amp; Lazada store chat</span></div>
+              <div class="contact-service-line"><i class="fa-regular fa-envelope" aria-hidden="true"></i><span>Email: <a href="mailto:hello@pixelle.sg">hello@pixelle.sg</a></span></div>
+              <div class="contact-service-line"><i class="fa-regular fa-clock" aria-hidden="true"></i><span>Monday–Friday &middot; 10 AM–6 PM<br />(Closed on weekends and public holidays)</span></div>
+              <div class="contact-service-line contact-service-message"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i><span>Or drop us a message <a href="contactform.html">here</a>.</span></div>
             </td>
             <td>
               <h3>Creator &amp; business collabs</h3>
@@ -193,8 +197,7 @@
         <div class="col-12 footer-item">
           <p class="footer-small">
             <br />
-            Copyright © 2026 Pixelle. Student project prototype, not a real store. ·
-            <a href="pdpa.html">Privacy</a> · <button type="button" data-open-cookies>Cookie settings</button>
+            Copyright © 2026 Pixelle
           </p>
         </div>
       </div>

@@ -91,42 +91,94 @@
       </div>
     </div>
     <main id="main">
-
-    <!-- body -->
-    <div class="container-fluid row main">
-      <div class="image-container col-12">
-        <div class="overlay-text"><h1>Service Centre</h1></div>
+      <div id="pixelle-service-page" class="main">
+        <style>
+          #pixelle-service-page .image-container { height: auto; min-height: 160px; margin: 16px 0 32px; padding: 32px 24px; display: grid; place-items: center; }
+          #pixelle-service-page .overlay-text { position: relative; inset: auto; z-index: 1; width: 100%; display: block; text-align: center; }
+          #pixelle-service-page .overlay-text h1 { font-size: clamp(34px, 4vw, 46px); line-height: 1.15; letter-spacing: -.03em; }
+          #pixelle-service-page .overlay-text p { margin: 10px auto 0; max-width: 48ch; color: #3f5148; font-size: 16px; line-height: 1.5; }
+          #pixelle-service-page .service-layout { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 36px; align-items: start; }
+          #pixelle-service-page h2 { font-size: 28px; line-height: 1.2; margin: 0 0 12px; letter-spacing: -.025em; }
+          #pixelle-service-page .service-intro { color: #3f5148; margin: 0 0 24px; }
+          #pixelle-service-page .service-steps { list-style: none; counter-reset: service-step; padding: 0; margin: 0; }
+          #pixelle-service-page .service-steps li { counter-increment: service-step; display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 14px; margin-bottom: 24px; }
+          #pixelle-service-page .service-steps li::before { content: counter(service-step); background: #dcece5; color: #245247; border-radius: 50%; width: 32px; height: 32px; display: grid; place-items: center; font-weight: 600; }
+          #pixelle-service-page .service-steps h3 { font-size: 18px; margin: 3px 0 6px; }
+          #pixelle-service-page .service-steps p, #pixelle-service-page .service-turnaround p { margin: 0; font-size: 15px; line-height: 1.65; color: #474b46; }
+          #pixelle-service-page .service-turnaround { padding: 0 0 24px; border-bottom: 1px solid var(--line, #dedbd3); }
+          #pixelle-service-page .service-turnaround h3, #pixelle-service-page .service-help h3, #pixelle-service-page .service-hours h3 { font-size: 18px; margin: 0 0 8px; }
+          #pixelle-service-page .service-help { background: #dcece5; padding: 22px; border-radius: 20px; margin-top: 24px; }
+          #pixelle-service-page .service-help h3 i, #pixelle-service-page .service-hours h3 i { margin-right: 8px; color: #2f6f5e; }
+          #pixelle-service-page .service-help p, #pixelle-service-page .service-hours p { font-size: 15px; line-height: 1.65; margin: 0 0 12px; }
+          #pixelle-service-page .service-help a { font-size: 15px; font-weight: 500; }
+          #pixelle-service-page .service-hours { margin-top: 24px; }
+          #pixelle-service-page .service-form { background: white; border: 1px solid var(--line, #dedbd3); border-radius: 28px; padding: 28px; min-width: 0; }
+          #pixelle-service-page .service-form > p { font-size: 15px; line-height: 1.6; margin: 0 0 20px; color: #57534e; }
+          #pixelle-service-page .service-form .service-required-note { font-size: 13px; margin-bottom: 24px; }
+          #pixelle-service-page .service-required { color: #b3261e; }
+          #pixelle-service-page fieldset { min-width: 0; padding: 0; margin: 0 0 28px; border: 0; }
+          #pixelle-service-page legend { float: none; width: 100%; font-family: var(--ff-head, 'Inter Tight', sans-serif); font-size: 19px; font-weight: 600; margin: 0 0 16px; }
+          #pixelle-service-page .service-fields { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px 16px; }
+          #pixelle-service-page .service-full { grid-column: 1 / -1; }
+          #pixelle-service-page .service-field { min-width: 0; }
+          #pixelle-service-page .service-field label { display: block; margin: 0 0 7px; font-size: 15px; font-weight: 500; }
+          #pixelle-service-page .service-field input, #pixelle-service-page .service-field select, #pixelle-service-page textarea { box-sizing: border-box; width: 100%; min-height: 48px; border: 1px solid var(--line, #dedbd3); border-radius: 12px; background: white; padding: 12px; color: #20221f; font: 400 16px/1.5 var(--ff-body, 'Inter', sans-serif); caret-color: #2f6f5e; }
+          #pixelle-service-page select { padding-right: 30px; }
+          #pixelle-service-page textarea { min-height: 180px; resize: vertical; }
+          #pixelle-service-page textarea::placeholder { color: #666660; opacity: 1; }
+          #pixelle-service-page input:focus, #pixelle-service-page select:focus, #pixelle-service-page textarea:focus { outline: 2px solid #2f6f5e; outline-offset: 2px; }
+          #pixelle-service-page .is-invalid { border-color: #b3261e !important; }
+          #pixelle-service-page .consent-row { grid-template-columns: 20px minmax(0, 1fr); gap: 5px 10px; margin: 0; }
+          #pixelle-service-page .consent-row input[type="checkbox"] { box-sizing: border-box; width: 20px; height: 20px; min-width: 20px; min-height: 20px; margin: 2px 0 0; align-self: start; justify-self: start; accent-color: #2f6f5e; }
+          #pixelle-service-page .consent-row label { font-size: 14px; line-height: 1.6; font-weight: 400; }
+          #pixelle-service-page .service-submit { display: block; width: 100%; min-height: 48px; margin-top: 24px; padding: 12px 20px; border: 0; border-radius: 999px; background: #2f6f5e; color: white; font: 600 16px/1.5 var(--ff-body, 'Inter', sans-serif); }
+          #pixelle-service-page .service-submit:hover { background: #245247; }
+          #pixelle-service-page .service-submit:disabled { opacity: .6; cursor: wait; }
+          #pixelle-service-page a { text-underline-offset: 3px; }
+          #pixelle-service-page a:focus-visible, #pixelle-service-page button:focus-visible { outline: 3px solid #2f6f5e; outline-offset: 3px; }
+          #pixelle-service-page [data-status] { margin: 12px 0 0; font-size: 14px; }
+          #pixelle-service-page [data-status]:empty { margin: 0; }
+          @media (max-width: 1000px) { #pixelle-service-page .service-layout { gap: 24px; } #pixelle-service-page .service-fields { grid-template-columns: minmax(0, 1fr); } }
+          @media (max-width: 767px) { #pixelle-service-page .service-layout { grid-template-columns: minmax(0, 1fr); gap: 28px; } #pixelle-service-page .service-form { padding: 24px 20px; } #pixelle-service-page .image-container { padding: 28px 20px; } }
+        </style>
+        <div class="image-container">
+          <div class="overlay-text"><h1>Service Centre</h1></div>
+        </div>
+        <div class="service-layout">
+          <section aria-labelledby="service-how">
+            <h2 id="service-how">How service works</h2>
+            <p class="service-intro">Free mail-in service, island-wide.</p>
+            <ol class="service-steps">
+              <li><div><h3>Submit your request</h3><p>Tell us what's happening with your Pixelle Snap using the form.</p></div></li>
+              <li><div><h3>Receive your prepaid return label</h3><p>We'll email it to you within one working day.</p></div></li>
+              <li><div><h3>Send your printer</h3><p>Drop your printer at any post office or POPStation.</p></div></li>
+            </ol>
+            <div class="service-turnaround"><h3>Turnaround</h3><p>Repairs or replacements are sent back within 5 working days of arrival.</p></div>
+            <aside class="service-help" aria-labelledby="service-before"><h3 id="service-before"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>Before you book</h3><p>Most issues are fixed by a quick reset: hold the power button for 10 seconds, then load the blue calibration card.</p><a href="faq.html">View troubleshooting FAQ</a></aside>
+            <div class="service-hours"><h3><i class="fa-regular fa-clock" aria-hidden="true"></i>Service desk hours</h3><p>Monday–Friday &middot; 10 AM–6 PM<br />(Closed on weekends and public holidays)</p></div>
+          </section>
+          <form class="service-form" data-validate="service" novalidate aria-labelledby="service-request">
+            <h2 id="service-request">Request a service</h2>
+            <p>Facing a problem with your Pixelle Snap? Tell us what's happening and we'll get it sorted.</p>
+            <p class="service-required-note">Required fields are indicated with <span class="service-required">*</span></p>
+            <fieldset aria-label="Your details"><div class="service-fields">
+              <div class="service-field service-full"><label for="s-name">Full Name <span class="service-required" aria-hidden="true">*</span></label><input type="text" id="s-name" name="fullname" autocomplete="name" aria-describedby="s-name-error" required /><div id="s-name-error" class="invalid-msg">Please enter your full name.</div></div>
+              <div class="service-field"><label for="s-email">Email Address <span class="service-required" aria-hidden="true">*</span></label><input type="email" id="s-email" name="email" autocomplete="email" aria-describedby="s-email-error" required /><div id="s-email-error" class="invalid-msg">Enter a valid email address.</div></div>
+              <div class="service-field"><label for="s-phone">Phone Number <span class="service-required" aria-hidden="true">*</span></label><input type="tel" id="s-phone" name="phone" pattern="[689][0-9]{7}" autocomplete="tel" inputmode="tel" aria-describedby="s-phone-error" required /><div id="s-phone-error" class="invalid-msg">Enter an 8-digit Singapore number starting with 6, 8 or 9.</div></div>
+            </div></fieldset>
+            <fieldset><legend>Purchase details</legend><div class="service-fields">
+              <div class="service-field"><label for="s-where">Where did you buy it? <span class="service-required" aria-hidden="true">*</span></label><select id="s-where" name="where" aria-describedby="s-where-error" required><option value="">Choose one</option><option>Pixelle online store</option><option>Shopee</option><option>Lazada</option><option>Pop-up event</option></select><div id="s-where-error" class="invalid-msg">Choose where you bought your printer.</div></div>
+              <div class="service-field"><label for="s-order">Order Number <span class="service-required" aria-hidden="true">*</span></label><input type="text" id="s-order" name="order" aria-describedby="s-order-error" required /><div id="s-order-error" class="invalid-msg">Please enter your order number.</div></div>
+            </div></fieldset>
+            <fieldset><legend>Describe the issue</legend>
+              <div class="service-field"><label for="s-fault">Fault Description <span class="service-required" aria-hidden="true">*</span></label><textarea id="s-fault" name="message" rows="6" aria-describedby="s-fault-error" required placeholder="Include as much information as possible, such as:&#10;- What happens and when it started&#10;- Status light colour&#10;- Whether a reset helped"></textarea><div id="s-fault-error" class="invalid-msg">Please describe the issue.</div></div>
+            </fieldset>
+            <div class="consent-row"><input type="checkbox" id="s-pdpa" name="pdpa-ack" aria-describedby="s-pdpa-error" required /><label for="s-pdpa"><span class="service-required" aria-hidden="true">*</span> I consent to Pixelle using these details to handle my service request, as set out in the <a href="pdpa.html" target="_blank" rel="noopener">data protection policy</a>.</label><div class="invalid-msg" id="s-pdpa-error">Please tick to continue.</div></div>
+            <button type="submit" class="service-submit">Request Service</button>
+            <p data-status role="status"></p>
+          </form>
+        </div>
       </div>
-      <div class="col-md-5 pe-md-4">
-        <h2>How service works</h2>
-        <p><strong>Free mail-in service, island-wide</strong><br />Submit the form and we'll email you a prepaid return label within one working day. Drop your printer at any post office or POPStation.</p>
-        <p><strong>Turnaround</strong><br />Repairs or replacements are sent back within 5 working days of arrival.</p>
-        <p><strong>Before you book</strong><br />Most issues are fixed by a quick reset: hold the power button for 10 seconds, then load the blue calibration card. See our <a href="faq.html">FAQ</a> for paper jams and colour tips.</p>
-        <p><strong>Service desk hours</strong><br />Mon – Fri, 10 AM – 6 PM<br />Closed on weekends &amp; public holidays.</p>
-      </div>
-      <div class="col-md-7">
-        <form class="cart-card" data-validate="service" novalidate>
-          <h3>Request a service</h3>
-          <p>Facing a problem with your Pixelle Snap? Tell us what's happening and we'll get it sorted.</p>
-          <div class="row w-100">
-            <div class="col-12 p-2"><label for="s-name">Full Name</label><input type="text" id="s-name" name="fullname" autocomplete="name" required /><div class="invalid-msg">Required.</div></div>
-            <div class="col-sm-6 p-2"><label for="s-email">Email Address</label><input type="email" id="s-email" name="email" autocomplete="email" required /><div class="invalid-msg">Enter a valid email.</div></div>
-            <div class="col-sm-6 p-2"><label for="s-phone">Phone Number</label><input type="tel" id="s-phone" name="phone" pattern="[689][0-9]{7}" autocomplete="tel" required /><div class="invalid-msg">Enter an 8-digit Singapore number.</div></div>
-            <div class="col-sm-6 p-2"><label for="s-where">Where did you buy it?</label>
-              <select id="s-where" name="where" required><option value="">Choose one</option><option>Pixelle online store</option><option>Shopee</option><option>Lazada</option><option>Pop-up event</option></select><div class="invalid-msg">Required.</div></div>
-            <div class="col-sm-6 p-2"><label for="s-order">Order Number</label><input type="text" id="s-order" name="order" required /><div class="invalid-msg">Required.</div></div>
-            <div class="col-12 p-2"><label for="s-fault">Fault Description</label>
-              <textarea id="s-fault" name="message" rows="4" required placeholder="Include as much information as possible, such as:&#10;- What happens and when it started&#10;- Status light colour&#10;- Whether a reset helped"></textarea><div class="invalid-msg">Please describe the issue.</div></div>
-            <div class="col-12 p-2">
-              <input type="checkbox" id="s-pdpa" name="pdpa-ack" required />
-              <label for="s-pdpa" style="display: inline; font-weight: 300"><small>I consent to Pixelle using these details to handle my service request, as set out in the <a href="pdpa.html" target="_blank">data protection policy</a>. <span style="color:#b3261e">*</span></small></label>
-              <div class="invalid-msg">Please tick to continue.</div>
-            </div>
-            <div class="col-12 p-2"><button type="submit" class="orange-button">Request Service</button><p data-status role="status" class="mt-2 mb-0"></p></div>
-          </div>
-        </form>
-      </div>
-    </div>
     </main>
     <!-- footer -->
     <footer class="container-footer-fluid">
@@ -188,8 +240,7 @@
         <div class="col-12 footer-item">
           <p class="footer-small">
             <br />
-            Copyright © 2026 Pixelle. Student project prototype, not a real store. ·
-            <a href="pdpa.html">Privacy</a> · <button type="button" data-open-cookies>Cookie settings</button>
+            Copyright © 2026 Pixelle
           </p>
         </div>
       </div>
