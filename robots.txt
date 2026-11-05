@@ -3,4 +3,4 @@ Disallow: /cart.html
 Disallow: /checkout.html
 Disallow: /payment.html
 Disallow: /acknowledgement.html
-Sitemap: https://vivi0042.github.io/CS2024-Pixelle/sitemap.xml
+Sitemap: https://YOUR-GITHUB-USERNAME.github.io/pixelle/sitemap.xml
