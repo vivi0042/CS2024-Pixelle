@@ -1,0 +1,443 @@
+/* =========================================================
+   ABOUT PAGE: centred intro, tap-to-print printer and
+   "How it started" scroll story.
+   Loaded after style.css, only on about.html.
+   ========================================================= */
+
+/* ---------- Intro: everything centred ---------- */
+.about-page { padding-bottom: 0; }
+.about-intro {
+  position: relative;          /* printed photos land inside this area */
+  overflow: hidden;
+  text-align: center;
+  padding: 40px 5% 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.about-pill {
+  display: inline-block;
+  background: #fff;
+  color: var(--sage-deep);
+  font: 600 13px var(--ff-head);
+  padding: 6px 14px;
+  border-radius: 99px;
+  box-shadow: 0 1px 0 var(--line);
+}
+.about-title {
+  font: 700 clamp(72px, 11vw, 140px)/0.95 var(--ff-head);
+  letter-spacing: -0.06em;
+  color: var(--ink);
+  margin: 14px 0 8px;
+}
+.about-tagline {
+  font: 500 clamp(19px, 1.8vw, 24px)/1.35 var(--ff-body);
+  color: #3F3B37;
+  margin: 0;
+}
+.about-hand {
+  font-family: var(--ff-hand);
+  font-size: clamp(22px, 2.2vw, 28px);
+  color: var(--sage);
+  transform: rotate(-2deg);
+  margin: 8px 0 0;
+}
+.about-intro .about-hero { position: relative; z-index: 2; width: 100%; max-width: 440px; margin: 8px auto 0; }
+.about-intro .about-printer { max-width: 440px; }
+.about-badges { position: relative; z-index: 2; display: flex; gap: 8px; justify-content: center; margin-top: 6px; }
+.about-badges span {
+  font: 600 12px var(--ff-head);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 99px;
+  background: #EDE8DF;
+  color: #3F3B37;
+}
+.about-badges .badge-mint { background: var(--mint); color: var(--sage-deep); }
+.story-cue {
+  position: relative;
+  z-index: 2;
+  margin-top: 14px;
+  font: 500 14px var(--ff-body);
+  color: var(--muted);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.story-cue i { animation: cue-bob 1.8s ease-in-out infinite; }
+.story-cue:hover { color: var(--sage-deep); }
+@keyframes cue-bob { 50% { transform: translateY(5px); } }
+
+/* ---------- Tap to print ---------- */
+.about-printer[data-tap-print] { cursor: pointer; -webkit-tap-highlight-color: transparent; outline-offset: 8px; border-radius: 24px; }
+.about-printer[data-tap-print] > img { transition: transform 0.25s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.about-printer[data-tap-print]:hover > img { transform: translateY(-3px); }
+.about-printer.is-done { cursor: default; }
+.about-printer.is-done:hover > img { transform: none; }
+.about-printer.is-done .tap-hint { opacity: 0; transition: opacity 0.4s ease; }
+.about-printer.is-pressed > img { transform: scale(0.97, 0.95) translateY(4px); transition-duration: 0.1s; }
+
+/* little handwritten "tap to print!" note with an arrow pointing at the printer */
+.tap-hint {
+  position: absolute;
+  left: -16%;
+  top: 6%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font: 600 24px/1 var(--ff-hand);
+  color: var(--terracotta);
+  transform: rotate(-8deg);
+  pointer-events: none;
+  white-space: nowrap;
+  animation: hint-wiggle 2.4s ease-in-out infinite;
+}
+.tap-hint svg { margin: 2px -6px 0 0; }
+@keyframes hint-wiggle { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(-4deg) translateY(-3px); } }
+
+/* the slot: new prints slide up out of it (anything below the slot line is hidden) */
+.tap-slot {
+  position: absolute;
+  left: 37.363%;
+  top: 12.821%;
+  width: 26.862%;
+  height: 26.282%;
+  overflow: hidden;
+  pointer-events: none;
+}
+.tap-paper {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  padding: 5% 5% 9%;
+  border-radius: 2px;
+  box-shadow: 0 2px 6px rgba(24, 24, 27, 0.12);
+  transform: translateY(100%);
+}
+.tap-paper img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.tap-slot .tap-paper.is-printing { transition: transform 1.6s cubic-bezier(0.45, 0, 0.3, 1); transform: translateY(0); }
+.about-feed.is-gone { visibility: hidden; }
+
+/* printed photos that flew off the printer and landed around the title */
+.tap-print {
+  position: absolute;
+  z-index: 1;
+  margin: 0;
+  background: #fff;
+  padding: 6px 6px 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.03), 0 16px 28px -14px rgba(24, 24, 27, 0.4);
+  pointer-events: none;
+  will-change: transform;
+}
+.tap-print img { display: block; width: 100%; aspect-ratio: 1 / 0.75; object-fit: cover; border-radius: 2px; }
+.tap-print figcaption {
+  font: 500 17px/1 var(--ff-hand);
+  color: #3F3B37;
+  text-align: center;
+  padding: 7px 0 9px;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.2s;
+}
+.tap-print.is-landed figcaption { opacity: 1; }
+.tap-print.is-leaving { transition: opacity 0.4s ease; opacity: 0; }
+
+/* ---------- Story: static layout (no JS / reduced motion) ---------- */
+.story { position: relative; background: var(--stone); padding: 32px 0 16px; }
+.story-stage {
+  position: relative;
+  width: min(1180px, 92%);
+  margin: 0 auto;
+}
+.story-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.story-headline {
+  font: 600 clamp(28px, 3.4vw, 44px)/1.1 var(--ff-head);
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  text-align: center;
+  margin: 0 0 26px;
+}
+.story-headline span { color: var(--sage); }
+
+.story-card {
+  position: relative;
+  z-index: 1;
+  width: min(760px, 100%);
+  background-color: #FFFDF9;
+  /* lined journal paper with a soft margin line */
+  background-image:
+    linear-gradient(90deg, transparent 52px, rgba(232, 160, 138, 0.35) 52px, rgba(232, 160, 138, 0.35) 54px, transparent 54px),
+    repeating-linear-gradient(180deg, transparent 0 41px, rgba(47, 111, 94, 0.10) 41px 42px);
+  border-radius: 28px;
+  box-shadow: 0 1px 0 var(--line), 0 24px 48px -24px rgba(24, 24, 27, 0.18);
+  padding: 44px 48px 36px 80px;
+}
+.story-tape {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 120px;
+  height: 30px;
+  transform: translateX(-50%) rotate(-2deg);
+  background: rgba(244, 226, 176, 0.9);
+  border-radius: 3px;
+}
+.story-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.story-title {
+  font: 600 clamp(30px, 3vw, 38px)/1 var(--ff-hand);
+  color: var(--sage);
+  margin: 0;
+  transform: rotate(-1.5deg);
+}
+.story-count { font: 600 14px var(--ff-head); color: #8A847C; letter-spacing: 0.04em; }
+.story-count b { color: var(--sage-deep); font-weight: 700; }
+
+.story-beat + .story-beat { margin-top: 28px; }
+.story-kicker {
+  font: 600 12px var(--ff-head);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin: 0 0 10px;
+}
+.story-line {
+  font: 500 clamp(22px, 2.2vw, 30px)/1.3 var(--ff-head);
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin: 0;
+}
+.story-line mark {
+  background: linear-gradient(transparent 55%, var(--butter) 55%);
+  color: inherit;
+  padding: 0 4px;
+}
+.story-sign {
+  font: 500 clamp(24px, 2.4vw, 30px)/1.2 var(--ff-hand);
+  color: var(--sage);
+  margin: 22px 0 0;
+}
+.story-sign span { display: block; font-size: 0.75em; color: #8A847C; margin-top: 4px; }
+.story-progress { display: none; }
+
+/* ---------- Scroll mode (added by about-story.js) ---------- */
+/* the script sets --spare (empty space under the card) so the next section
+   tucks up into it instead of leaving a big gap */
+.story.is-scroll { height: calc(var(--beats, 5) * 80vh + 100vh); padding: 0; margin-bottom: calc(var(--spare, 0px) * -1); }
+.story.is-scroll .story-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  width: 100%;
+  padding: clamp(48px, 9vh, 100px) 5% 0;
+}
+
+/* chapters sit on top of each other; the card keeps the height of the longest */
+.story.is-scroll .story-beats { display: grid; }
+.story.is-scroll .story-beat {
+  grid-area: 1 / 1;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  pointer-events: none;
+}
+.story.is-scroll .story-beat.is-past { transform: translateY(-28px); }
+.story.is-scroll .story-beat.is-active { opacity: 1; transform: none; pointer-events: auto; }
+
+/* words fill in, Apple style */
+.story.is-scroll .story-line .w { color: rgba(24, 24, 27, 0.16); transition: color 0.3s ease; }
+.story.is-scroll .story-line .w.lit { color: var(--ink); }
+.story.is-scroll .story-line mark { background-size: 0% 100%; background-repeat: no-repeat; transition: background-size 0.6s ease; }
+.story.is-scroll .story-line mark.lit { background-size: 100% 100%; }
+.story.is-scroll .story-sign { opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.story.is-scroll .story-beat.is-done .story-sign { opacity: 1; transform: none; }
+
+.story.is-scroll .story-progress {
+  display: block;
+  height: 4px;
+  margin-top: 30px;
+  border-radius: 99px;
+  background: var(--mint);
+  overflow: hidden;
+}
+.story.is-scroll .story-progress span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--sage);
+  border-radius: 99px;
+  transform-origin: left;
+  transform: scaleX(var(--p, 0));
+}
+
+/* ---------- Phone camera roll + taped photo ---------- */
+.story-row { display: flex; align-items: center; justify-content: center; gap: 44px; width: 100%; }
+.story-row .story-card { flex: 0 1 860px; width: auto; }
+
+/* the card gets a second column for the taped photo */
+.story-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px;
+  column-gap: 36px;
+  align-items: start;
+}
+.story-card > .story-head,
+.story-card > .story-beats,
+.story-card > .story-progress { grid-column: 1; }
+.story-snap {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  align-self: center;
+  position: relative;
+  margin: 0;
+  background: #fff;
+  padding: 9px 9px 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.03), 0 18px 30px -16px rgba(24, 24, 27, 0.35);
+  transform: rotate(4deg);
+}
+.snap-tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 78px;
+  height: 24px;
+  transform: translateX(-50%) rotate(-4deg);
+  background: rgba(242, 214, 204, 0.92);
+  border-radius: 2px;
+  z-index: 1;
+}
+.story-snap img { display: block; width: 100%; aspect-ratio: 1 / 0.9; object-fit: cover; border-radius: 2px; }
+.story-snap figcaption { font: 500 20px/1 var(--ff-hand); color: #3F3B37; text-align: center; padding: 9px 0 11px; }
+.story-snap { transition: opacity 0.25s ease, transform 0.5s cubic-bezier(0.25, 1.4, 0.4, 1); }
+.story-snap.is-out { opacity: 0; transform: rotate(10deg) translateY(-10px) scale(0.95); }
+
+/* the phone */
+.story-phone { display: none; }
+.story.is-scroll .story-phone {
+  display: block;
+  flex: 0 0 auto;
+  width: min(250px, 30vh);
+  aspect-ratio: 9 / 18.5;
+  background: var(--ink);
+  border-radius: 40px;
+  padding: 9px;
+  box-shadow: 0 30px 50px -28px rgba(24, 24, 27, 0.55), inset 0 0 0 2px #3F3B37;
+  transform: rotate(-4deg);
+}
+.phone-screen {
+  position: relative;
+  height: 100%;
+  background: #FFFDF9;
+  border-radius: 32px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.phone-notch { width: 34%; height: 20px; background: var(--ink); border-radius: 0 0 14px 14px; margin: 0 auto; flex: none; }
+.phone-head { display: flex; align-items: baseline; justify-content: space-between; padding: 10px 12px 8px; text-align: left; flex: none; }
+.phone-head b { font: 700 17px var(--ff-head); letter-spacing: -0.02em; color: var(--ink); }
+.phone-head span { font: 500 10px var(--ff-body); color: #8A847C; }
+.phone-roll { position: relative; flex: 1; overflow: hidden; }
+.phone-roll::after {               /* soft fade at the bottom of the screen */
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 40px;
+  background: linear-gradient(transparent, #FFFDF9);
+  pointer-events: none;
+}
+.roll-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  transform: translateY(calc(var(--roll, 0) * -1px));
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.roll-tile { position: relative; display: block; aspect-ratio: 1; overflow: hidden; background: var(--mint); }
+.roll-tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease, opacity 0.3s ease; }
+/* the chapter's photo gets picked, then shows a little "printed" tick once it is in the journal */
+.roll-tile.is-picked { z-index: 1; box-shadow: 0 0 0 3px var(--sage); }
+.roll-tile.is-picked img { transform: scale(1.06); }
+.roll-tile.is-printed::after {
+  content: "✓";
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--sage);
+  color: #fff;
+  font: 700 10px/16px var(--ff-body);
+  text-align: center;
+}
+.roll-tile.is-picked.is-printed img { opacity: 0.35; }
+.roll-tile.is-missing img { visibility: hidden; }   /* hide the broken-image icon if a photo can't be found */
+
+/* the copy that flies from the phone into the journal */
+.story-fly {
+  position: fixed;
+  z-index: 60;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 20px 40px -16px rgba(24, 24, 27, 0.5);
+  pointer-events: none;
+}
+
+/* phone only where there is room next to the card */
+@media (max-width: 1199px), (max-height: 620px) {
+  .story.is-scroll .story-phone { display: none; }
+}
+@media (max-width: 760px) {
+  .story-card { grid-template-columns: 1fr; }
+  .story-snap {
+    position: absolute;
+    grid-column: auto;
+    grid-row: auto;
+    top: -26px;
+    right: 10px;
+    width: 104px;
+    padding: 5px 5px 0;
+    z-index: 2;
+  }
+  .story-snap figcaption { font-size: 13px; padding: 5px 0 6px; }
+  .snap-tape { width: 44px; height: 16px; top: -8px; }
+  .story-count { display: none; }
+}
+@media (max-height: 760px) {
+  .story.is-scroll .story-headline { display: none; }
+}
+@media (max-width: 900px) {
+  .tap-hint { left: 2%; top: 2%; font-size: 20px; align-items: flex-start; transform: rotate(-6deg); animation: none; }
+  .tap-hint svg { display: none; }
+  .tap-print { z-index: 3; }  /* small screens: prints sit on top like stickers */
+}
+@media (max-width: 640px) {
+  .about-intro { padding-top: 32px; }
+  .story-card { padding: 36px 22px 26px 34px; background-image:
+    linear-gradient(90deg, transparent 18px, rgba(232, 160, 138, 0.35) 18px, rgba(232, 160, 138, 0.35) 20px, transparent 20px),
+    repeating-linear-gradient(180deg, transparent 0 37px, rgba(47, 111, 94, 0.10) 37px 38px); }
+  .story.is-scroll .story-stage { padding: 56px 16px 0; }
+  .tap-print figcaption { font-size: 12px; padding: 4px 0 6px; white-space: nowrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .story-cue i, .tap-hint { animation: none; }
+}
+/* "Pixelle so far": printer colour dots, one per colour we sell.
+   Slightly bigger, with a soft shadow so the printer colours stand out on the mint tile. */
+.about-stats .stat-dots { gap: 8px; }
+.about-stats .stat-dots i {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  box-shadow: 0 2px 6px rgba(24, 24, 27, 0.12);
+}

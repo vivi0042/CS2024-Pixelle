@@ -1,0 +1,145 @@
+/* =========================================================
+   OVERVIEW PAGE: "Print" visual
+   - the Mount Fuji photo curls up out of the printer's slot once, then stays (drawn by overview-print.js)
+   - the Kyoto photo sticker lies flat, then its corner peels up to show
+     it is a sticker (hover or tap it to peel further)
+   Loaded after style.css, only on overview.html.
+   Positions are percentages of the printer picture (820 x 570).
+   ========================================================= */
+
+   @property --peel {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+  }
+  
+  .snap-print {
+    position: relative;
+    max-width: 620px;
+  }
+  .snap-print img { border-radius: 0; }          /* undo the rounded corners from .workout-visual img */
+  .snap-print .sp-printer { display: block; width: 100%; height: auto; }
+  
+  /* the printer's front, laid over the photo so the photo hides inside the printer */
+  .snap-print .sp-front {
+    position: absolute;
+    left: 17.073%;
+    top: 30.702%;
+    width: 41.463%;
+    height: auto;
+    pointer-events: none;
+  }
+  
+  /* ---------- the photo printing out of the slot ----------
+     overview-print.js draws the photo curling out of the slot on a canvas.
+     .sp-paper below is the flat fallback, shown only without JavaScript. */
+  .sp-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .snap-print.has-canvas .sp-paper { display: none; }
+  
+  .sp-paper {
+    position: absolute;
+    left: 24.02%;
+    bottom: 63.8%;               /* bottom edge sits just inside the slot */
+    width: 28.78%;
+    background: #fff;
+    padding: 1.8% 1.8% 0;        /* % of the picture width: a thin white border */
+    box-shadow: 0 1px 3px rgba(24, 24, 27, 0.12);
+    transform-origin: 50% 100%;
+    transform: rotate(-5.4deg);    /* the slot tilts slightly, so the photo does too */
+  }
+  .sp-paper img { display: block; width: 100%; height: auto; }
+  
+  /* ---------- Kyoto photo sticker ----------
+     overview-print.js sizes this at 200px wide and bends it with matrix3d so it
+     lies exactly where the sticker sits in the photo (in perspective).
+     Without JavaScript it falls back to a simple rotated sticker. */
+  .kyoto-sticker {
+    position: absolute;
+    left: 66.8%;
+    top: 54%;
+    width: 200px;
+    transform-origin: 0 0;
+    transform: rotate(-6deg) scale(0.75);
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    filter: drop-shadow(0 4px 6px rgba(24, 24, 27, 0.16));
+    animation: ks-peel 5s ease-in-out 1.5s infinite;
+  }
+  @keyframes ks-peel {
+    0%, 30%   { --peel: 0; }
+    52%, 78%  { --peel: 44; }
+    96%, 100% { --peel: 0; }
+  }
+  /* hover or tap: peel further and hold */
+  .kyoto-sticker:hover,
+  .kyoto-sticker:focus {
+    animation: none;
+    --peel: 70;
+    transition: --peel 0.6s cubic-bezier(0.3, 1.3, 0.5, 1);
+  }
+  
+  /* backing paper, seen where the corner has lifted */
+  .ks-liner {
+    position: absolute;
+    inset: 0;
+    border-radius: 3px;
+    background:
+      repeating-linear-gradient(135deg, rgba(47, 111, 94, 0.08) 0 2px, transparent 2px 8px),
+      #EEF1EF;
+  }
+  /* the sticker face; its bottom-right corner is cut away by --peel (in px) */
+  .ks-face {
+    position: relative;
+    background: #fff;
+    border-radius: 3px;
+    padding: 14px 14px 0;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--peel) * 1px), calc(100% - var(--peel) * 1px) 100%, 0 100%);
+  }
+  .ks-face img { display: block; width: 100%; height: auto; }
+  .ks-face span {
+    display: block;
+    font: 600 22px/1 var(--ff-hand, cursive);
+    color: #2B2B2B;
+    text-align: center;
+    padding: 9px 0 13px;
+  }
+  /* the lifted corner: the sticker's white back, folded over */
+  .ks-flap {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: calc(var(--peel) * 1px);
+    height: calc(var(--peel) * 1px);
+    filter: drop-shadow(-1px -2px 2px rgba(24, 24, 27, 0.22));
+    pointer-events: none;
+  }
+  .ks-flap i {
+    display: block;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    background: linear-gradient(135deg, #CFCFCF 0%, #F1F1F1 30%, #FFFFFF 50%);
+  }
+  
+  /* handwritten hint above the sticker */
+  .ks-hint {
+    position: absolute;
+    left: 69%;
+    top: 44%;
+    font: 600 clamp(16px, 3.4vw, 22px)/1 var(--ff-hand, cursive);
+    color: var(--terracotta, #B4532F);
+    transform: rotate(-7deg);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .kyoto-sticker { animation: none; --peel: 44; }
+  }

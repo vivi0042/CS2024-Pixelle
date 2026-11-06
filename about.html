@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="title" content="About Us | Pixelle Singapore" />
-    <meta name="description" content="Pixelle started with a bullet journal and 20,000 photos. Meet the Singapore brand making memories you can hold." />
+    <meta name="description" content="Pixelle began with one question from our founders: why do our favourite memories end up forgotten in our camera rolls? Meet the Singapore brand making memories you can hold." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="canonical" href="https://YOUR-GITHUB-USERNAME.github.io/pixelle/about.html" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Pixelle" />
     <meta property="og:title" content="About Us | Pixelle Singapore" />
-    <meta property="og:description" content="Pixelle started with a bullet journal and 20,000 photos. Meet the Singapore brand making memories you can hold." />
+    <meta property="og:description" content="Pixelle began with one question from our founders: why do our favourite memories end up forgotten in our camera rolls? Meet the Singapore brand making memories you can hold." />
     <!-- CDN for bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
@@ -23,6 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter+Tight:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <!-- styling css -->
     <link rel="stylesheet" href="./style.css?v=5" />
+    <link rel="stylesheet" href="./about-story.css?v=7" />
     <!-- favicon -->
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
     <title>About Us | Pixelle Singapore</title>
@@ -93,27 +94,116 @@
     <main id="main">
 
     <!-- body -->
-    <!-- ===== Top: About Us + our story (original layout) ===== -->
+    <!-- ===== Top: centred Pixelle intro + printing printer ===== -->
     <div class="dark-section about-page">
-      <div class="main text-center" style="padding-bottom: 0">
-        <div class="headers" style="padding-bottom: 24px"><h1>About Us</h1></div>
+      <section class="about-intro">
+        <span class="about-pill">About us</span>
+        <h1 class="about-title">Pixelle</h1>
+        <p class="about-tagline">Made so you can hold your pixels.</p>
+        <p class="hand about-hand">born from a camera roll full of forgotten photos</p>
         <div class="about-hero fade-up">
-          <div class="about-printer">
+          <div class="about-printer" role="button" tabindex="0" aria-label="Print a photo" data-tap-print>
+            <span class="tap-hint" aria-hidden="true"><span data-tap-label>tap to print!</span><svg viewBox="0 0 60 40" width="54" height="36"><path d="M4 6 C 22 4, 40 12, 50 30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M41 27 L 51 32 L 53 21" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <img src="./images/blushPinkPrinter.png" alt="Blush pink Pixelle Snap printer with a phone sending a sunset photo, and the printed photo beside it" width="819" height="624" />
             <div class="about-feed" aria-hidden="true">
               <img src="./images/about-paper.png" alt="" width="660" height="492" />
             </div>
           </div>
         </div>
-        <p class="about-story mx-auto">
-          Founded in 2024 at a Tampines HDB study desk, Pixelle began with a bullet journal full of empty boxes labelled "photo here".
-          <br /><br />
-          The photos were all on a phone. Printing them meant a kiosk queue, glue sticks and procrastination. Premium pocket printers cost S$150 or more, and budget ones printed faint black-and-white receipts that faded within months.
-          <br /><br />
-          So we built the printer we wanted: full colour, every print a sticker, zero ink, and priced fairly with affordable refills. Our name says it all: <strong>pixels</strong> you can finally hold.
-        </p>
-      </div>
+        <div class="about-badges"><span>Est. 2024</span><span class="badge-mint">Made in Singapore</span></div>
+        <p class="visually-hidden" role="status" aria-live="polite" data-tap-status></p>
+        <a class="story-cue" href="#how-it-started">Scroll for our story <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
+      </section>
     </div>
+
+    <!-- ===== How it started: pinned, scroll-driven story (about-story.js) =====
+         Each .story-beat is one chapter. As you scroll, the words of the current
+         chapter fill in and that chapter's photo lifts out of the phone's camera roll
+         and gets taped into the journal card.
+         Without JavaScript, or with reduced motion, all chapters simply show in order. -->
+    <section class="story" id="how-it-started" aria-labelledby="story-title">
+      <div class="story-stage">
+        <div class="story-inner">
+          <p class="story-headline">Made by friends. <span>Inspired by little moments.</span></p>
+
+          <!-- the founders' camera roll: each chapter's photo lifts out of it into the journal -->
+          <div class="story-row">
+            <div class="story-phone" aria-hidden="true">
+              <div class="phone-screen">
+                <div class="phone-notch"></div>
+                <div class="phone-head"><b>Recents</b><span>2,574 photos</span></div>
+                <!-- camera roll: your own photos in images/photoRoll/ (photoroll1 ... photoroll21).
+                     21 tiles = 7 full rows of 3. The 5 tiles with data-chapter="1" to "5" are the
+                     photos that fly into the journal card, one per chapter. -->
+                <div class="phone-roll"><div class="roll-grid">
+                  <span class="roll-tile"><img src="./images/photoRoll/phoneroll1.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile"><img src="./images/photoRoll/photoroll2.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile"><img src="./images/photoRoll/photoroll3.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile"><img src="./images/photoRoll/photoroll4.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile"><img src="./images/photoRoll/photoroll5.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile" data-chapter="1"><img src="./images/photoRoll/photoroll17.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile"><img src="./images/photoRoll/photoroll6.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile"><img src="./images/photoRoll/photoroll7.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile"><img src="./images/photoRoll/photoroll8.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile" data-chapter="2"><img src="./images/photoRoll/photoroll18.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile"><img src="./images/photoRoll/photoroll9.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile"><img src="./images/photoRoll/photoroll10.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile"><img src="./images/photoRoll/photoroll11.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile" data-chapter="3"><img src="./images/photoRoll/photoroll19.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile"><img src="./images/photoRoll/photoroll12.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile"><img src="./images/photoRoll/photoroll13.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile"><img src="./images/photoRoll/photoroll14.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile" data-chapter="4"><img src="./images/photoRoll/photoroll20.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile"><img src="./images/photoRoll/photoroll15.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile"><img src="./images/photoRoll/photoroll16.png" alt="" loading="lazy" /></span>
+                  <span class="roll-tile" data-chapter="5"><img src="./images/photoRoll/photoroll21.png" alt="" loading="lazy" /></span>
+                </div></div>
+              </div>
+            </div>
+
+          <div class="story-card">
+            <span class="story-tape" aria-hidden="true"></span>
+            <div class="story-head">
+              <h2 class="story-title" id="story-title">How it started</h2>
+              <span class="story-count" aria-hidden="true"><b data-story-num>01</b> / 05</span>
+            </div>
+
+            <div class="story-beats">
+              <div class="story-beat" data-cap="still on my phone...">
+                <p class="story-kicker">01 · The question</p>
+                <p class="story-line">It started back in NTU hall days, with a question our founders kept coming back to: why do our favourite memories always end up forgotten in our camera rolls?</p>
+              </div>
+              <div class="story-beat" data-cap="hall study buddy!">
+                <p class="story-kicker">02 · Hall life</p>
+                <p class="story-line">Supper runs, block parties, late-night study sessions and weekend adventures. Hall life gave them thousands of photos with friends, and almost none ever left the phone.</p>
+              </div>
+              <div class="story-beat" data-cap="hallgangg ♡">
+                <p class="story-kicker">03 · The idea</p>
+                <p class="story-line">As lifelong journalers and scrapbookers, they wanted a simpler way to turn everyday moments into something you can actually hold, share and keep.</p>
+              </div>
+              <div class="story-beat" data-cap="games night!">
+                <p class="story-kicker">04 · The printer</p>
+                <p class="story-line">So they built it. A little printer for big memories. That's <mark>Pixelle</mark>.</p>
+              </div>
+              <div class="story-beat" data-cap="memories printed!">
+                <p class="story-kicker">05 · Today</p>
+                <p class="story-line">From journals and gifts to study notes and spontaneous nights out, Pixelle brings your digital world into your hands.</p>
+                <p class="story-sign">Because some moments deserve more than a swipe.<span>— the Pixelle founders</span></p>
+              </div>
+            </div>
+
+            <div class="story-progress" aria-hidden="true"><span></span></div>
+
+            <figure class="story-snap" aria-hidden="true">
+              <span class="snap-tape"></span>
+              <img src="./images/photoRoll/photoroll17.png" alt="" data-snap-img />
+              <figcaption data-snap-cap>still on my phone...</figcaption>
+            </figure>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- ===== Mission / Vision / Values ===== -->
     <section class="about-mvv" aria-label="Mission, vision and values">
@@ -158,8 +248,10 @@
         <div class="stat-tile stat-mint fade-up">
           <span class="stat-label">Printer colours</span>
           <div class="stat-row">
-            <span class="stat-num" data-count="4" data-decimals="0">4</span>
-            <span class="stat-dots" aria-hidden="true"><i style="background:#2F6F5E"></i><i style="background:#3F3B37"></i><i style="background:#E8B8A8"></i><i style="background:#fff"></i></span>
+            <span class="stat-num" data-count="3" data-decimals="0">3</span>
+            <span class="visually-hidden">: Sage Mist, Blush Pink and Cloud Cream</span>
+            <!-- one dot per printer colour we sell -->
+            <span class="stat-dots" aria-hidden="true"><i style="background:#A9C7A0" title="Sage Mist"></i><i style="background:#EBAFA3" title="Blush Pink"></i><i style="background:#E8DAC0" title="Cloud Cream"></i></span>
           </div>
         </div>
         <div class="stat-tile stat-sage fade-up">
@@ -343,5 +435,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="scrolling-animation.js?v=6"></script>
+    <script src="about-story.js?v=7"></script>
   </body>
 </html>
