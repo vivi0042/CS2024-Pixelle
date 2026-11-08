@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="title" content="Our Team | Pixelle Project" />
-    <meta name="description" content="The agency team behind the Pixelle website." />
+    <meta name="description" content="Meet the three-person agency team behind the Pixelle website: project manager, web designer and developer, and copywriter." />
     <meta name="robots" content="noindex" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="canonical" href="https://YOUR-GITHUB-USERNAME.github.io/pixelle/team.html" />
@@ -24,6 +24,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter+Tight:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <!-- styling css -->
     <link rel="stylesheet" href="./style.css?v=5" />
+    <link rel="stylesheet" href="./team.css?v=3" />
     <!-- favicon -->
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
     <title>Our Team | Pixelle Project</title>
@@ -93,62 +94,80 @@
     </div>
     <main id="main">
 
-        <div class="main">
-      <div class="headers">
-        <h1>Our Team</h1>
-        <p>This website was planned, written and built by our three-person digital agency team.</p>
-      </div>
-      <div class="row g-4">
-        <div class="col-md-4">
-          <div class="cart-card align-items-center text-center">
-            <div class="team-avatar" style="background:#2F6F5E">VT</div>
-            <h2 class="table-head-text">Vivian Tay Yee Ting</h2>
-            <p class="eyebrow mb-1">Project Manager</p>
-            <p><a href="mailto:vivi0042@e.ntu.edu.sg">vivi0042@e.ntu.edu.sg</a></p>
-            <p style="font-size: 14px">Scope and timeline, research, personas, user journey map, marketing strategy and pitch deck.</p>
-          </div>
+    <!-- ===== Hero: intro on the left, taped photo cards on the right ===== -->
+    <section class="tm-hero" aria-labelledby="team-title">
+      <div class="tm-wrap tm-hero-grid">
+        <div class="tm-hero-text">
+          <h1 id="team-title">Our team</h1>
+          <p>This website was planned, designed, written and built by our three-person digital agency team.</p>
+          <p class="hand tm-hand">one printer, lots of stickers and memories</p>
         </div>
-        <div class="col-md-4">
-          <div class="cart-card align-items-center text-center">
-            <div class="team-avatar" style="background:#F2D6CC;color:#5C3626">MK</div>
-            <h2 class="table-head-text">Megan Karin Lee Xin Ying</h2>
-            <p class="eyebrow mb-1">Copywriter</p>
-            <p><a href="mailto:mlee106@e.ntu.edu.sg">mlee106@e.ntu.edu.sg</a></p>
-            <p style="font-size: 14px">Brand voice, all page copy, FAQ, SEO keywords and meta descriptions, PDPA policy.</p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="cart-card align-items-center text-center">
-            <div class="team-avatar" style="background:#F4E2B0;color:#5A4512">YX</div>
-            <h2 class="table-head-text">Lee Yu Xuan</h2>
-            <p class="eyebrow mb-1">Web Designer / Developer</p>
-            <p><a href="mailto:leey0243@e.ntu.edu.sg">leey0243@e.ntu.edu.sg</a></p>
-            <p style="font-size: 14px">Sitemap, wireframes, visual design, HTML/CSS/JS build, cart flow, Sticker Studio and GitHub Pages.</p>
-          </div>
+        <div class="tm-board" aria-hidden="true">
+          <figure class="tm-snap tm-snap-1"><span class="tm-tape"></span><b class="tm-sage">VT</b><figcaption>vivian</figcaption></figure>
+          <figure class="tm-snap tm-snap-2"><span class="tm-tape"></span><b class="tm-blush">MK</b><figcaption>megan</figcaption></figure>
+          <figure class="tm-snap tm-snap-3"><span class="tm-tape"></span><b class="tm-butter">YX</b><figcaption>yu xuan</figcaption></figure>
+          <i class="fa-solid fa-heart tm-heart"></i>
         </div>
       </div>
 
-      <h2 class="section-title text-center mt-5 mb-3">Responsibility matrix</h2>
-      <p class="text-center" style="font-size: 14px">L = Lead · S = Support</p>
-      <div class="cart-card" style="overflow-x: auto">
-        <table class="table mb-0" style="min-width: 560px">
-          <thead><tr><th scope="col">Deliverable</th><th scope="col">Project Manager</th><th scope="col">Copywriter</th><th scope="col">Designer / Developer</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">Research &amp; personas</th><td>L</td><td>S</td><td>S</td></tr>
-            <tr><th scope="row">User journey map</th><td>L</td><td>S</td><td>S</td></tr>
-            <tr><th scope="row">Sitemap &amp; navigation</th><td>S</td><td>S</td><td>L</td></tr>
-            <tr><th scope="row">Creative brief &amp; brand voice</th><td>S</td><td>L</td><td>S</td></tr>
-            <tr><th scope="row">Page copy &amp; FAQ</th><td>S</td><td>L</td><td>—</td></tr>
-            <tr><th scope="row">Visual design &amp; typography</th><td>—</td><td>S</td><td>L</td></tr>
-            <tr><th scope="row">HTML / CSS / JS build</th><td>—</td><td>S</td><td>L</td></tr>
-            <tr><th scope="row">Forms &amp; PDPA compliance</th><td>S</td><td>L</td><td>L</td></tr>
-            <tr><th scope="row">SEO</th><td>S</td><td>L</td><td>S</td></tr>
-            <tr><th scope="row">Marketing strategy &amp; KPIs</th><td>L</td><td>S</td><td>—</td></tr>
-            <tr><th scope="row">Pitch deck</th><td>L</td><td>S</td><td>S</td></tr>
-          </tbody>
-        </table>
+      <!-- ===== The three of us ===== -->
+      <div class="tm-wrap tm-cards">
+        <article class="tm-card fade-up">
+          <span class="tm-tape tm-tape-mint" aria-hidden="true"></span>
+          <div class="tm-photo tm-sage" aria-hidden="true">VT</div>
+          <h2>Vivian Tay Yee Ting</h2>
+          <span class="tm-role tm-role-sage">Project Manager</span>
+          <p class="tm-mail"><a href="mailto:vivi0042@e.ntu.edu.sg">vivi0042@e.ntu.edu.sg</a></p>
+          <p>Scope and timeline, research, personas, user journey map, marketing strategy and pitch deck.</p>
+        </article>
+        <article class="tm-card fade-up">
+          <span class="tm-tape tm-tape-butter" aria-hidden="true"></span>
+          <div class="tm-photo tm-blush" aria-hidden="true">MK</div>
+          <h2>Megan Karin Lee Xin Ying</h2>
+          <span class="tm-role tm-role-blush">Web Designer / Developer</span>
+          <p class="tm-mail"><a href="mailto:mlee106@e.ntu.edu.sg">mlee106@e.ntu.edu.sg</a></p>
+          <p>Sitemap, wireframes, visual design, HTML/CSS/JS build, cart flow, Sticker Studio and GitHub Pages.</p>
+        </article>
+        <article class="tm-card fade-up">
+          <span class="tm-tape tm-tape-blush" aria-hidden="true"></span>
+          <div class="tm-photo tm-butter" aria-hidden="true">YX</div>
+          <h2>Lee Yu Xuan</h2>
+          <span class="tm-role tm-role-butter">Copywriter</span>
+          <p class="tm-mail"><a href="mailto:leey0243@e.ntu.edu.sg">leey0243@e.ntu.edu.sg</a></p>
+          <p>Brand voice, all page copy, FAQ, SEO keywords and meta descriptions, PDPA policy.</p>
+        </article>
       </div>
-    </div>
+    </section>
+
+    <!-- ===== Responsibility matrix on the sage band ===== -->
+    <section class="tm-matrix" aria-labelledby="matrix-title">
+      <div class="tm-wrap">
+        <div class="tm-matrix-head">
+          <h2 id="matrix-title">Responsibility matrix</h2>
+          <p class="tm-legend"><span class="tm-mark tm-lead" aria-hidden="true">L</span> Lead <span class="tm-mark tm-sup" aria-hidden="true">S</span> Support</p>
+        </div>
+        <div class="tm-table-wrap">
+          <table class="tm-table">
+            <thead>
+              <tr><th scope="col">Deliverable</th><th scope="col">Project Manager</th><th scope="col">Designer / Developer</th><th scope="col">Copywriter</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Research &amp; personas</th><td><span class="tm-mark tm-lead" title="Lead">L</span></td><td><span class="tm-mark tm-sup" title="Support">S</span></td><td><span class="tm-mark tm-sup" title="Support">S</span></td></tr>
+              <tr><th scope="row">User journey map</th><td><span class="tm-mark tm-lead" title="Lead">L</span></td><td><span class="tm-mark tm-sup" title="Support">S</span></td><td><span class="tm-mark tm-sup" title="Support">S</span></td></tr>
+              <tr><th scope="row">Sitemap &amp; navigation</th><td><span class="tm-mark tm-sup" title="Support">S</span></td><td><span class="tm-mark tm-lead" title="Lead">L</span></td><td><span class="tm-mark tm-sup" title="Support">S</span></td></tr>
+              <tr><th scope="row">Creative brief &amp; brand voice</th><td><span class="tm-mark tm-sup" title="Support">S</span></td><td><span class="tm-mark tm-sup" title="Support">S</span></td><td><span class="tm-mark tm-lead" title="Lead">L</span></td></tr>
+              <tr><th scope="row">Page copy &amp; FAQ</th><td><span class="tm-mark tm-sup" title="Support">S</span></td><td><span class="tm-none" aria-label="Not involved">—</span></td><td><span class="tm-mark tm-lead" title="Lead">L</span></td></tr>
+              <tr><th scope="row">Visual design &amp; typography</th><td><span class="tm-none" aria-label="Not involved">—</span></td><td><span class="tm-mark tm-lead" title="Lead">L</span></td><td><span class="tm-mark tm-sup" title="Support">S</span></td></tr>
+              <tr><th scope="row">HTML / CSS / JS build</th><td><span class="tm-none" aria-label="Not involved">—</span></td><td><span class="tm-mark tm-lead" title="Lead">L</span></td><td><span class="tm-mark tm-sup" title="Support">S</span></td></tr>
+              <tr><th scope="row">Forms &amp; PDPA compliance</th><td><span class="tm-mark tm-sup" title="Support">S</span></td><td><span class="tm-mark tm-lead" title="Lead">L</span></td><td><span class="tm-mark tm-lead" title="Lead">L</span></td></tr>
+              <tr><th scope="row">SEO</th><td><span class="tm-mark tm-sup" title="Support">S</span></td><td><span class="tm-mark tm-sup" title="Support">S</span></td><td><span class="tm-mark tm-lead" title="Lead">L</span></td></tr>
+              <tr><th scope="row">Marketing strategy &amp; KPIs</th><td><span class="tm-mark tm-lead" title="Lead">L</span></td><td><span class="tm-none" aria-label="Not involved">—</span></td><td><span class="tm-mark tm-sup" title="Support">S</span></td></tr>
+              <tr><th scope="row">Pitch deck</th><td><span class="tm-mark tm-lead" title="Lead">L</span></td><td><span class="tm-mark tm-sup" title="Support">S</span></td><td><span class="tm-mark tm-sup" title="Support">S</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
     </main>
     <!-- footer -->
     <footer class="container-footer-fluid">

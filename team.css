@@ -1,0 +1,246 @@
+/* =========================================================
+   OUR TEAM PAGE (team.html)
+   Loaded after style.css, only on the team page.
+   ========================================================= */
+
+   .tm-wrap { width: min(1080px, 90%); margin: 0 auto; }
+
+   /* ---------- Hero ---------- */
+   .tm-hero { background-color: var(--stone); padding: 56px 0 80px; }
+   .tm-hero-grid {
+     display: grid;
+     grid-template-columns: 1fr 1.05fr;
+     gap: 40px;
+     align-items: center;
+   }
+   .tm-pill {
+     display: inline-block;
+     background: #fff;
+     color: var(--ink);
+     font: 600 13px var(--ff-head);
+     padding: 6px 14px;
+     border-radius: 99px;
+     box-shadow: 0 1px 0 var(--line);
+   }
+   .tm-hero h1 {
+     font: 700 clamp(48px, 6.4vw, 80px)/1 var(--ff-head);
+     letter-spacing: -0.055em;
+     color: var(--ink);
+     margin: 0 0 16px;
+   }
+   .tm-hero-text p { font-size: 18px; line-height: 1.55; color: #3F3B37; max-width: 440px; margin: 0; }
+   .tm-hero-text .tm-hand {
+     font-family: var(--ff-hand);
+     font-size: 26px;
+     color: var(--sage);
+     margin-top: 18px;
+     transform: rotate(-2deg);
+     transform-origin: left;
+   }
+   
+   /* the white board with three taped photo cards */
+   .tm-board {
+     position: relative;
+     background: #fff;
+     border-radius: 32px;
+     box-shadow: 0 1px 0 var(--line), 0 24px 48px -28px rgba(24, 24, 27, 0.25);
+     height: 320px;
+   }
+   .tm-snap {
+     position: absolute;
+     width: 31%;
+     margin: 0;
+     background: #fff;
+     padding: 8px 8px 0;
+     border-radius: 4px;
+     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.03), 0 16px 26px -14px rgba(24, 24, 27, 0.35);
+     transition: transform 0.35s cubic-bezier(0.3, 1.4, 0.5, 1);
+   }
+   .tm-snap b {
+     display: grid;
+     place-items: center;
+     aspect-ratio: 1 / 0.95;
+     font: 600 clamp(28px, 3.4vw, 40px) var(--ff-head);
+     letter-spacing: -0.03em;
+   }
+   .tm-snap figcaption {
+     font: 500 16px/1 var(--ff-hand);
+     color: #3F3B37;
+     padding: 9px 2px 11px;
+   }
+   .tm-snap-1 { left: 5%;  top: 16%; transform: rotate(-5deg); }
+   .tm-snap-2 { left: 35%; top: 6%;  transform: rotate(2deg); z-index: 1; }
+   .tm-snap-3 { left: 64%; top: 20%; transform: rotate(6deg); }
+   .tm-board:hover .tm-snap-1 { transform: rotate(-8deg) translateY(-4px); }
+   .tm-board:hover .tm-snap-2 { transform: rotate(0deg) translateY(-6px); }
+   .tm-board:hover .tm-snap-3 { transform: rotate(9deg) translateY(-4px); }
+   .tm-heart { position: absolute; left: 48%; bottom: 20%; font-size: 26px; color: var(--blush); }
+   .tm-board-tag {
+     position: absolute;
+     left: 22px;
+     bottom: 20px;
+     background: #EFEBE4;
+     color: #3F3B37;
+     font: 600 11px var(--ff-head);
+     letter-spacing: 0.08em;
+     text-transform: uppercase;
+     padding: 6px 12px;
+     border-radius: 99px;
+   }
+   
+   /* washi tape strip */
+   .tm-tape {
+     position: absolute;
+     top: -11px;
+     left: 50%;
+     width: 34%;
+     height: 22px;
+     transform: translateX(-50%) rotate(-2deg);
+     background: rgba(220, 235, 228, 0.95);
+     border-radius: 2px;
+   }
+   .tm-snap-2 .tm-tape { background: rgba(244, 226, 176, 0.95); }
+   .tm-snap-3 .tm-tape { background: rgba(242, 214, 204, 0.95); }
+   
+   /* member colours */
+   .tm-sage   { background: var(--sage);   color: #F3F0EA; }
+   .tm-blush  { background: var(--blush);  color: #5C3626; }
+   .tm-butter { background: var(--butter); color: #5A4512; }
+   
+   /* ---------- Member cards ---------- */
+   .tm-cards {
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+     gap: 20px;
+     margin-top: 64px;
+   }
+   .tm-card {
+     position: relative;
+     background: #fff;
+     border-radius: 24px;
+     padding: 12px 12px 24px;
+     box-shadow: 0 1px 0 var(--line), 0 20px 40px -28px rgba(24, 24, 27, 0.3);
+     transition: transform 0.35s cubic-bezier(0.3, 1.4, 0.5, 1);
+   }
+   .tm-card:nth-child(1) { transform: rotate(-1.2deg); }
+   .tm-card:nth-child(2) { transform: rotate(0.8deg); }
+   .tm-card:nth-child(3) { transform: rotate(-0.6deg); }
+   .tm-card:hover { transform: rotate(0deg) translateY(-4px); }
+   .tm-card .tm-tape { width: 70px; top: -10px; }
+   .tm-tape-mint   { background: rgba(220, 235, 228, 0.95); }
+   .tm-tape-butter { background: rgba(244, 226, 176, 0.95); }
+   .tm-tape-blush  { background: rgba(242, 214, 204, 0.95); }
+   .tm-photo {
+     display: grid;
+     place-items: center;
+     height: 140px;
+     border-radius: 16px;
+     font: 600 52px var(--ff-head);
+     letter-spacing: -0.03em;
+     margin-bottom: 18px;
+   }
+   .tm-card h2,
+   .tm-card .tm-role,
+   .tm-card p { margin-left: 8px; margin-right: 8px; }
+   .tm-card h2 {
+     font: 600 21px/1.2 var(--ff-head);
+     letter-spacing: -0.03em;
+     color: var(--ink);
+     margin-top: 0;
+     margin-bottom: 8px;
+   }
+   .tm-role {
+     display: inline-block;
+     font: 600 12px var(--ff-head);
+     padding: 4px 11px;
+     border-radius: 99px;
+     margin-bottom: 10px;
+   }
+   .tm-role-sage   { background: var(--mint);   color: var(--sage-deep); }
+   .tm-role-blush  { background: var(--blush);  color: #5C3626; }
+   .tm-role-butter { background: var(--butter); color: #5A4512; }
+   .tm-card p { font-size: 14.5px; line-height: 1.55; color: #3F3B37; margin-bottom: 0; }
+   .tm-card .tm-mail { margin-bottom: 10px; }
+   .tm-mail a { color: var(--sage-deep); font-size: 14px; }
+   
+   /* ---------- Responsibility matrix ---------- */
+   /* the sage band runs down behind the footer's rounded top corners, so no gap shows */
+   .tm-matrix { background-color: var(--band); padding: 72px 0 144px; margin-bottom: -56px; }
+   .tm-matrix-head {
+     display: flex;
+     flex-wrap: wrap;
+     align-items: flex-end;
+     justify-content: space-between;
+     gap: 16px;
+     margin-bottom: 22px;
+   }
+   .tm-matrix h2 {
+     font: 700 clamp(30px, 3.6vw, 44px)/1 var(--ff-head);
+     letter-spacing: -0.045em;
+     color: var(--ink);
+     margin: 0;
+   }
+   .tm-legend {
+     display: inline-flex;
+     align-items: center;
+     gap: 8px;
+     background: #fff;
+     border-radius: 99px;
+     padding: 7px 16px 7px 8px;
+     font-size: 14px;
+     color: #3F3B37;
+     margin: 0;
+   }
+   .tm-legend .tm-mark + .tm-mark,
+   .tm-legend .tm-sup { margin-left: 10px; }
+   
+   .tm-table-wrap {
+     background: #fff;
+     border-radius: 24px;
+     overflow-x: auto;
+     box-shadow: 0 20px 40px -30px rgba(24, 24, 27, 0.3);
+   }
+   .tm-table { width: 100%; min-width: 600px; border-collapse: collapse; }
+   .tm-table thead th {
+     background: #EFEBE4;
+     font: 600 14px var(--ff-head);
+     color: var(--ink);
+     padding: 16px 18px;
+     text-align: center;
+   }
+   .tm-table thead th span { display: block; font: 500 12px var(--ff-body); color: #8A847C; margin-top: 2px; }
+   .tm-table thead th:first-child,
+   .tm-table tbody th { text-align: left; }
+   .tm-table tbody th { font-weight: 500; font-size: 15px; color: var(--ink); padding: 13px 18px; }
+   .tm-table td { text-align: center; padding: 13px 18px; }
+   .tm-table tbody tr + tr { border-top: 1px solid #EFEBE4; }
+   .tm-table tbody tr:hover { background: #FAF8F4; }
+   
+   .tm-mark {
+     display: inline-grid;
+     place-items: center;
+     width: 26px;
+     height: 26px;
+     border-radius: 50%;
+     font: 700 12px var(--ff-head);
+   }
+   .tm-lead { background: var(--sage); color: #fff; }
+   .tm-sup  { background: var(--blush); color: #8A3E25; }
+   .tm-none { color: #B5AFA6; }
+   
+   /* ---------- Smaller screens ---------- */
+   @media (max-width: 900px) {
+     .tm-hero-grid { grid-template-columns: 1fr; }
+     .tm-board { height: 300px; }
+     .tm-cards { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; }
+   }
+   @media (max-width: 520px) {
+     .tm-hero { padding-top: 36px; }
+     .tm-board { height: 210px; }
+     .tm-snap { padding: 5px 5px 0; }
+     .tm-snap figcaption { font-size: 12px; padding: 6px 1px 8px; }
+     .tm-board-tag { display: none; }
+   }
+   @media (prefers-reduced-motion: reduce) {
+     .tm-snap, .tm-card { transition: none; }
+   }
