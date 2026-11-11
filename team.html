@@ -24,7 +24,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter+Tight:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <!-- styling css -->
     <link rel="stylesheet" href="./style.css?v=5" />
-    <link rel="stylesheet" href="./team.css?v=3" />
+    <link rel="stylesheet" href="./team.css?v=4" />
     <!-- favicon -->
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
     <title>Our Team | Pixelle Project</title>
@@ -102,19 +102,22 @@
           <p>This website was planned, designed, written and built by our three-person digital agency team.</p>
           <p class="hand tm-hand">one printer, lots of stickers and memories</p>
         </div>
-        <div class="tm-board" aria-hidden="true">
-          <figure class="tm-snap tm-snap-1"><span class="tm-tape"></span><b class="tm-sage">VT</b><figcaption>vivian</figcaption></figure>
-          <figure class="tm-snap tm-snap-2"><span class="tm-tape"></span><b class="tm-blush">MK</b><figcaption>megan</figcaption></figure>
-          <figure class="tm-snap tm-snap-3"><span class="tm-tape"></span><b class="tm-butter">YX</b><figcaption>yu xuan</figcaption></figure>
-          <i class="fa-solid fa-heart tm-heart"></i>
-        </div>
+        <!-- group photo: put your photo at images/team/group.jpg -->
+        <figure class="tm-group">
+          <span class="tm-tape tm-tape-butter" aria-hidden="true"></span>
+          <div class="tm-group-photo">
+            <img src="./images/pixelleTeam.jpg" alt="Vivian, Megan and Yu Xuan, the Pixelle project team" onerror="this.remove()" />
+          </div>
+          <figcaption>the pixelle team ♡</figcaption>
+        </figure>
       </div>
 
       <!-- ===== The three of us ===== -->
       <div class="tm-wrap tm-cards">
         <article class="tm-card fade-up">
           <span class="tm-tape tm-tape-mint" aria-hidden="true"></span>
-          <div class="tm-photo tm-sage" aria-hidden="true">VT</div>
+          <!-- individual photo: images/team/vivian.jpg (the initials show until the photo is added) -->
+          <div class="tm-photo tm-sage"><span aria-hidden="true">VT</span><img src="./images/vivian.jpg" alt="Portrait of Vivian Tay Yee Ting" onerror="this.remove()" /></div>
           <h2>Vivian Tay Yee Ting</h2>
           <span class="tm-role tm-role-sage">Project Manager</span>
           <p class="tm-mail"><a href="mailto:vivi0042@e.ntu.edu.sg">vivi0042@e.ntu.edu.sg</a></p>
@@ -122,7 +125,8 @@
         </article>
         <article class="tm-card fade-up">
           <span class="tm-tape tm-tape-butter" aria-hidden="true"></span>
-          <div class="tm-photo tm-blush" aria-hidden="true">MK</div>
+          <!-- individual photo: images/team/megan.jpg (the initials show until the photo is added) -->
+          <div class="tm-photo tm-blush"><span aria-hidden="true">MK</span><img src="./images/megann.jpg" alt="Portrait of Megan Karin Lee Xin Ying" onerror="this.remove()" /></div>
           <h2>Megan Karin Lee Xin Ying</h2>
           <span class="tm-role tm-role-blush">Web Designer / Developer</span>
           <p class="tm-mail"><a href="mailto:mlee106@e.ntu.edu.sg">mlee106@e.ntu.edu.sg</a></p>
@@ -130,7 +134,8 @@
         </article>
         <article class="tm-card fade-up">
           <span class="tm-tape tm-tape-blush" aria-hidden="true"></span>
-          <div class="tm-photo tm-butter" aria-hidden="true">YX</div>
+          <!-- individual photo: images/team/yuxuan.jpg (the initials show until the photo is added) -->
+          <div class="tm-photo tm-butter"><span aria-hidden="true">YX</span><img src="./images/yuxuan.jpg" alt="Portrait of Lee Yu Xuan" onerror="this.remove()" /></div>
           <h2>Lee Yu Xuan</h2>
           <span class="tm-role tm-role-butter">Copywriter</span>
           <p class="tm-mail"><a href="mailto:leey0243@e.ntu.edu.sg">leey0243@e.ntu.edu.sg</a></p>
