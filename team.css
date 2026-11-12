@@ -138,8 +138,15 @@
    .tm-role-blush  { background: var(--blush);  color: #5C3626; }
    .tm-role-butter { background: var(--butter); color: #5A4512; }
    .tm-card p { font-size: 14.5px; line-height: 1.55; color: #3F3B37; margin-bottom: 0; }
-   .tm-card .tm-mail { margin-bottom: 10px; }
+   .tm-card .tm-mail { margin-bottom: 4px; }
    .tm-mail a { color: var(--sage-deep); font-size: 14px; }
+   .tm-card .tm-matric {
+     font-size: 14px;
+     color: var(--ink);
+     letter-spacing: 0.02em;
+     margin-bottom: 10px;
+   }
+   .tm-matric span { color: #8A847C; margin-right: 4px; }
    
    /* ---------- Responsibility matrix ---------- */
    /* the sage band runs down behind the footer's rounded top corners, so no gap shows */
